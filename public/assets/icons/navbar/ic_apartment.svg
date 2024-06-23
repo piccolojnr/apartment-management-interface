@@ -1,0 +1,9 @@
+<svg fill="#000000" viewBox="0 0 24 24" id="appartment-3" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg" class="icon flat-color">
+  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+  <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+  <g id="SVGRepo_iconCarrier">
+    <path id="secondary" d="M20,5H15a1,1,0,0,0-1,1V21a1,1,0,0,0,1,1h6a1,1,0,0,0,1-1V7A2,2,0,0,0,20,5Z" style="fill: #2ca9bc; opacity: 0.3;"></path>
+    <path id="primary" d="M14,2H4A2,2,0,0,0,2,4V21a1,1,0,0,0,1,1H16V4A2,2,0,0,0,14,2Z" style="fill: #000000;"></path>
+    <path id="secondary-2" data-name="secondary" d="M11,14H7a1,1,0,0,0-1,1v7h6V15A1,1,0,0,0,11,14Z" style="fill: #2ca9bc; opacity: 0.3;"></path>
+  </g>
+</svg>

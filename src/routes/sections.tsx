@@ -5,9 +5,9 @@ import DashboardLayout from "../layouts/dashboard";
 import ProtectedRoute from "./protected-route";
 import AdminRoute from "./admin-route";
 import { MqttProvider } from "../context/mqtt-context";
-import exp from "constants";
 
 export const IndexPage = lazy(() => import("../pages/dashboard"));
+export const SettingsPage = lazy(() => import("../pages/settings"));
 export const PowerPage = lazy(() => import("../pages/power"));
 export const WaterPage = lazy(() => import("../pages/water"));
 export const ApartmentsPage = lazy(() => import("../pages/apartments"));
@@ -30,7 +30,6 @@ const host = "broker.emqx.io";
 const port = "8083";
 const path = "/mqtt";
 
-const clientId = `mqtt_${Math.random().toString(16).slice(3)}`;
 const connectUrl = `${protocol}://${host}:${port}${path}`;
 
 // ----------------------------------------------------------------------
@@ -40,19 +39,23 @@ export default function Router() {
     {
       element: (
         <ProtectedRoute>
-          <MqttProvider brokerUrl={connectUrl}>
-            <DashboardLayout>
-              <Suspense>
-                <Outlet />
-              </Suspense>
-            </DashboardLayout>
-          </MqttProvider>
+          {/* <MqttProvider brokerUrl={connectUrl}> */}
+          <DashboardLayout>
+            <Suspense>
+              <Outlet />
+            </Suspense>
+          </DashboardLayout>
+          {/* </MqttProvider> */}
         </ProtectedRoute>
       ),
       children: [
         {
           element: <IndexPage />,
           index: true,
+        },
+        {
+          path: "settings",
+          element: <SettingsPage />,
         },
 
         {

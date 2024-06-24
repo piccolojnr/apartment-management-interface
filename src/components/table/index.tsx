@@ -148,17 +148,21 @@ const CustomTable = <T extends object>({
           mb={5}
         >
           <Typography variant="h4">{title}</Typography>
-          <Button
-            variant="contained"
-            color="inherit"
-            startIcon={<Iconify icon="eva:plus-fill" />}
-            onClick={handleOpen}
-          >
-            New {title.slice(0, -1)}
-          </Button>
-          <AppModal handleClose={handleClose} open={open}>
-            <AddModal handleClose={handleClose} />
-          </AppModal>
+          {AddModal ? (
+            <>
+              <Button
+                variant="contained"
+                color="inherit"
+                startIcon={<Iconify icon="eva:plus-fill" />}
+                onClick={handleOpen}
+              >
+                New {title.slice(0, -1)}
+              </Button>
+              <AppModal handleClose={handleClose} open={open}>
+                <AddModal handleClose={handleClose} />
+              </AppModal>
+            </>
+          ) : null}
         </Stack>
       )}
 

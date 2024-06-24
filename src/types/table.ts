@@ -1,5 +1,25 @@
 import React, { Dispatch, SetStateAction } from "react";
+export interface DeviceType {
+    id: string;
+    deviceType: string;
 
+}
+export interface Network {
+    id: string;
+    network: string;
+}
+export interface Tariff {
+    id: string;
+    amount: number;
+    per: number;
+    billType: BillType;
+    dateAdded: string;
+}
+export interface BillType {
+    id: string;
+    billType: string;
+    unit: string;
+}
 export interface Apartament {
     id: string;
     name: string;
@@ -44,8 +64,8 @@ export interface FiltersPopoverProps {
 
 export interface CustomTableProps<T> extends TableProps {
     head?: React.ReactNode;
-    AddModal: React.FC<{ handleClose: () => void, data?: any }>;
-    UpdateModal: React.FC<{ handleClose: () => void, data?: any }>;
+    AddModal?: React.FC<{ handleClose: () => void, data?: any }>;
+    UpdateModal?: React.FC<{ handleClose: () => void, data?: any }>;
     filters?: FilterProps<T>[],
     deleteItem?: (id: string) => Promise<void>;
     Cell: React.FC<{ data: Data, updateSingleData: (data: Data) => void }>;
@@ -82,7 +102,7 @@ export interface CustomTableRowProps {
     data: Data;
     handleClick: any;
     fetchData: () => void;
-    UpdateModal: any;
+    UpdateModal?: any;
     updateSingleData: (data: Data) => void;
     onDelete: (data: any) => any;
     Cell: React.FC<{ data: Data, updateSingleData: (data: Data) => void }>;

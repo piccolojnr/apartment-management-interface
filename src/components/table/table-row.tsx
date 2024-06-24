@@ -1,29 +1,14 @@
 import { useState } from "react";
 
-import Stack from "@mui/material/Stack";
-import Avatar from "@mui/material/Avatar";
 import Popover from "@mui/material/Popover";
 import TableRow from "@mui/material/TableRow";
 import Checkbox from "@mui/material/Checkbox";
 import TableCell from "@mui/material/TableCell";
-import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 
-import Label from "../../components/label";
 import Iconify from "../../components/iconify";
-import { User } from "../../types/user";
 import AppModal from "../../components/app-modal";
-import { Box, Button, Tooltip } from "@mui/material";
-import SvgColor from "../svg-color";
-import { fDate } from "../../utils/format-time";
-import { useUser } from "../../context/user-context";
 import { LoadingButton } from "@mui/lab";
-import { getMunicipalityLabel } from "../../utils/format-string";
-import { fullName } from "../../utils/functions";
-import { useRouter } from "../../routes/hooks";
-import { deleteDevice, deleteUser } from "../../utils/api";
-import { BASE_API_URL } from "../../lib/constants";
-import { on } from "events";
 import { CustomTableRowProps, Data } from "../../types/table";
 
 // ----------------------------------------------------------------------
@@ -71,13 +56,15 @@ export default function CustomTableRow({
 
   return (
     <>
-      <AppModal handleClose={handleCloseModal} open={openModal}>
-        <UpdateModal
-          isUpdate={true}
-          data={data}
-          handleClose={handleCloseModal}
-        />
-      </AppModal>
+      {UpdateModal && (
+        <AppModal handleClose={handleCloseModal} open={openModal}>
+          <UpdateModal
+            isUpdate={true}
+            data={data}
+            handleClose={handleCloseModal}
+          />
+        </AppModal>
+      )}
 
       <TableRow hover tabIndex={-1} role="checkbox" selected={selected}>
         <TableCell padding="checkbox">
@@ -103,16 +90,18 @@ export default function CustomTableRow({
           sx: { width: 140 },
         }}
       >
-        <LoadingButton
-          onClick={handleOpenModal}
-          sx={{
-            width: "100%",
-            justifyContent: "flex-start",
-          }}
-        >
-          <Iconify icon="eva:edit-fill" sx={{ mr: 2 }} />
-          Edit
-        </LoadingButton>
+        {UpdateModal && (
+          <LoadingButton
+            onClick={handleOpenModal}
+            sx={{
+              width: "100%",
+              justifyContent: "flex-start",
+            }}
+          >
+            <Iconify icon="eva:edit-fill" sx={{ mr: 2 }} />
+            Edit
+          </LoadingButton>
+        )}
 
         <LoadingButton
           onClick={handleDelete}

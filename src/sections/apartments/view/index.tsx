@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { apartments } from "../../../_mock/apartments";
 import CustomTable from "../../../components/table";
 import ApartmentCell from "../../../components/table/cells/apartment-cell";
@@ -17,6 +18,7 @@ const headLabel = [
 const filters = [{ id: "all", name: "All" }];
 
 export default function ApartmentView() {
+  const [_data, setData] = useState(apartments);
   const {
     data,
     filter,
@@ -27,7 +29,7 @@ export default function ApartmentView() {
     setOrder,
     setOrderBy,
     setQuery,
-  } = useTableView(apartments, "name", ["name"], filters);
+  } = useTableView(_data, setData, "name", ["name"], filters);
   return (
     <CustomTable
       AddModal={ApartmentForm}
@@ -49,7 +51,7 @@ export default function ApartmentView() {
       filter={filter}
       setFilter={setFilter}
       order={order}
-      orderBy={orderBy}
+      orderBy={orderBy as any}
       setOrder={setOrder}
       setOrderBy={setOrderBy}
     />

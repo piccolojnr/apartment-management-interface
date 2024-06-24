@@ -4,12 +4,12 @@ const getNestedValue = (obj: any, path: string) => {
   return path.split(".").reduce((acc, part) => acc && acc[part], obj);
 };
 const useTableView = <T extends object>(
-  initialData: Data<T>[],
+  data: Data<T>[],
+  setData: React.Dispatch<React.SetStateAction<T[]>>,
   initialOrderby: keyof T,
   searchKeys: string[],
   filters: FilterProps<T>[]
 ) => {
-  const [data, setData] = useState(initialData);
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<FilterProps<T>>({
     id: "all",
@@ -21,7 +21,7 @@ const useTableView = <T extends object>(
   useEffect(() => {
     const handleSearch = (q: string) => {
       setData(
-        initialData.filter((item) =>
+        data.filter((item) =>
           searchKeys.some((key) =>
             String(getNestedValue(item, key)).toLowerCase().includes(q)
           )
@@ -30,15 +30,15 @@ const useTableView = <T extends object>(
     };
 
     handleSearch(query);
-  }, [query, initialData]);
+  }, [query]);
 
   useEffect(() => {
     const handleFilter = (f: FilterProps<T>) => {
       if (f.id === "all") {
-        setData(initialData);
+        setData(data);
       } else {
         setData(
-          initialData.filter((item) =>
+          data.filter((item) =>
             filter.field ? item[filter.field as never] === f.value : true
           )
         );
@@ -46,7 +46,7 @@ const useTableView = <T extends object>(
     };
 
     handleFilter(filter);
-  }, [filter, initialData, filters]);
+  }, [filter, filters]);
 
   useEffect(() => {
     const handleSort = (o: "asc" | "desc", ob: keyof T) => {

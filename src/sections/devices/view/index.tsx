@@ -4,6 +4,7 @@ import DeviceForm from "../device-forms";
 import useTableView from "../../../hooks/use-table-view";
 import { devices } from "../../../_mock/device";
 import { FilterProps } from "../../../types/table";
+import { useState } from "react";
 
 const headLabel = [
   { id: "id", label: "ID" },
@@ -26,6 +27,8 @@ const filters: FilterProps<any>[] = [
 ];
 
 export default function DeviceView() {
+  const [_data, setData] = useState([]);
+
   const {
     data,
     query,
@@ -36,7 +39,7 @@ export default function DeviceView() {
     setOrder,
     setOrderBy,
     setFilter,
-  } = useTableView(devices, "apartment", ["apartment.name"], filters);
+  } = useTableView(_data, setData, "apartment", ["apartment.name"], filters);
 
   return (
     <CustomTable

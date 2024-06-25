@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { DeviceTypesView } from "../sections/settings/views";
+import { DeviceTypesView } from "../../sections/settings/views";
 
 export default function DeviceTypesPage() {
   return (

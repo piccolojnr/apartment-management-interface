@@ -5,11 +5,13 @@ import RowPopoverMenu from "../../../components/table/row-popover-menu";
 import { apartments } from "../../../_mock/apartments";
 import { Column } from "./types";
 import { RouterLink } from "../../../routes/components";
+import { fetcher } from "../forms/api";
+import { Apartment } from "../../../types/table";
 
-const fetcher = async (url: string) => apartments;
+// const fetcher = async (url: string) => apartments;
 
 export default function ApartmentView() {
-  const { data, mutate } = useSWR("/apartments", fetcher);
+  const { data, mutate } = useSWR<Apartment[]>("/apt/all/apt", fetcher);
 
   const handleDelete = (id: number) => {
     // Implement the deletion logic here

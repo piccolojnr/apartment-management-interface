@@ -3,10 +3,11 @@ import React, { Dispatch, SetStateAction } from "react";
 export interface ContactPerson {
     id: number;
     name: string;
-    phoneNumber: string;
+    telephoneNumber: string;
     email: string;
     apartment: Apartment;
     network: Network;
+    primaryContact: boolean
 }
 export interface DeviceType {
     id: number;
@@ -37,9 +38,10 @@ export interface Apartment {
 
 export interface Device {
     id: number;
-    type: string;
-    name: string;
-
+    apartment: Apartment;
+    deviceType: DeviceType;
+    dateAdded: string;
+    deviceName: string;
 }
 
 export type Data<T = any> = T & {};

@@ -6,6 +6,7 @@ import {
   AddApartment,
   AddBillType,
   AddContactPerson,
+  AddDevice,
   AddDeviceType,
   AddNetwork,
   AddTariff,
@@ -40,6 +41,7 @@ export default function SettingsView() {
           <Tab label="Device Type" value="4" />
           <Tab label="Apartment" value="5" />
           <Tab label="Contacts" value="6" />
+          <Tab label="Device" value="7" />
         </Tabs>
 
         <TabPanel value="1">
@@ -81,6 +83,13 @@ export default function SettingsView() {
           <Grid item xs={12} md={6}>
             <Card sx={{ boxShadow: 3, borderRadius: 2, p: 4 }}>
               <AddContactPerson />
+            </Card>
+          </Grid>
+        </TabPanel>
+        <TabPanel value="7">
+          <Grid item xs={12} md={6}>
+            <Card sx={{ boxShadow: 3, borderRadius: 2, p: 4 }}>
+              <AddDevice />
             </Card>
           </Grid>
         </TabPanel>

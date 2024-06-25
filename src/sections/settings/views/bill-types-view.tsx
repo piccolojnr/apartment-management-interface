@@ -5,10 +5,12 @@ import RowPopoverMenu from "../../../components/table/row-popover-menu";
 import { billTypes } from "../../../_mock/billType";
 import { Column } from "./types";
 import { RouterLink } from "../../../routes/components";
-const fetcher = async (url: string) => billTypes;
+import { BillType } from "../../../types/table";
+import { fetcher } from "../forms/api";
+// const fetcher = async (url: string) => billTypes;
 
 export default function BillTypesView() {
-  const { data, mutate } = useSWR("/billType", fetcher);
+  const { data, mutate } = useSWR<BillType[]>("/apt/bill/types", fetcher);
 
   const handleDelete = (id: number) => {
     // Implement the deletion logic here

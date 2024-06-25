@@ -3,11 +3,18 @@ import RowPopoverMenu from "../../../components/table/row-popover-menu";
 import { Column } from "./types";
 import useSWR from "swr";
 import { Container } from "@mui/material";
-import { contacts } from "../../../_mock/contacts";
-const fetcher = async (url: string) => contacts;
+import { ContactPerson } from "../../../types/table";
+import { fetcher } from "../forms/api";
+import { useParams } from "react-router-dom";
+import Label from "../../../components/label";
+// const fetcher = async (url: string) => contacts;
 
 export default function ContactsView() {
-  const { data, mutate } = useSWR("/contacts", fetcher);
+  const params = useParams();
+  const { data, mutate } = useSWR<ContactPerson[]>(
+    params.id ? `/apt/apt/${params.id}/contact` : `/apt/all/contact`,
+    fetcher
+  );
 
   const handleDelete = (id: number) => {
     // Implement the deletion logic here
@@ -25,7 +32,7 @@ export default function ContactsView() {
   const columns: Column[] = [
     { field: "id", headerName: "ID" },
     { field: "name", headerName: "Name" },
-    { field: "phoneNumber", headerName: "Phone Number" },
+    { field: "telephoneNumber", headerName: "Phone Number" },
     { field: "email", headerName: "Email" },
     {
       field: "network",
@@ -38,8 +45,15 @@ export default function ContactsView() {
       field: "apartment",
       headerName: "Apartment",
       renderCell(value, row) {
-        return row.apartment.name;
+        return row?.apartment?.name || "";
       },
+    },
+    {
+      field: "primaryContact",
+      headerName: "Primary Contact",
+      renderCell: (value: any, row: any) => (
+        <Label>{value ? "YES" : "NO"}</Label>
+      ),
     },
     {
       field: "actions",

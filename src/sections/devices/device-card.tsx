@@ -30,7 +30,7 @@ const DeviceCard = ({ device }: { device: Device }) => {
 
             <TextField
               label="Device Type"
-              value={device.type}
+              value={device.deviceType}
               fullWidth
               disabled
               sx={{ mt: 2 }}
@@ -56,7 +56,9 @@ const DeviceCard = ({ device }: { device: Device }) => {
         <CardContent>
           <Grid container spacing={2} justifyContent="space-between">
             <Grid item>
-              <Typography variant="h6">{device.type}</Typography>
+              <Typography variant="h6">
+                {device.deviceType.deviceType}
+              </Typography>
             </Grid>
             <Grid item>
               {/* <DeviceStatusLabel status={device.status} type={device.type} /> */}

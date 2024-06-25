@@ -2,14 +2,20 @@ import { Container } from "@mui/material";
 import useSWR from "swr";
 import ReusableTable from "./reusable-table";
 import RowPopoverMenu from "../../../components/table/row-popover-menu";
-import { tariffs } from "../../../_mock/tariffs";
 import { Column } from "./types";
 import { fDate } from "../../../utils/format-time";
+import { Tariff } from "../../../types/table";
+import { fetcher } from "../forms/api";
+import { useParams } from "react-router-dom";
 
-const fetcher = async (url: string) => tariffs;
+// const fetcher = async (url: string) => tariffs;
 
 export default function TariffsView() {
-  const { data, mutate } = useSWR("/tariffs", fetcher);
+  const params = useParams();
+  const { data, mutate } = useSWR<Tariff[]>(
+    "/apt/tariff/bill/type/" + params.id,
+    fetcher
+  );
 
   const handleDelete = (id: number) => {
     // Implement the deletion logic here

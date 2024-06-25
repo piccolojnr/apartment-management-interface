@@ -1,12 +1,15 @@
-const baseUrl = "http://192.168.1.73:8080"
+const baseUrl = "http://192.168.1.86:8080"
 
 export const fetcher = async (url: string) => {
+    console.log(baseUrl + url)
     const response = await fetch(baseUrl + url);
     if (!response.ok) {
         const err = await response.text();
+        console.log(err)
         throw new Error(err);
     }
     const result = await response.json();
+    console.log(result)
     return result;
 };
 
@@ -62,6 +65,30 @@ export const addContactPerson = async (data: any) => {
                 ...data,
                 network: { id: parseInt(data.network) },
                 apartment: { id: parseInt(data.apartment) },
+            }),
+        });
+        if (!response.ok) {
+            const err = await response.text();
+            throw new Error(err);
+        }
+        const result = await response.json();
+        return result;
+    } catch (error: any) {
+        console.log(error);
+    }
+}
+
+export const addDevice = async (data: any) => {
+    try {
+        const response = await fetch(`${baseUrl}/apt/device`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                ...data,
+                deviceType: data.deviceType,
+                apartment: data.apartment,
             }),
         });
         if (!response.ok) {

@@ -5,10 +5,12 @@ import RowPopoverMenu from "../../../components/table/row-popover-menu";
 import { deviceTypes } from "../../../_mock/deviceType";
 import { Column } from "./types";
 import { RouterLink } from "../../../routes/components";
-const fetcher = async (url: string) => deviceTypes;
+import { fetcher } from "../forms/api";
+import { DeviceType } from "../../../types/table";
+// const fetcher = async (url: string) => deviceTypes;
 
 export default function DeviceTypesView() {
-  const { data, mutate } = useSWR("/deviceType", fetcher);
+  const { data, mutate } = useSWR<DeviceType[]>("/apt/device/types", fetcher);
 
   const handleDelete = (id: number) => {
     // Implement the deletion logic here

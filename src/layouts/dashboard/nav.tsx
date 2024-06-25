@@ -21,6 +21,8 @@ import Iconify from "../../components/iconify";
 import { fullName } from "../../utils/functions";
 import { usePathname, useRouter } from "../../routes/hooks";
 import { account } from "../../_mock/user";
+import { useLocation } from "react-router-dom";
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 
 // ----------------------------------------------------------------------
 interface NavProps {
@@ -66,16 +68,39 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
     </Box>
   );
   const renderMenu = (
-    <Stack component="nav" spacing={0.5} sx={{ px: 2 }}>
-      {navConfig.map((item) => {
-        if (item.title === "users" && "admin" !== account?.role.toLowerCase()) {
-          return null;
-        }
-        return <NavItem key={item.title} item={item} />;
-      })}
+    <Stack component="nav" spacing={2} sx={{ px: 2 }}>
+      {navConfig.map((category) => (
+        <Accordion key={category.category}>
+          <AccordionSummary
+            expandIcon={<Iconify icon="akar-icons:chevron-down" width={14} />}
+            sx={{
+              m: 0,
+            }}
+          >
+            <Typography
+              variant="overline"
+              sx={{ color: "text.secondary", textTransform: "uppercase" }}
+            >
+              {category.category}
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Stack spacing={0.5}>
+              {category.items.map((item) => {
+                if (
+                  item.title === "users" &&
+                  "admin" !== account?.role.toLowerCase()
+                ) {
+                  return null;
+                }
+                return <NavItem key={item.title} item={item} />;
+              })}
+            </Stack>
+          </AccordionDetails>
+        </Accordion>
+      ))}
     </Stack>
   );
-
   const renderContent = (
     <Scrollbar
       sx={{
@@ -147,56 +172,43 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
 }
 
 // ----------------------------------------------------------------------
-
-function NavItem({ item, sx }: { item: any; sx?: any }) {
-  const pathname = usePathname();
+function NavItem({ item, sx }: any) {
+  const location = useLocation();
+  const pathname = location.pathname;
 
   const active = item.path === pathname;
 
   return (
-    <>
-      <ListItemButton
-        component={RouterLink}
-        href={item.path}
-        sx={{
-          minHeight: 44,
-          borderRadius: 0.75,
-          typography: "body2",
-          color: "text.secondary",
-          textTransform: "capitalize",
-          fontWeight: "fontWeightMedium",
-          ...(active && {
-            color: "primary.main",
-            fontWeight: "fontWeightSemiBold",
-            bgcolor: (theme) => alpha(theme.palette.primary.main, 0.08),
-            "&:hover": {
-              bgcolor: (theme) => alpha(theme.palette.primary.main, 0.16),
-            },
-          }),
-          ...sx,
-        }}
-      >
-        <Box component="span" sx={{ width: 20, height: 20, mr: 2 }}>
-          <Iconify
-            icon={item.icon}
-            width={20}
-            height={20}
-            sx={{ opacity: 0.7 }}
-          />
-        </Box>
-
-        <Box component="span">{item.title} </Box>
-      </ListItemButton>
-      {item.children &&
-        item.children.map((child: any) => {
-          return (
-            <NavItem
-              key={child.title}
-              item={child}
-              sx={{ pl: 4, color: "text.secondary" }}
-            />
-          );
-        })}
-    </>
+    <ListItemButton
+      component={RouterLink}
+      to={item.path}
+      sx={{
+        minHeight: 44,
+        borderRadius: 0.75,
+        typography: "body2",
+        color: "text.secondary",
+        textTransform: "capitalize",
+        fontWeight: "fontWeightMedium",
+        ...(active && {
+          color: "primary.main",
+          fontWeight: "fontWeightSemiBold",
+          bgcolor: (theme) => alpha(theme.palette.primary.main, 0.08),
+          "&:hover": {
+            bgcolor: (theme) => alpha(theme.palette.primary.main, 0.16),
+          },
+        }),
+        ...sx,
+      }}
+    >
+      <Box component="span" sx={{ width: 20, height: 20, mr: 2 }}>
+        <Iconify
+          icon={item.icon}
+          width={20}
+          height={20}
+          sx={{ opacity: 0.7 }}
+        />
+      </Box>
+      <Box component="span">{item.title}</Box>
+    </ListItemButton>
   );
 }

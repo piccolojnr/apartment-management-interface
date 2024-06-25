@@ -4,11 +4,13 @@ import ReusableTable from "./reusable-table";
 import RowPopoverMenu from "../../../components/table/row-popover-menu";
 import { networks } from "../../../_mock/networks";
 import { Column } from "./types";
+import { Network } from "../../../types/table";
+import { fetcher } from "../forms/api";
 
-const fetcher = async (url: string) => networks;
+// const fetcher = async (url: string) => networks;
 
 export default function NetworksView() {
-  const { data, mutate } = useSWR("/networks", fetcher);
+  const { data, mutate } = useSWR<Network[]>("/apt/networks", fetcher);
 
   const handleDelete = (id: number) => {
     // Implement the deletion logic here

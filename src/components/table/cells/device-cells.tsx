@@ -30,7 +30,7 @@ export default function DeviceCell({
           }}
           noWrap
         >
-          {data.type}
+          {data.deviceType.deviceType}
         </Typography>
       </TableCell>
 

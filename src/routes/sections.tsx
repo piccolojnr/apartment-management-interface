@@ -15,14 +15,25 @@ export const ApartmentPage = lazy(
   () => import("../pages/apartments/apartment")
 );
 export const ContactsPage = lazy(() => import("../pages/contacts"));
+
 export const DeviceTypesPage = lazy(() => import("../pages/device-types"));
+export const DeviceTypePage = lazy(
+  () => import("../pages/device-types/device-type")
+);
+
 export const BillTypesPage = lazy(() => import("../pages/bill-types"));
+export const BillTypePage = lazy(() => import("../pages/bill-types/bill-type"));
 export const TariffsPage = lazy(() => import("../pages/tariffs"));
+
 export const NetworksPage = lazy(() => import("../pages/networks"));
 
 export const DevicesPage = lazy(() => import("../pages/devices"));
 export const DevicePage = lazy(() => import("../pages/devices/device"));
+
+export const SessionsPage = lazy(() => import("../pages/sessions"));
+
 export const UserPage = lazy(() => import("../pages/users"));
+
 export const LoginPage = lazy(() => import("../pages/login"));
 export const Page404 = lazy(() => import("../pages/page-not-found"));
 export const PageNotAuthorized = lazy(
@@ -118,10 +129,26 @@ export default function Router() {
           ),
         },
         {
+          path: "contacts",
+          element: (
+            // <AdminRoute>
+            <ContactsPage />
+            // </AdminRoute>
+          ),
+        },
+        {
           path: "device-types",
           element: (
             // <AdminRoute>
             <DeviceTypesPage />
+            // </AdminRoute>
+          ),
+        },
+        {
+          path: "device-types/:id",
+          element: (
+            // <AdminRoute>
+            <DeviceTypePage />
             // </AdminRoute>
           ),
         },
@@ -142,6 +169,14 @@ export default function Router() {
           ),
         },
         {
+          path: "bill-types/:id",
+          element: (
+            // <AdminRoute>
+            <BillTypePage />
+            // </AdminRoute>
+          ),
+        },
+        {
           path: "bill-types/:id/tariffs",
           element: (
             // <AdminRoute>
@@ -154,6 +189,14 @@ export default function Router() {
           element: (
             // <AdminRoute>
             <NetworksPage />
+            // </AdminRoute>
+          ),
+        },
+        {
+          path: "sessions",
+          element: (
+            // <AdminRoute>
+            <SessionsPage />
             // </AdminRoute>
           ),
         },

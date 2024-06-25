@@ -3,6 +3,21 @@ import { Device } from "../../src/types/table";
 
 export const devices: Device[] = Array.from({ length: 10 }, (_, index) => ({
     id: index + 1,
-    type: faker.commerce.productName(),
-    name: faker.commerce.productName(),
+    apartment: {
+        id: faker.number.int(),
+        name: faker.person.suffix(),
+        floor: faker.number.int(
+            {
+                min: 1,
+                max: 10,
+            }
+        ),
+    },
+    deviceType: {
+        id: faker.number.int(),
+        deviceType: faker.word.words(),
+    },
+    dateAdded: faker.date.recent().toISOString(),
+    deviceName: faker.random.word(),
+
 }));

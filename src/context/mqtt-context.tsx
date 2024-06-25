@@ -35,29 +35,29 @@ export const MqttProvider = ({ brokerUrl, children }: MqttProviderProps) => {
     message: string;
   } | null>(null);
 
-  useEffect(() => {
-    setLoading(true);
-    const mqttClient = mqtt.connect(brokerUrl);
-    setClient(mqttClient);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   const mqttClient = mqtt.connect(brokerUrl);
+  //   setClient(mqttClient);
 
-    mqttClient.on("connect", () => {
-      setIsConnected(true);
-      setLoading(false);
-    });
+  //   mqttClient.on("connect", () => {
+  //     setIsConnected(true);
+  //     setLoading(false);
+  //   });
 
-    mqttClient.on("message", (topic, message) => {
-      setMessage({ topic, message: message.toString() });
-    });
+  //   mqttClient.on("message", (topic, message) => {
+  //     setMessage({ topic, message: message.toString() });
+  //   });
 
-    mqttClient.on("error", (error) => {
-      console.error(error);
-      setLoading(false);
-    });
+  //   mqttClient.on("error", (error) => {
+  //     console.error(error);
+  //     setLoading(false);
+  //   });
 
-    return () => {
-      mqttClient.end();
-    };
-  }, [brokerUrl]);
+  //   return () => {
+  //     mqttClient.end();
+  //   };
+  // }, [brokerUrl]);
 
   const subscribe = (topic: string) => {
     if (client) {

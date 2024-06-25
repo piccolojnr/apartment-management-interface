@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import { useResponsive } from "../../hooks/use-responsive";
 
 import { NAV, HEADER } from "./config-layout";
+import Breadcrumbs from "../../components/breadcrumbs";
 
 // ----------------------------------------------------------------------
 
@@ -35,6 +36,17 @@ export default function Main({ children, sx, ...other }: MainProps) {
       }}
       {...other}
     >
+      <Box
+        sx={{
+          px: 2,
+          pb: 2,
+          flexShrink: 0,
+          bgcolor: "background.default",
+          borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
+        }}
+      >
+        <Breadcrumbs />
+      </Box>
       {children}
     </Box>
   );

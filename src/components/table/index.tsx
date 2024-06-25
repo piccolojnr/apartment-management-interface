@@ -1,18 +1,12 @@
 import { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
-import Stack from "@mui/material/Stack";
 import Table from "@mui/material/Table";
-import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import TableBody from "@mui/material/TableBody";
-import Typography from "@mui/material/Typography";
 import TableContainer from "@mui/material/TableContainer";
 import TablePagination from "@mui/material/TablePagination";
 
-import Iconify from "../../components/iconify";
 import Scrollbar from "../../components/scrollbar";
-import { User } from "../../types/user";
-import AppModal from "../../components/app-modal";
 import TableToolbar from "../../components/table/table-toolbar";
 import CustomTableHead from "../../components/table/table-head";
 import {
@@ -26,16 +20,12 @@ import CustomTableRow from "../../components/table/table-row";
 import { CustomTableProps, Data, FilterProps } from "../../types/table";
 
 const CustomTable = <T extends object>({
-  AddModal,
   head,
-  UpdateModal,
   headLabel,
   title,
   filters,
-  deleteItem,
-  Cell,
+  Cells,
   data,
-  fetchData,
   error,
   loading,
   total = 0,
@@ -48,21 +38,12 @@ const CustomTable = <T extends object>({
   filter = { id: "all", name: "All" },
   setFilter,
   query = "",
-  setQuery,
+  setQuery,handleDelete
 }: CustomTableProps<T>) => {
   const [selected, setSelected] = useState<Data[]>([]);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [notFound, setNotFound] = useState(false);
   const [dataFiltered, setDataFiltered] = useState<Data[]>([]);
-
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = () => setOpen(true);
-
-  const handleClose = async () => {
-    setOpen(false);
-    fetchData();
-  };
 
   const handleSort = (event: any, id: any) => {
     const isAsc = orderBy === id && order === "asc";
@@ -105,16 +86,16 @@ const CustomTable = <T extends object>({
   };
 
   const handleChangePage = (event: any, newPage: number) => {
-    setPage(newPage);
+    setPage && setPage(newPage);
   };
 
   const handleChangeRowsPerPage = (event: any) => {
-    setPage(0);
+    setPage && setPage(0);
     setRowsPerPage(parseInt(event.target.value, 10));
   };
 
   const handleFilter = (event: any) => {
-    setQuery && setPage(0);
+    setQuery && setPage && setPage(0);
     setQuery && setQuery(event.target.value);
   };
 
@@ -125,47 +106,11 @@ const CustomTable = <T extends object>({
     setDataFiltered(newData);
   };
 
-  const handleDelete = async (item: Data) => {
-    if (deleteItem) {
-      await deleteItem(item.id);
-    }
-    setDataFiltered((prev) => prev.filter((x) => x.id !== item.id));
-    setSelected((prev) => prev.filter((x) => x.id !== item.id));
-  };
 
-  const handleChangeFilterName = (item: FilterProps<T>) =>
-    setFilter && setFilter(item);
 
   return (
     <Container>
-      {head ? (
-        head
-      ) : (
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
-          mb={5}
-        >
-          <Typography variant="h4">{title}</Typography>
-          {AddModal ? (
-            <>
-              <Button
-                variant="contained"
-                color="inherit"
-                startIcon={<Iconify icon="eva:plus-fill" />}
-                onClick={handleOpen}
-              >
-                New {title.slice(0, -1)}
-              </Button>
-              <AppModal handleClose={handleClose} open={open}>
-                <AddModal handleClose={handleClose} />
-              </AppModal>
-            </>
-          ) : null}
-        </Stack>
-      )}
-
+      {head && head}
       <Card>
         <TableToolbar
           numSelected={selected.length}
@@ -197,13 +142,10 @@ const CustomTable = <T extends object>({
                     <CustomTableRow
                       key={index}
                       data={row}
-                      fetchData={fetchData}
                       selected={selected.indexOf(row) !== -1}
                       handleClick={(event: any) => handleClick(event, row)}
-                      UpdateModal={UpdateModal}
                       updateSingleData={updateSingleData}
-                      onDelete={handleDelete}
-                      Cell={Cell}
+                      Cells={Cells}
                     />
                   ))}
                 <TableEmptyRows

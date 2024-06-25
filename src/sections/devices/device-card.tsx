@@ -59,7 +59,7 @@ const DeviceCard = ({ device }: { device: Device }) => {
               <Typography variant="h6">{device.type}</Typography>
             </Grid>
             <Grid item>
-              <DeviceStatusLabel status={device.status} type={device.type} />
+              {/* <DeviceStatusLabel status={device.status} type={device.type} /> */}
             </Grid>
           </Grid>
           <Typography
@@ -80,7 +80,7 @@ const DeviceCard = ({ device }: { device: Device }) => {
                   color: "text.secondary",
                 }}
               >
-                Start: {fDate(device.session_period.start)}
+                {/* Start: {fDate(device.session_period.start)} */}
               </Typography>
             </Grid>
             <Grid item xs={6}>
@@ -92,7 +92,7 @@ const DeviceCard = ({ device }: { device: Device }) => {
                   textAlign: "right",
                 }}
               >
-                End: {fDate(device.session_period.end)}
+                {/* End: {fDate(device.session_period.end)} */}
               </Typography>
             </Grid>
           </Grid>

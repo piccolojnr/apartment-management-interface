@@ -3,7 +3,7 @@ import { User } from "../../../types/user";
 import { fullName } from "../../../utils/functions";
 import Label from "../../label";
 
-export default function UserCell({
+export default function UserCells({
   data: user,
 }: {
   data: User;

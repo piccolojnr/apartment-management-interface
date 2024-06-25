@@ -1,14 +1,8 @@
 import { LoadingButton } from "@mui/lab";
-import {
-  Box,
-  Card,
-  CardContent,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, CardContent, Grid, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { addBillType } from "./api";
 
 export default function AddBillType({ onClose }: { onClose?: () => void }) {
   const {
@@ -21,20 +15,8 @@ export default function AddBillType({ onClose }: { onClose?: () => void }) {
     console.log("Bill Type Data:", data);
     setLoadingBillType(true);
     try {
-      const response = await fetch("http://192.168.1.73:8080/apt/bill/type", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      if (!response.ok) {
-        const err = await response.text();
-        throw new Error(err);
-      }
-      const result = await response.json();
-
-      console.log(result);
+      const response = await addBillType(data);
+      console.log("Bill Type Added:", response);
       resetBillType();
       onClose && onClose();
     } catch (error: any) {

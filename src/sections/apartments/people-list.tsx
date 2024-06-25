@@ -1,6 +1,6 @@
 import { PeopleListProps } from "../../types/apartment";
 import CustomTable from "../../components/table";
-import PeopleCell from "../../components/table/cells/people-cell";
+import PeopleCell from "../../components/table/cells/people-cells";
 import PeopleForm from "./people-forms";
 import { Button, Select, Stack, Typography } from "@mui/material";
 import Iconify from "../../components/iconify";
@@ -82,9 +82,7 @@ const PeopleList = ({ people }: PeopleListProps) => {
           </Stack>
         </Stack>
       }
-      UpdateModal={PeopleForm}
-      AddModal={PeopleForm}
-      Cell={PeopleCell}
+      Cells={PeopleCell}
       data={people}
       headLabel={[
         { id: "name", label: "Name" },
@@ -93,7 +91,6 @@ const PeopleList = ({ people }: PeopleListProps) => {
       searchPlaceholder="Search People"
       error={null}
       loading={false}
-      fetchData={() => {}}
       page={0}
       setPage={() => {}}
       title="Peoples"

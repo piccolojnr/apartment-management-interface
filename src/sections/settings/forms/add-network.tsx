@@ -2,33 +2,21 @@ import { LoadingButton } from "@mui/lab";
 import { Box, CardContent, Grid, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-export default function AddDeviceType({ onClose }: { onClose?: () => void }) {
+import { addNetwork } from "./api";
+export default function AddNetwork({ onClose }: { onClose?: () => void }) {
   const { register, handleSubmit, reset } = useForm();
 
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async (data: any) => {
-    console.log("Device Type Data:", data);
+    console.log("Network Data:", data);
 
     setLoading(true);
     try {
-      const response = await fetch("http://192.168.1.73:8080/apt/device/type", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      if (!response.ok) {
-        const err = await response.text();
-        throw new Error(err);
-      }
-      const result = await response.json();
-
-      console.log(result);
+      await addNetwork(data);
       reset();
       onClose && onClose();
-    } catch (error: any) {
+    } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
@@ -38,7 +26,7 @@ export default function AddDeviceType({ onClose }: { onClose?: () => void }) {
   return (
     <CardContent>
       <Typography variant="h6" sx={{ mb: 4 }}>
-        Add Device Type
+        Add Network
       </Typography>
       <Box component="form" onSubmit={handleSubmit(onSubmit)}>
         <Grid
@@ -48,8 +36,8 @@ export default function AddDeviceType({ onClose }: { onClose?: () => void }) {
         >
           <TextField
             fullWidth
-            label="Device Type Name"
-            {...register("deviceType", {
+            label="Network Name"
+            {...register("network", {
               required: true,
             })}
             sx={{ mb: 2 }}
@@ -60,7 +48,7 @@ export default function AddDeviceType({ onClose }: { onClose?: () => void }) {
             type="submit"
             loading={loading}
           >
-            Add Device Type
+            Add Network
           </LoadingButton>
         </Grid>
       </Box>

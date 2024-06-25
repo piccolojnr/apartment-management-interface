@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import CustomTable from "../../components/table";
-import BillCell from "../../components/table/cells/bill-cell";
+import BillTypeCells from "../../components/table/cells/bill-type-cells";
 import useTableView from "../../hooks/use-table-view";
-import AddPersonForm from "../apartments/add-person-form";
-import { Button, Select, Stack, Typography } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import Iconify from "../../components/iconify";
 import AppModal from "../../components/app-modal";
-import AddBillType from "./add-bill-type";
+import AddBillType from "./forms/add-bill-type";
 
 export default function BillsView() {
   const [open, setOpen] = useState<"add-bill" | null>(null);
@@ -50,7 +49,7 @@ export default function BillsView() {
 
   return (
     <CustomTable
-      Cell={BillCell}
+      Cells={BillTypeCells}
       data={data}
       headLabel={[
         { label: "Bill Type", id: "billType" },
@@ -60,7 +59,6 @@ export default function BillsView() {
       ]}
       searchPlaceholder={"Search billtypes..."}
       title="Bill Type"
-      fetchData={fetchData}
       error={error}
       loading={loading}
       setPage={() => {}}
@@ -68,8 +66,6 @@ export default function BillsView() {
       total={0}
       query={query}
       setQuery={setQuery}
-      filter={filter}
-      setFilter={setFilter}
       order={order}
       orderBy={orderBy as any}
       setOrder={setOrder}

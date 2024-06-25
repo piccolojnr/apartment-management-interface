@@ -1,11 +1,8 @@
 import CustomTable from "../../../components/table";
-import { UserForm } from "../user-forms";
-
+import UserCells from "../../../components/table/cells/user-cells";
 const UserPage = () => {
   return (
     <CustomTable
-      AddModal={UserForm}
-      UpdateModal={UserForm}
       headLabel={[
         { id: "name", label: "Name" },
         { id: "role", label: "Role" },
@@ -15,15 +12,8 @@ const UserPage = () => {
       ]}
       title={"Users"}
       searchPlaceholder={"Search users..."}
-      deleteItem={() => Promise.resolve()}
-      Cell={() => <></>}
+      Cells={UserCells}
       data={[]}
-      fetchData={() => {}}
-      error={null}
-      loading={false}
-      setPage={() => {}}
-      page={0}
-      total={0}
     />
   );
 };

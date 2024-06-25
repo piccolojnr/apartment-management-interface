@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import DeviceView from "../../sections/devices/view";
+import DevicesView from "../../sections/settings/views/devices-view";
 
 const Devices = () => {
   return (
@@ -7,7 +7,7 @@ const Devices = () => {
       <Helmet>
         <title> Devices | Minimal UI </title>
       </Helmet>
-      <DeviceView />
+      <DevicesView />
     </>
   );
 };

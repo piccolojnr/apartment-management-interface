@@ -35,7 +35,7 @@ export default function TableToolbar({
   const handleClose = () => setOpen(null);
 
   const handleDelete = async (item: Data) => {
-    onDelete(item);
+    onDelete && onDelete(item);
   };
   const handleDeleteMultiple = async () => {
     try {

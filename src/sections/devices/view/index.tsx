@@ -1,8 +1,6 @@
 import CustomTable from "../../../components/table";
-import DeviceCell from "../../../components/table/cells/device-cell";
-import DeviceForm from "../device-forms";
+import DeviceCells from "../../../components/table/cells/device-cells";
 import useTableView from "../../../hooks/use-table-view";
-import { devices } from "../../../_mock/device";
 import { FilterProps } from "../../../types/table";
 import { useState } from "react";
 
@@ -43,15 +41,12 @@ export default function DeviceView() {
 
   return (
     <CustomTable
-      AddModal={DeviceForm}
-      UpdateModal={DeviceForm}
       headLabel={headLabel}
       title={"Devices"}
       searchPlaceholder={"Search devices..."}
       deleteItem={() => Promise.resolve()}
-      Cell={DeviceCell}
+      Cells={DeviceCells}
       data={data}
-      fetchData={() => {}}
       error={null}
       loading={false}
       setPage={() => {}}
@@ -59,8 +54,6 @@ export default function DeviceView() {
       total={0}
       query={query}
       setQuery={setQuery}
-      filter={filter}
-      setFilter={setFilter}
       filters={filters}
       order={order}
       orderBy={orderBy as any}

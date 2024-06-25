@@ -6,37 +6,19 @@ import Label from "../../label";
 import AppModal from "../../app-modal";
 import { useState } from "react";
 
-export default function PeopleCell({
+export default function PeopleCells({
   data,
   updateSingleData,
 }: {
   data: Data<Person>;
   updateSingleData: (data: any) => void;
 }) {
-  const [open, setOpen] = useState<"primary" | null>(null);
-
-  const handleChangePrimary = async () => {
-    updateSingleData({
-      ...data,
-      primary: !data.primary,
-    });
-  };
   return (
     <>
       <TableCell>
         <Typography variant="subtitle2" noWrap>
           {data.name}
         </Typography>
-      </TableCell>
-
-      <TableCell>
-        <Label
-          onClick={() => setOpen("primary")}
-          color={data.primary ? "success" : "secondary"}
-          sx={{ textTransform: "capitalize" }}
-        >
-          {data.primary ? "Yes" : "No"}
-        </Label>
       </TableCell>
     </>
   );

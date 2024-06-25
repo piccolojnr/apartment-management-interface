@@ -1,71 +1,48 @@
 import { useEffect, useState } from "react";
+import useSWR from "swr";
 import CustomTable from "../../components/table";
-import BillCell from "../../components/table/cells/bill-cell";
 import useTableView from "../../hooks/use-table-view";
-import AddPersonForm from "../apartments/add-person-form";
 import {
   Box,
   Button,
   MenuItem,
-  Select,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
 import Iconify from "../../components/iconify";
 import AppModal from "../../components/app-modal";
-import AddBillType from "./add-bill-type";
-import { BillType } from "../../types/table";
-import TariffCell from "../../components/table/cells/tariff-cell";
+import TariffCells from "../../components/table/cells/tariff-cells";
 import { useSearchParams } from "react-router-dom";
-import { set } from "lodash";
-import AddTariff from "./add-tariff";
+import { BillType } from "../../types/table";
+import AddTariff from "./forms/add-tariff";
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function TariffView() {
-  const [billTypes, setBillTypes] = useState<BillType[]>([]);
-  const [loadingBT, setLoadingBT] = useState(false);
-  const [open, setOpen] = useState<"add-bill" | null>(null);
   const [billType, setBillType] = useState("");
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const {
-    filter,
-    setFilter,
-    order,
-    orderBy,
-    query,
-    setOrder,
-    setOrderBy,
-    setQuery,
-  } = useTableView(data, setData, "billType", ["billType"], []);
+  const [open, setOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const fetchData = async (billType?: string) => {
-    setLoading(false);
-    setError(null);
-    if (!billType) {
-      setData([]);
-      return;
-    }
-    try {
-      const response = await fetch(
-        "http://192.168.1.73:8080/apt/tariff/bill/type/" + billType
-      );
-      if (!response.ok) {
-        const err = await response.text();
-        throw new Error(err);
-      }
-      const result = await response.json();
+  const { data: billTypes, error: billTypesError } = useSWR(
+    "http://192.168.1.73:8080/apt/bill/types",
+    fetcher
+  );
 
-      setData(result);
-    } catch (error: any) {
-      console.log(error);
-      setError(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { data, error, mutate } = useSWR(
+    billType
+      ? `http://192.168.1.73:8080/apt/tariff/bill/type/${billType}`
+      : null,
+    fetcher
+  );
+
+  const { query, setOrder, setOrderBy, setQuery } = useTableView(
+    data,
+    (data) => mutate(data),
+    "billType",
+    ["billType"],
+    []
+  );
 
   useEffect(() => {
     const _billType = searchParams.get("billType");
@@ -75,138 +52,146 @@ export default function TariffView() {
   }, [searchParams]);
 
   useEffect(() => {
-    fetchData(billType);
-  }, [billType]);
+    if (billTypes && billTypes.length > 0 && !billType) {
+      setSearchParams({ billType: billTypes[0].id });
+    }
+  }, [billTypes, billType]);
 
-  useEffect(() => {
-    const getBillTypes = async () => {
-      setLoadingBT(true);
-      try {
-        const response = await fetch("http://192.168.1.73:8080/apt/bill/types");
-        if (!response.ok) {
-          const err = await response.text();
-          throw new Error(err);
-        }
-        const result = await response.json();
-        setBillTypes(result);
-        if (result.length > 0) {
-          const _billType = searchParams.get("billType");
-          if (!_billType) setSearchParams({ billType: result[0].id });
-        }
-      } catch (error: any) {
-        console.log(error);
-      } finally {
-        setLoadingBT(false);
-      }
-    };
-    getBillTypes();
-  }, []);
+  const handleFetchData = (billType: any) => {
+    setBillType(billType);
+    setSearchParams({ billType });
+    mutate();
+  };
+
+  if (billTypesError) return <div>Failed to load bill types</div>;
+  if (!billTypes) return <div>Loading bill types...</div>;
+
   return (
     <CustomTable
-      Cell={TariffCell}
-      AddModal={AddPersonForm}
-      UpdateModal={AddPersonForm}
-      data={data}
+      Cells={TariffCells}
+      data={data || []}
       headLabel={[
         { label: "Amount", id: "amount" },
-        { id: "per", label: "Messure" },
+        { id: "per", label: "Measure" },
         { id: "dateAdded", label: "Date Added" },
         { id: "billType", label: "Bill Type" },
         { id: "" },
       ]}
-      searchPlaceholder={"Search billtypes..."}
+      searchPlaceholder={"Search tariffs..."}
       title="Bill Type"
-      fetchData={fetchData}
       error={error}
-      loading={loading}
+      loading={!data && !error}
       setPage={() => {}}
       page={0}
       total={0}
       query={query}
       setQuery={setQuery}
-      filter={filter}
-      setFilter={setFilter}
-      order={order}
-      orderBy={orderBy as any}
       setOrder={setOrder}
       setOrderBy={setOrderBy}
       head={
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
-          mb={5}
-        >
-          <Typography
-            variant="h4"
-            sx={{
-              width: "100%",
-            }}
-          >
-            Tariffs
-          </Typography>
-          <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-            gap={2}
-            sx={{
-              width: "100%",
-            }}
-          >
-            <Box
-              component="form"
-              onSubmit={(e) => fetchData(billType)}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 2,
-                width: "100%",
-              }}
-            >
-              <TextField
-                label="BillType"
-                select
-                disabled={loadingBT}
-                defaultValue={""}
-                sx={{
-                  width: "100%",
-                }}
-                onChange={(e) => fetchData(e.target.value)}
-                value={billType}
-              >
-                {billTypes.map((type) => (
-                  <MenuItem key={type.id} value={type.id} itemID={type.id}>
-                    {type.billType}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Box>
-            <Button
-              variant="contained"
-              color="inherit"
-              startIcon={<Iconify icon="eva:plus-fill" />}
-              onClick={() => setOpen("add-bill")}
-              sx={{
-                width: "100%",
-              }}
-            >
-              New Bill Type
-            </Button>
-            <AppModal
-              open={open === "add-bill"}
-              handleClose={() => setOpen(null)}
-            >
-              <AddTariff
-                onClose={() => {
-                  fetchData(billType);
-                  setOpen(null);
-                }}
-              />
-            </AppModal>
-          </Stack>
-        </Stack>
+        <TableHead
+          fetchData={handleFetchData}
+          billType={billType}
+          billTypes={billTypes}
+          loadingBT={!billTypes && !billTypesError}
+          open={open}
+          setOpen={setOpen}
+        />
       }
     />
+  );
+}
+interface TableHeadProps {
+  fetchData: (billType: string) => void;
+  billType: string;
+  billTypes: BillType[];
+  loadingBT: boolean;
+  open: boolean;
+  setOpen: (v: boolean) => void;
+}
+
+function TableHead({
+  fetchData,
+  billType,
+  billTypes,
+  loadingBT,
+  open,
+  setOpen,
+}: TableHeadProps) {
+  return (
+    <Stack
+      direction="row"
+      alignItems="center"
+      justifyContent="space-between"
+      mb={5}
+    >
+      <Typography
+        variant="h4"
+        sx={{
+          width: "100%",
+        }}
+      >
+        Tariffs
+      </Typography>
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="space-between"
+        gap={2}
+        sx={{
+          width: "100%",
+        }}
+      >
+        <Box
+          component="form"
+          onSubmit={(e) => {
+            e.preventDefault();
+            fetchData(billType);
+          }}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 2,
+            width: "100%",
+          }}
+        >
+          <TextField
+            label="BillType"
+            select
+            disabled={loadingBT}
+            value={billType}
+            onChange={(e) => fetchData(e.target.value)}
+            sx={{
+              width: "100%",
+            }}
+          >
+            {billTypes.map((type) => (
+              <MenuItem key={type.id} value={type.id}>
+                {type.billType}
+              </MenuItem>
+            ))}
+          </TextField>
+        </Box>
+        <Button
+          variant="contained"
+          color="inherit"
+          startIcon={<Iconify icon="eva:plus-fill" />}
+          onClick={() => setOpen(true)}
+          sx={{
+            width: "100%",
+          }}
+        >
+          New Tariff
+        </Button>
+        <AppModal open={open} handleClose={() => setOpen(false)}>
+          <AddTariff
+            onClose={() => {
+              fetchData(billType);
+              setOpen(false);
+            }}
+          />
+        </AppModal>
+      </Stack>
+    </Stack>
   );
 }

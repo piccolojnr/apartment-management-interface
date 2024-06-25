@@ -4,10 +4,8 @@ import useTableView from "../../hooks/use-table-view";
 import { Button, Stack, Typography } from "@mui/material";
 import Iconify from "../../components/iconify";
 import AppModal from "../../components/app-modal";
-import AddNetwork from "./add-network";
-import NetWorkCell from "../../components/table/cells/network-cell";
-import ApartmentCell from "../../components/table/cells/apartment-cell";
-import AddApartment from "./add-apartment";
+import ApartmentCells from "../../components/table/cells/apartment-cells";
+import AddApartment from "./forms/add-apartment";
 
 export default function ApartmentView() {
   const [open, setOpen] = useState<"add-bill" | null>(null);
@@ -52,12 +50,11 @@ export default function ApartmentView() {
 
   return (
     <CustomTable
-      Cell={ApartmentCell}
+      Cells={ApartmentCells}
       data={data}
       headLabel={[{ label: "Apartment", id: "name" }, { id: "" }, { id: "" }]}
       searchPlaceholder={"Search networks..."}
       title="Apartment"
-      fetchData={fetchData}
       error={error}
       loading={loading}
       setPage={() => {}}
@@ -65,10 +62,6 @@ export default function ApartmentView() {
       total={0}
       query={query}
       setQuery={setQuery}
-      filter={filter}
-      setFilter={setFilter}
-      order={order}
-      orderBy={orderBy as any}
       setOrder={setOrder}
       setOrderBy={setOrderBy}
       head={

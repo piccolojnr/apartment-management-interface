@@ -4,9 +4,9 @@ import useTableView from "../../hooks/use-table-view";
 import { Button, Stack, Typography } from "@mui/material";
 import Iconify from "../../components/iconify";
 import AppModal from "../../components/app-modal";
-import AddBillType from "./add-bill-type";
-import DeviceTypeCell from "../../components/table/cells/device-type-cell";
-import AddDeviceType from "./add-device-type";
+import AddBillType from "./forms/add-bill-type";
+import DeviceTypeCells from "../../components/table/cells/device-type-cells";
+import AddDeviceType from "./forms/add-device-type";
 
 export default function DeviceTypeView() {
   const [open, setOpen] = useState<"add-bill" | null>(null);
@@ -51,12 +51,11 @@ export default function DeviceTypeView() {
 
   return (
     <CustomTable
-      Cell={DeviceTypeCell}
+      Cells={DeviceTypeCells}
       data={data}
       headLabel={[{ label: "Device Type", id: "deviceType" }, { id: "" }]}
       searchPlaceholder={"Search networks..."}
       title="Device Type"
-      fetchData={fetchData}
       error={error}
       loading={loading}
       setPage={() => {}}
@@ -64,8 +63,6 @@ export default function DeviceTypeView() {
       total={0}
       query={query}
       setQuery={setQuery}
-      filter={filter}
-      setFilter={setFilter}
       order={order}
       orderBy={orderBy as any}
       setOrder={setOrder}

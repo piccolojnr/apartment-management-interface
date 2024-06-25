@@ -2,9 +2,8 @@ import { TableCell, Typography } from "@mui/material";
 import { Data, Tariff } from "../../../types/table";
 import { fDate } from "../../../utils/format-time";
 
-export default function TariffCell({
+export default function TariffCells({
   data,
-  updateSingleData,
 }: {
   data: Data<Tariff>;
   updateSingleData: (data: any) => void;

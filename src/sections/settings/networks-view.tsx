@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import CustomTable from "../../components/table";
-import BillCell from "../../components/table/cells/bill-cell";
 import useTableView from "../../hooks/use-table-view";
 import { Button, Stack, Typography } from "@mui/material";
 import Iconify from "../../components/iconify";
 import AppModal from "../../components/app-modal";
-import AddNetwork from "./add-network";
-import NetWorkCell from "../../components/table/cells/network-cell";
+import AddNetwork from "./forms/add-network";
+import NetworkCells from "../../components/table/cells/network-cells";
 
 export default function NetworksView() {
   const [open, setOpen] = useState<"add-bill" | null>(null);
@@ -51,21 +50,15 @@ export default function NetworksView() {
 
   return (
     <CustomTable
-      Cell={NetWorkCell}
+      Cells={NetworkCells}
       data={data}
       headLabel={[{ label: "Network", id: "network" }, { id: "" }]}
       searchPlaceholder={"Search networks..."}
       title="Network"
-      fetchData={fetchData}
       error={error}
       loading={loading}
-      setPage={() => {}}
-      page={0}
-      total={0}
       query={query}
       setQuery={setQuery}
-      filter={filter}
-      setFilter={setFilter}
       order={order}
       orderBy={orderBy as any}
       setOrder={setOrder}

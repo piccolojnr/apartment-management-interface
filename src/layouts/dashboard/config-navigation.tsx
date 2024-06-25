@@ -1,47 +1,56 @@
 import { title } from "process";
 import SvgColor from "../../components/svg-color";
 import path from "path";
+import { icon } from "leaflet";
 
 // ----------------------------------------------------------------------
-
-const icon = (name: string) => (
-  <SvgColor
-    src={`/assets/icons/navbar/${name}.svg`}
-    sx={{ width: 1, height: 1 }}
-  />
-);
 
 const navConfig = [
   {
     title: "dashboard",
     path: "/",
-    icon: icon("ic_analytics"),
+    icon: "ic:round-dashboard",
   },
   {
     title: "power",
     path: "/power",
-    icon: icon("ic_power"),
+    icon: "ic:round-electric-bolt",
   },
   {
     title: "water",
     path: "/water",
-    icon: icon("ic_water"),
+    icon: "ic:round-water",
   },
   {
     title: "apartments",
     path: "/apartments",
-    icon: icon("ic_apartment"),
+    icon: "ic:round-apartment",
+  },
+  {
+    title: "networks",
+    path: "/networks",
+    icon: "ic:round-network-check",
   },
   {
     title: "devices",
     path: "/devices",
-    icon: icon("ic_device"),
+    icon: "ic:round-devices",
   },
   {
-    title: "login",
-    path: "/login",
-    icon: icon("ic_lock"),
+    title: "device types",
+    path: "/device-types",
+    icon: "ic:round-devices-other",
   },
+  {
+    title: "bill types",
+    path: "/bill-types",
+    icon: "ic:round-receipt",
+  },
+  // {
+  //   title: "login",
+  //   path: "/login",
+  //   icon: "ic:round-login",
+  // },
 ];
 
 export default navConfig;

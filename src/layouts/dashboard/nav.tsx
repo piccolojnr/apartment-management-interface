@@ -148,37 +148,55 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
 
 // ----------------------------------------------------------------------
 
-function NavItem({ item }: { item: any }) {
+function NavItem({ item, sx }: { item: any; sx?: any }) {
   const pathname = usePathname();
 
   const active = item.path === pathname;
 
   return (
-    <ListItemButton
-      component={RouterLink}
-      href={item.path}
-      sx={{
-        minHeight: 44,
-        borderRadius: 0.75,
-        typography: "body2",
-        color: "text.secondary",
-        textTransform: "capitalize",
-        fontWeight: "fontWeightMedium",
-        ...(active && {
-          color: "primary.main",
-          fontWeight: "fontWeightSemiBold",
-          bgcolor: (theme) => alpha(theme.palette.primary.main, 0.08),
-          "&:hover": {
-            bgcolor: (theme) => alpha(theme.palette.primary.main, 0.16),
-          },
-        }),
-      }}
-    >
-      <Box component="span" sx={{ width: 24, height: 24, mr: 2 }}>
-        {item.icon}
-      </Box>
+    <>
+      <ListItemButton
+        component={RouterLink}
+        href={item.path}
+        sx={{
+          minHeight: 44,
+          borderRadius: 0.75,
+          typography: "body2",
+          color: "text.secondary",
+          textTransform: "capitalize",
+          fontWeight: "fontWeightMedium",
+          ...(active && {
+            color: "primary.main",
+            fontWeight: "fontWeightSemiBold",
+            bgcolor: (theme) => alpha(theme.palette.primary.main, 0.08),
+            "&:hover": {
+              bgcolor: (theme) => alpha(theme.palette.primary.main, 0.16),
+            },
+          }),
+          ...sx,
+        }}
+      >
+        <Box component="span" sx={{ width: 20, height: 20, mr: 2 }}>
+          <Iconify
+            icon={item.icon}
+            width={20}
+            height={20}
+            sx={{ opacity: 0.7 }}
+          />
+        </Box>
 
-      <Box component="span">{item.title} </Box>
-    </ListItemButton>
+        <Box component="span">{item.title} </Box>
+      </ListItemButton>
+      {item.children &&
+        item.children.map((child: any) => {
+          return (
+            <NavItem
+              key={child.title}
+              item={child}
+              sx={{ pl: 4, color: "text.secondary" }}
+            />
+          );
+        })}
+    </>
   );
 }

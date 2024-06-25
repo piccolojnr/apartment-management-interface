@@ -1,18 +1,17 @@
-import { Button, TableCell, Typography } from "@mui/material";
-import { BillType, Data, DeviceType, Network } from "../../../types/table";
+import { TableCell, Typography } from "@mui/material";
+import { Data, DeviceType } from "../../../types/table";
 import { useSearchParams } from "react-router-dom";
 
-export default function DeviceTypeCell({
+export default function DeviceTypeCells({
   data,
-  updateSingleData,
 }: {
   data: Data<DeviceType>;
   updateSingleData: (data: any) => void;
 }) {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [_, setSearchParams] = useSearchParams();
 
   const handleView = () => {
-    setSearchParams({ tab: "3", billType: data.id });
+    setSearchParams({ tab: "3", billType: data.id.toString() });
   };
   return (
     <>

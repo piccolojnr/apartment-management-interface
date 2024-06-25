@@ -1,12 +1,11 @@
 import { TableCell, Typography } from "@mui/material";
-import { Apartament, Data } from "../../../types/table";
+import { Apartment, Data } from "../../../types/table";
 import { RouterLink } from "../../../routes/components";
 
 export default function ApartmentCell({
   data,
-  updateSingleData,
 }: {
-  data: Data<Apartament>;
+  data: Data<Apartment>;
   updateSingleData: (data: any) => void;
 }) {
   return (

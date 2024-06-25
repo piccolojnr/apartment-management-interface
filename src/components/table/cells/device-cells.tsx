@@ -1,17 +1,11 @@
-import { Stack, TableCell, Typography } from "@mui/material";
+import { TableCell, Typography } from "@mui/material";
 import { Device, Data } from "../../../types/table";
 import { fDate } from "../../../utils/format-time";
-import Label from "../../label";
-import { useState } from "react";
-import AppModal from "../../app-modal";
-import { LoadingButton } from "@mui/lab";
-import { useMqtt } from "../../../context/mqtt-context";
 import { RouterLink } from "../../../routes/components";
 import DeviceStatusLabel from "../../../sections/devices/device-status-label";
 
 export default function DeviceCell({
   data,
-  updateSingleData,
 }: {
   data: Data<Device>;
   updateSingleData: (data: any) => void;
@@ -47,12 +41,12 @@ export default function DeviceCell({
           }}
           noWrap
         >
-          {data.apartment?.name}
+          {/* {data.apartment?.name} */}
         </Typography>
       </TableCell>
 
       <TableCell align="left">
-        <DeviceStatusLabel status={data.status} type={data.type} />
+        {/* <DeviceStatusLabel status={data.status} type={data.type} /> */}
       </TableCell>
 
       <TableCell align="left">
@@ -62,7 +56,7 @@ export default function DeviceCell({
           }}
           noWrap
         >
-          {fDate(data.created_at)}
+          {/* {fDate(data.created_at)} */}
         </Typography>
       </TableCell>
 
@@ -73,7 +67,7 @@ export default function DeviceCell({
           }}
           noWrap
         >
-          {fDate(data.updated_at)}
+          {/* {fDate(data.updated_at)} */}
         </Typography>
       </TableCell>
       <TableCell>

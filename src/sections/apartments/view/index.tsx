@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { apartments } from "../../../_mock/apartments";
 import CustomTable from "../../../components/table";
-import ApartmentCell from "../../../components/table/cells/apartment-cell";
+import ApartmentCell from "../../../components/table/cells/apartment-cells";
 import useTableView from "../../../hooks/use-table-view";
-import ApartmentForm from "../apartment-forms";
 
 const headLabel = [
   { id: "name", label: "Name" },
@@ -32,15 +31,12 @@ export default function ApartmentView() {
   } = useTableView(_data, setData, "name", ["name"], filters);
   return (
     <CustomTable
-      AddModal={ApartmentForm}
-      UpdateModal={ApartmentForm}
       headLabel={headLabel}
       title={"Apartments"}
       searchPlaceholder={"Search apartments..."}
       deleteItem={() => Promise.resolve()}
-      Cell={ApartmentCell}
+      Cells={ApartmentCell}
       data={data}
-      fetchData={() => {}}
       error={null}
       loading={false}
       setPage={() => {}}
@@ -48,8 +44,6 @@ export default function ApartmentView() {
       total={0}
       query={query}
       setQuery={setQuery}
-      filter={filter}
-      setFilter={setFilter}
       order={order}
       orderBy={orderBy as any}
       setOrder={setOrder}

@@ -42,7 +42,7 @@ const ApartmentInfo = ({ apartment }: ApartmentInfoProps) => (
                 color: "text.secondary",
               }}
             >
-              Created At: {apartment.created_at && fDate(apartment.created_at)}
+              {/* Created At: {apartment.created_at && fDate(apartment.created_at)} */}
             </Typography>
             <Typography
               variant="body2"
@@ -51,7 +51,7 @@ const ApartmentInfo = ({ apartment }: ApartmentInfoProps) => (
                 color: "text.secondary",
               }}
             >
-              Updated At: {apartment.updated_at && fDate(apartment.updated_at)}
+              {/* Updated At: {apartment.updated_at && fDate(apartment.updated_at)} */}
             </Typography>
           </Grid>
         </Box>

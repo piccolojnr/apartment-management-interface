@@ -1,7 +1,7 @@
-import { Apartament, Device } from "./table";
+import { Apartment, Device } from "./table";
 
 export interface ApartmentInfoProps {
-    apartment: Apartament;
+    apartment: Apartment;
 }
 
 

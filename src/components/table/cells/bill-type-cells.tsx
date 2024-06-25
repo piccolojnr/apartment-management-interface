@@ -2,17 +2,16 @@ import { Button, TableCell, Typography } from "@mui/material";
 import { BillType, Data } from "../../../types/table";
 import { useSearchParams } from "react-router-dom";
 
-export default function BillCell({
+export default function BillTypeCells({
   data,
-  updateSingleData,
 }: {
   data: Data<BillType>;
   updateSingleData: (data: any) => void;
 }) {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [_, setSearchParams] = useSearchParams();
 
   const handleView = () => {
-    setSearchParams({ tab: "3", billType: data.id });
+    setSearchParams({ tab: "3", billType: data.id.toString() });
   };
   return (
     <>

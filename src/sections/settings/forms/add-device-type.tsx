@@ -1,53 +1,33 @@
 import { LoadingButton } from "@mui/lab";
-import {
-  Box,
-  CardContent,
-  Checkbox,
-  FormControlLabel,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { floor } from "lodash";
+import { Box, CardContent, Grid, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { addDeviceType } from "./api";
 
-export default function AddApartment({ onClose }: { onClose?: () => void }) {
+export default function AddDeviceType({ onClose }: { onClose?: () => void }) {
   const { register, handleSubmit, reset } = useForm();
 
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async (data: any) => {
-    console.log("Apartment Data:", data);
+    console.log("Device Type Data:", data);
 
     setLoading(true);
     try {
-      const response = await fetch("http://192.168.1.73:8080/apt/apt", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ...data, floor: parseInt(data.floor) }),
-      });
-      if (!response.ok) {
-        const err = await response.text();
-        throw new Error(err);
-      }
-      const result = await response.json();
-
-      console.log(result);
+      await addDeviceType(data);
       reset();
       onClose && onClose();
-    } catch (error: any) {
+    } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
     }
   };
+
   return (
     <CardContent>
       <Typography variant="h6" sx={{ mb: 4 }}>
-        Add Apartment
+        Add Device Type
       </Typography>
       <Box component="form" onSubmit={handleSubmit(onSubmit)}>
         <Grid
@@ -57,29 +37,19 @@ export default function AddApartment({ onClose }: { onClose?: () => void }) {
         >
           <TextField
             fullWidth
-            label="Apartment Name"
-            {...register("name", {
+            label="Device Type Name"
+            {...register("deviceType", {
               required: true,
             })}
             sx={{ mb: 2 }}
           />
-          <TextField
-            fullWidth
-            type="number"
-            label="Floor"
-            {...register("floor", {
-              required: true,
-            })}
-            sx={{ mb: 2 }}
-          />
-
           <LoadingButton
             variant="contained"
             color="primary"
             type="submit"
             loading={loading}
           >
-            Add Apartment
+            Add Device Type
           </LoadingButton>
         </Grid>
       </Box>

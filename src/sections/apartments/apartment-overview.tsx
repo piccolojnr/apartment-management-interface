@@ -6,7 +6,6 @@ import ApartmentInfo from "./apartment-info";
 import DevicesList from "./device-list";
 import PeopleList from "./people-list";
 import History from "./history";
-import { electric_device, water_device } from "../../_mock/device";
 import { TabContext, TabPanel } from "@mui/lab";
 
 // Mock data - replace with actual data fetching logic
@@ -17,7 +16,7 @@ const mockData = {
     created_at: "2024-01-12T04:40:22.036Z",
     updated_at: "2024-06-21T13:57:48.504Z",
   },
-  devices: [water_device, electric_device],
+  devices: [],
   people: [
     { id: "1", name: "John Doe", primary: true },
     { id: "2", name: "Jane Smith" },
@@ -81,8 +80,8 @@ const ApartmentOverview = () => {
       <Container maxWidth="xl">
         <Stack direction="column" spacing={3} sx={{ mt: 3 }}>
           <Typography variant="h4">Apartment Overview</Typography>
-          <ApartmentInfo apartment={data.apartment} />
-          <DevicesList devices={data.devices} />
+          {/* <ApartmentInfo apartment={data.apartment} /> */}
+          {/* <DevicesList devices={data.devices} /> */}
         </Stack>
       </Container>
       <TabContext value={tab}>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import CustomTable from "../../components/table";
-import BillCell from "../../components/table/cells/bill-cell";
+import BillCell from "../../components/table/cells/bill-type-cells";
 import useTableView from "../../hooks/use-table-view";
 import AddPersonForm from "../apartments/add-person-form";
 import {
@@ -14,13 +14,13 @@ import {
 } from "@mui/material";
 import Iconify from "../../components/iconify";
 import AppModal from "../../components/app-modal";
-import { Apartament, BillType } from "../../types/table";
-import TariffCell from "../../components/table/cells/tariff-cell";
+import { Apartment, BillType } from "../../types/table";
+import TariffCells from "../../components/table/cells/tariff-cells";
 import { useSearchParams } from "react-router-dom";
-import AddTariff from "./add-tariff";
+import AddTariff from "./forms/add-tariff";
 
 export default function ContactPersonView() {
-  const [apartments, setApartments] = useState<Apartament[]>([]);
+  const [apartments, setApartments] = useState<Apartment[]>([]);
   const [loadingApt, setLoadingApt] = useState(false);
   const [open, setOpen] = useState<"add-bill" | null>(null);
   const [billType, setBillType] = useState("");
@@ -97,9 +97,7 @@ export default function ContactPersonView() {
   }, []);
   return (
     <CustomTable
-      Cell={TariffCell}
-      AddModal={AddPersonForm}
-      UpdateModal={AddPersonForm}
+      Cells={TariffCells}
       data={data}
       headLabel={[
         { label: "Amount", id: "amount" },
@@ -110,7 +108,6 @@ export default function ContactPersonView() {
       ]}
       searchPlaceholder={"Search billtypes..."}
       title="Bill Type"
-      fetchData={fetchData}
       error={error}
       loading={loading}
       setPage={() => {}}
@@ -118,8 +115,6 @@ export default function ContactPersonView() {
       total={0}
       query={query}
       setQuery={setQuery}
-      filter={filter}
-      setFilter={setFilter}
       order={order}
       orderBy={orderBy as any}
       setOrder={setOrder}
@@ -170,7 +165,7 @@ export default function ContactPersonView() {
                 value={billType}
               >
                 {apartments.map((type) => (
-                  <MenuItem key={type.id} value={type.id} itemID={type.id}>
+                  <MenuItem key={type.id} value={type.id}>
                     {type.name}
                   </MenuItem>
                 ))}

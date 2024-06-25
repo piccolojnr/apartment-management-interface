@@ -14,11 +14,14 @@ export const ApartmentsPage = lazy(() => import("../pages/apartments"));
 export const ApartmentPage = lazy(
   () => import("../pages/apartments/apartment")
 );
+export const ContactsPage = lazy(() => import("../pages/contacts"));
+export const DeviceTypesPage = lazy(() => import("../pages/device-types"));
+export const BillTypesPage = lazy(() => import("../pages/bill-types"));
+export const TariffsPage = lazy(() => import("../pages/tariffs"));
+export const NetworksPage = lazy(() => import("../pages/networks"));
+
 export const DevicesPage = lazy(() => import("../pages/devices"));
 export const DevicePage = lazy(() => import("../pages/devices/device"));
-export const SessionManagementPage = lazy(
-  () => import("../pages/session-management")
-);
 export const UserPage = lazy(() => import("../pages/users"));
 export const LoginPage = lazy(() => import("../pages/login"));
 export const Page404 = lazy(() => import("../pages/page-not-found"));
@@ -103,6 +106,54 @@ export default function Router() {
           element: (
             // <AdminRoute>
             <ApartmentPage />
+            // </AdminRoute>
+          ),
+        },
+        {
+          path: "apartments/:id/contacts",
+          element: (
+            // <AdminRoute>
+            <ContactsPage />
+            // </AdminRoute>
+          ),
+        },
+        {
+          path: "device-types",
+          element: (
+            // <AdminRoute>
+            <DeviceTypesPage />
+            // </AdminRoute>
+          ),
+        },
+        {
+          path: "device-types/:id/devices",
+          element: (
+            // <AdminRoute>
+            <DevicesPage />
+            // </AdminRoute>
+          ),
+        },
+        {
+          path: "bill-types",
+          element: (
+            // <AdminRoute>
+            <BillTypesPage />
+            // </AdminRoute>
+          ),
+        },
+        {
+          path: "bill-types/:id/tariffs",
+          element: (
+            // <AdminRoute>
+            <TariffsPage />
+            // </AdminRoute>
+          ),
+        },
+        {
+          path: "networks",
+          element: (
+            // <AdminRoute>
+            <NetworksPage />
             // </AdminRoute>
           ),
         },

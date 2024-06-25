@@ -54,8 +54,8 @@ const Devices = () => {
   const [device, setDevice] = useState<null | Data>(null);
 
   useEffect(() => {
-    const data = devices.find((d) => d.id === params.id);
-
+    const data = devices.find((d) => d.id.toString() === params.id);
+    
     if (!data) {
       router.push("/404");
     } else {

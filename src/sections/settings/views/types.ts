@@ -9,5 +9,6 @@ export interface ReusableTableProps {
     columns: Column[];
     data: any[];
     onDeletion?: (id: number) => void;
+    onSendSms?: (ids: number[]) => void;
     title?: string;
 }

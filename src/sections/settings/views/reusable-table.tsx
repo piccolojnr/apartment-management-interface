@@ -22,11 +22,13 @@ const ReusableTable: React.FC<ReusableTableProps> = ({
   columns,
   data,
   onDeletion,
+  onSendSms,
   title = "Table",
 }) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [filteredData, setFilteredData] = useState<any[]>(data);
   const [selected, setSelected] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setFilteredData(data);
@@ -77,74 +79,36 @@ const ReusableTable: React.FC<ReusableTableProps> = ({
     // Implement the deletion logic here
     console.log(`Deleting ${selected.length} items`);
     // Update the data state by removing the deleted items
+    setLoading(true);
     const updatedData = data.filter((item) => !selected.includes(item));
     onDeletion &&
       selected.forEach(async (s) => await Promise.resolve(onDeletion(s.id)));
+    setLoading(false);
 
     setFilteredData(updatedData);
     setSelected([]);
+  };
+
+  const handleSendSms = async () => {
+    // Implement the send sms logic here
+    onSendSms && onSendSms(selected.map((s) => s.id));
   };
 
   const isSelected = (item: any) => selected.indexOf(item) !== -1;
 
   return (
     <>
-      <Toolbar
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          p: (theme) => theme.spacing(0, 1, 0, 0),
-          ...(selected.length > 0 && {
-            color: "primary.main",
-            bgcolor: "primary.lighter",
-            borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
-            borderTopLeftRadius: (theme) => theme.shape.borderRadius,
-            borderTopRightRadius: (theme) => theme.shape.borderRadius,
-          }),
-        }}
-      >
-        {selected.length > 0 ? (
-          <Stack
-            direction="row"
-            spacing={1}
-            alignItems="center"
-            justifyContent={"space-between"}
-            sx={{ width: "100%" }}
-          >
-            <Typography component="div" variant="subtitle1">
-              {selected.length} selected
-            </Typography>
-            {onDeletion && (
-              <IconButton onClick={handleDelete}>
-                <Iconify
-                  icon="eva:trash-2-fill"
-                  sx={{ color: "error.main", width: 20, height: 20 }}
-                />
-              </IconButton>
-            )}
-          </Stack>
-        ) : (
-          <>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              {title}
-            </Typography>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Iconify
-                icon="eva:search-fill"
-                sx={{ color: "text.disabled", width: 20, height: 20 }}
-              />
-              <TextField
-                variant="outlined"
-                size="small"
-                placeholder="Search..."
-                value={searchQuery}
-                onChange={(e) => handleSearch(e.target.value)}
-                sx={{ marginLeft: 1 }}
-              />
-            </Box>
-          </>
-        )}
-      </Toolbar>
+      {/* sms modal */}
+
+      <CustomTableToolbar
+        title={title}
+        searchQuery={searchQuery}
+        handleSearch={handleSearch}
+        selected={selected}
+        onDelete={handleDelete}
+        onSendSms={handleSendSms}
+        loading={loading}
+      />
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -205,5 +169,92 @@ const ReusableTable: React.FC<ReusableTableProps> = ({
     </>
   );
 };
+
+interface CustomTableToolbarProps {
+  title: string;
+  searchQuery: string;
+  handleSearch: (query: string) => void;
+  selected: any[];
+  onDelete?: () => void;
+  onSendSms?: () => void;
+  loading?: boolean;
+}
+
+function CustomTableToolbar({
+  title,
+  searchQuery,
+  handleSearch,
+  selected,
+  onDelete,
+  onSendSms,
+  loading,
+}: CustomTableToolbarProps) {
+  return (
+    <Toolbar
+      sx={{
+        display: "flex",
+        justifyContent: "space-between",
+        p: (theme) => theme.spacing(0, 1, 0, 0),
+        ...(selected.length > 0 && {
+          color: "primary.main",
+          bgcolor: "primary.lighter",
+          borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
+          borderTopLeftRadius: (theme) => theme.shape.borderRadius,
+          borderTopRightRadius: (theme) => theme.shape.borderRadius,
+        }),
+      }}
+    >
+      {selected.length > 0 ? (
+        <Stack
+          direction="row"
+          spacing={1}
+          alignItems="center"
+          justifyContent={"space-between"}
+          sx={{ width: "100%" }}
+        >
+          <Typography component="div" variant="subtitle1">
+            {selected.length} selected
+          </Typography>
+          <Stack direction="row">
+            {onDelete && (
+              <IconButton onClick={onDelete}>
+                <Iconify
+                  icon={loading ? "eva:loader-2" : "eva:trash-2-fill"}
+                  sx={{ color: "error.main", width: 20, height: 20 }}
+                  disabled={loading}
+                />
+              </IconButton>
+            )}
+            {onSendSms && (
+              <IconButton onClick={onSendSms}>
+                <Iconify icon="eva:phone-fill" sx={{ width: 20, height: 20 }} />
+              </IconButton>
+            )}
+          </Stack>
+        </Stack>
+      ) : (
+        <>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            {title}
+          </Typography>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Iconify
+              icon="eva:search-fill"
+              sx={{ color: "text.disabled", width: 20, height: 20 }}
+            />
+            <TextField
+              variant="outlined"
+              size="small"
+              placeholder="Search..."
+              value={searchQuery}
+              onChange={(e) => handleSearch(e.target.value)}
+              sx={{ marginLeft: 1 }}
+            />
+          </Box>
+        </>
+      )}
+    </Toolbar>
+  );
+}
 
 export default ReusableTable;

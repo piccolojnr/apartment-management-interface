@@ -30,6 +30,23 @@ export interface BillType {
     billType: string;
     unit: string;
 }
+export interface BillSession {
+    id: number;
+    startDate: string;
+    endDate: string;
+    year: number;
+    dateCreated: string;
+}
+export interface Bill {
+    id: number;
+    apartment: Apartment;
+    billSession: BillSession;
+    billType: BillType;
+    consumption: number;
+    dateAdded: string;
+    reading: number;
+}
+
 export interface Apartment {
     id: number;
     name: string;
@@ -40,6 +57,7 @@ export interface Device {
     id: number;
     apartment: Apartment;
     deviceType: DeviceType;
+    billType: BillType;
     dateAdded: string;
     deviceName: string;
 }

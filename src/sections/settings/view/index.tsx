@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import {
   AddApartment,
+  AddBill,
+  AddBillSession,
   AddBillType,
   AddContactPerson,
   AddDevice,
@@ -42,6 +44,8 @@ export default function SettingsView() {
           <Tab label="Apartment" value="5" />
           <Tab label="Contacts" value="6" />
           <Tab label="Device" value="7" />
+          <Tab label="Bill" value="8" />
+          <Tab label="Bill Session" value="9" />
         </Tabs>
 
         <TabPanel value="1">
@@ -90,6 +94,20 @@ export default function SettingsView() {
           <Grid item xs={12} md={6}>
             <Card sx={{ boxShadow: 3, borderRadius: 2, p: 4 }}>
               <AddDevice />
+            </Card>
+          </Grid>
+        </TabPanel>
+        <TabPanel value="8">
+          <Grid item xs={12} md={6}>
+            <Card sx={{ boxShadow: 3, borderRadius: 2, p: 4 }}>
+              <AddBill />
+            </Card>
+          </Grid>
+        </TabPanel>
+        <TabPanel value="9">
+          <Grid item xs={12} md={6}>
+            <Card sx={{ boxShadow: 3, borderRadius: 2, p: 4 }}>
+              <AddBillSession />
             </Card>
           </Grid>
         </TabPanel>

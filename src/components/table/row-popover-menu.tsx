@@ -1,20 +1,17 @@
-import { IconButton, Popover, TableCell } from "@mui/material";
+import { Button, IconButton, Popover, TableCell } from "@mui/material";
 import { useState } from "react";
 import Iconify from "../iconify";
-import { LoadingButton } from "@mui/lab";
 
 interface RowPopoverMenuProps {
   handleDelete?: () => void;
-  loadingDelete?: boolean;
-  loadingUpdate?: boolean;
   handleOpenModal?: () => void;
+  handleSendSms?: () => void;
   modal?: any;
 }
 export default function RowPopoverMenu({
   handleDelete,
   handleOpenModal,
-  loadingDelete,
-  loadingUpdate,
+  handleSendSms,
 }: RowPopoverMenuProps) {
   const [open, setOpen] = useState(null);
 
@@ -38,41 +35,43 @@ export default function RowPopoverMenu({
           sx: { width: 140 },
         }}
       >
+        {handleSendSms && (
+          <Button
+            onClick={handleSendSms}
+            sx={{
+              width: "100%",
+              justifyContent: "flex-start",
+            }}
+          >
+            <Iconify icon="eva:phone-fill" sx={{ mr: 2 }} />
+            Send SMS
+          </Button>
+        )}
         {handleOpenModal && (
-          <LoadingButton
+          <Button
             onClick={handleOpenModal}
             sx={{
               width: "100%",
               justifyContent: "flex-start",
             }}
-            loading={loadingUpdate}
           >
             <Iconify icon="eva:edit-fill" sx={{ mr: 2 }} />
             Edit
-          </LoadingButton>
+          </Button>
         )}
 
         {handleDelete && (
-          <LoadingButton
+          <Button
             onClick={handleDelete}
             sx={{
               color: "error.main",
               width: "100%",
               justifyContent: "flex-start",
             }}
-            loading={loadingDelete}
           >
-            <Iconify
-              icon={
-                loadingDelete ? "eva:loader-2-outline" : "eva:trash-2-outline"
-              }
-              sx={{
-                mr: 2,
-                color: loadingDelete ? "text.disabled" : "error.main",
-              }}
-            />
+            <Iconify icon={"eva:trash-2-outline"} sx={{ mr: 2 }} />
             Delete
-          </LoadingButton>
+          </Button>
         )}
       </Popover>
       <IconButton onClick={handleOpenMenu}>

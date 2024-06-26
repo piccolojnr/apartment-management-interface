@@ -5,3 +5,5 @@ export { default as AddBillType } from "./add-bill-type";
 export { default as AddTariff } from "./add-tariff";
 export { default as AddApartment } from "./add-apartment";
 export { default as AddDevice } from "./add-device";
+export { default as AddBill } from "./add-bill";
+export { default as AddBillSession } from "./add-bill-session";

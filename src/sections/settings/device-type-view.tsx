@@ -4,11 +4,10 @@ import useTableView from "../../hooks/use-table-view";
 import { Button, Stack, Typography } from "@mui/material";
 import Iconify from "../../components/iconify";
 import AppModal from "../../components/app-modal";
-import AddBillType from "./forms/add-bill-type";
 import DeviceTypeCells from "../../components/table/cells/device-type-cells";
 import AddDeviceType from "./forms/add-device-type";
 
-export default function DeviceTypeView() {
+export default function DeviceTypeView({}) {
   const [open, setOpen] = useState<"add-bill" | null>(null);
 
   const [data, setData] = useState([]);
@@ -54,7 +53,7 @@ export default function DeviceTypeView() {
       Cells={DeviceTypeCells}
       data={data}
       headLabel={[{ label: "Device Type", id: "deviceType" }, { id: "" }]}
-      searchPlaceholder={"Search networks..."}
+      searchPlaceholder={"Search device types..."}
       title="Device Type"
       error={error}
       loading={loading}
@@ -74,7 +73,7 @@ export default function DeviceTypeView() {
           justifyContent="space-between"
           mb={5}
         >
-          <Typography variant="h4">Networks</Typography>
+          <Typography variant="h4">Device Types</Typography>
           <Stack
             direction="row"
             alignItems="center"

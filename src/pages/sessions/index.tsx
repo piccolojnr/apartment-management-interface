@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import SessionsView from "../../sections/sessions/view";
 
 export default function SessionsPage() {
   return (
@@ -6,9 +7,7 @@ export default function SessionsPage() {
       <Helmet>
         <title>Sessions | Minimal UI</title>
       </Helmet>
-      <div>
-        <h1>Session Page</h1>
-      </div>
+      <SessionsView />
     </>
   );
 }

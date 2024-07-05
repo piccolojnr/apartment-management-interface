@@ -9,10 +9,10 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Apartment, UtilityType } from "../../../types/table";
-import { addDevice } from "../../../lib/api/devices";
+import { Apartment, UtilityType } from "@/types/table";
+import { addDevice } from "@lib/api/devices";
 import useSWR from "swr";
-import { fetcher } from "../../../lib/api";
+import { fetcher } from "@lib/api";
 
 export default function AddDevice({ onClose }: { onClose?: () => void }) {
   const { register, handleSubmit, reset } = useForm();

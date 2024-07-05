@@ -1,41 +1,39 @@
 import { lazy, Suspense } from "react";
 import { Outlet, Navigate, useRoutes } from "react-router-dom";
 
-import DashboardLayout from "../layouts/dashboard";
+import DashboardLayout from "@layouts/dashboard";
 import ProtectedRoute from "./protected-route";
 import AdminRoute from "./admin-route";
-import { MqttProvider } from "../context/mqtt-context";
+import { MqttProvider } from "@context/mqtt-context";
 
-export const IndexPage = lazy(() => import("../pages/dashboard"));
-export const SettingsPage = lazy(() => import("../pages/settings"));
-export const PowerPage = lazy(() => import("../pages/power"));
-export const WaterPage = lazy(() => import("../pages/water"));
-export const ApartmentsPage = lazy(() => import("../pages/apartments"));
-export const ApartmentPage = lazy(
-  () => import("../pages/apartments/apartment")
-);
-export const ContactsPage = lazy(() => import("../pages/contacts"));
+export const IndexPage = lazy(() => import("@pages/dashboard"));
+export const SettingsPage = lazy(() => import("@pages/settings"));
+export const PowerPage = lazy(() => import("@pages/power"));
+export const WaterPage = lazy(() => import("@pages/water"));
+export const ApartmentsPage = lazy(() => import("@pages/apartments"));
+export const ApartmentPage = lazy(() => import("@pages/apartments/apartment"));
+export const ContactsPage = lazy(() => import("@pages/contacts"));
 
-export const UtilityTypesPage = lazy(() => import("../pages/utility-types"));
+export const UtilityTypesPage = lazy(() => import("@pages/utility-types"));
 export const UtilityPage = lazy(
-  () => import("../pages/utility-types/utility-type")
+  () => import("@pages/utility-types/utility-type")
 );
 
-export const TariffsPage = lazy(() => import("../pages/tariffs"));
+export const TariffsPage = lazy(() => import("@pages/tariffs"));
 
-export const NetworksPage = lazy(() => import("../pages/networks"));
+export const NetworksPage = lazy(() => import("@pages/networks"));
 
-export const DevicesPage = lazy(() => import("../pages/devices"));
-export const DevicePage = lazy(() => import("../pages/devices/device"));
+export const DevicesPage = lazy(() => import("@pages/devices"));
+export const DevicePage = lazy(() => import("@pages/devices/device"));
 
-export const SessionsPage = lazy(() => import("../pages/sessions"));
+export const SessionsPage = lazy(() => import("@pages/sessions"));
 
-export const UserPage = lazy(() => import("../pages/users"));
+export const UserPage = lazy(() => import("@pages/users"));
 
-export const LoginPage = lazy(() => import("../pages/login"));
-export const Page404 = lazy(() => import("../pages/page-not-found"));
+export const LoginPage = lazy(() => import("@pages/login"));
+export const Page404 = lazy(() => import("@pages/page-not-found"));
 export const PageNotAuthorized = lazy(
-  () => import("../pages/page-not-authorized")
+  () => import("@pages/page-not-authorized")
 );
 
 // ----------------------------------------------------------------------

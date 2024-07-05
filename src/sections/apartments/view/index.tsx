@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { apartments } from "../../../_mock/apartments";
-import useTableView from "../../../hooks/use-table-view";
+import useTableView from "@hooks/use-table-view";
 
 const headLabel = [
   { id: "name", label: "Name" },

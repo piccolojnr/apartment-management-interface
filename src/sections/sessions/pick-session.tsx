@@ -1,8 +1,8 @@
 import useSWR from "swr";
-import { BillSession } from "../../types/table";
-import { fetcher } from "../../lib/api";
-import ReusableTable from "../../components/table/reusable-table";
-import { fDate } from "../../utils/format-time";
+import { BillSession } from "@/types/table";
+import { fetcher } from "@lib/api";
+import ReusableTable from "@components/table/reusable-table";
+import { fDate } from "@utils/format-time";
 
 function PickSession({
   handleSetSession,

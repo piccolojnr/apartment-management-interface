@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import Loading from "../components/loading";
+import Loading from "@components/loading";
 
 const ProtectedRoute = ({ children }: any) => {
   const [loading, setLoading] = useState(false);

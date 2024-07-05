@@ -6,9 +6,9 @@ import {
   useEffect,
   useState,
 } from "react";
-import { User } from "../types/user";
+import { User } from "@/types/user";
 import useSWR, { KeyedMutator } from "swr";
-import { BASE_API_URL } from "../lib/constants";
+import { BASE_API_URL } from "@lib/constants";
 
 type ContextProps = {
   user: User | null;

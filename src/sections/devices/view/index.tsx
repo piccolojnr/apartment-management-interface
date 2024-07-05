@@ -1,4 +1,4 @@
-import { FilterProps } from "../../../types/table";
+import { FilterProps } from "@/types/table";
 import { useState } from "react";
 
 const headLabel = [

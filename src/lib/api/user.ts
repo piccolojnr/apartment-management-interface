@@ -1,5 +1,5 @@
 import { BASE_API_URL } from "../constants";
-import { createAvatarUrl } from "../../utils/functions";
+import { createAvatarUrl } from "@utils/functions";
 
 export const login = async (email: string, password: string, remember_me: string) => {
     const response = await fetch(BASE_API_URL + "/auth/login", {

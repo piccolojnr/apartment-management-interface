@@ -1,4 +1,3 @@
-import GaugeChart from "react-gauge-chart";
 import { Card, CardHeader } from "@mui/material";
 import GaugeComponent from "react-gauge-component";
 

@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { FilterProps } from "../../types/table";
+import { FilterProps } from "@/types/table";
 
 export interface Column {
     field: string;

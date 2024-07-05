@@ -9,13 +9,13 @@ import {
   TextField,
   Button,
 } from "@mui/material";
-import Iconify from "../../components/iconify";
+import Iconify from "@components/iconify";
 import { LoadingButton } from "@mui/lab";
 import { validateEmail, validatePassword, validateAvatarUrl } from "./utils";
-import { Role, RoleOptions, UserModalProps } from "../../types/user";
-import { useUser } from "../../context/user-context";
-import useForm from "../../hooks/use-form";
-import { createUser, updateUser } from "../../lib/api/user";
+import { Role, RoleOptions, UserModalProps } from "@/types/user";
+import { useUser } from "@context/user-context";
+import useForm from "@hooks/use-form";
+import { createUser, updateUser } from "@lib/api/user";
 
 export function UserForm({ data, handleClose }: UserModalProps) {
   const [page, setPage] = useState(0);

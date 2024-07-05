@@ -1,10 +1,10 @@
 import { Container } from "@mui/material";
 import useSWR from "swr";
-import ReusableTable from "../../components/table/reusable-table";
+import ReusableTable from "@components/table/reusable-table";
 import { Column } from "./types";
 import { useParams } from "react-router-dom";
-import { Device } from "../../types/table";
-import { fetcher } from "../../lib/api";
+import { Device } from "@/types/table";
+import { fetcher } from "@lib/api";
 
 // const fetcher = async (url: string) => devices;
 

@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { Tariff } from "../types/table";
+import { Tariff } from "@/types/table";
 
 
 export const tariffs: Tariff[] = [...Array(10)].map((_, index) => ({

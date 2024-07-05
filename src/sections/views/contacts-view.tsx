@@ -1,4 +1,4 @@
-import ReusableTable from "../../components/table/reusable-table";
+import ReusableTable from "@components/table/reusable-table";
 import { Column } from "./types";
 import useSWR from "swr";
 import {
@@ -10,14 +10,14 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { ContactPerson } from "../../types/table";
+import { ContactPerson } from "@/types/table";
 import { useParams } from "react-router-dom";
-import Label from "../../components/label";
+import Label from "@components/label";
 import { useState } from "react";
-import AppModal from "../../components/app-modal";
+import AppModal from "@components/app-modal";
 import { LoadingButton } from "@mui/lab";
-import Iconify from "../../components/iconify";
-import { fetcher } from "../../lib/api";
+import Iconify from "@components/iconify";
+import { fetcher } from "@lib/api";
 
 // const fetcher = async (url: string) => contacts;
 

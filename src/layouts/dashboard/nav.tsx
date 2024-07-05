@@ -9,17 +9,17 @@ import { alpha, useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import ListItemButton from "@mui/material/ListItemButton";
 
-import { RouterLink } from "../../routes/components";
+import { RouterLink } from "@routes/components";
 
-import { useResponsive } from "../../hooks/use-responsive";
+import { useResponsive } from "@hooks/use-responsive";
 
-import Scrollbar from "../../components/scrollbar";
+import Scrollbar from "@components/scrollbar";
 
 import { NAV } from "./config-layout";
 import navConfig from "./config-navigation";
-import Iconify from "../../components/iconify";
-import { fullName } from "../../utils/functions";
-import { usePathname, useRouter } from "../../routes/hooks";
+import Iconify from "@components/iconify";
+import { fullName } from "@utils/functions";
+import { usePathname, useRouter } from "@routes/hooks";
 import { account } from "../../_mock/user";
 import { useLocation } from "react-router-dom";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";

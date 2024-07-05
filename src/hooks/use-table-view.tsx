@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Data, FilterProps } from "../types/table";
+import { Data, FilterProps } from "@/types/table";
 const getNestedValue = (obj: any, path: string) => {
   return path.split(".").reduce((acc, part) => acc && acc[part], obj);
 };

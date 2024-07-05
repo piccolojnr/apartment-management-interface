@@ -5,15 +5,15 @@ import Toolbar from "@mui/material/Toolbar";
 import { useTheme } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 
-import { bgBlur } from "../../theme/css";
+import { bgBlur } from "@theme/css";
 
 import { NAV, HEADER } from "./config-layout";
-import { useResponsive } from "../../hooks/use-responsive";
-import Iconify from "../../components/iconify";
+import { useResponsive } from "@hooks/use-responsive";
+import Iconify from "@components/iconify";
 import AccountPopover from "./common/account-popover";
 import NotificationsPopover from "./common/notifications-popover";
-import Label from "../../components/label";
-import { useMqtt } from "../../context/mqtt-context";
+import Label from "@components/label";
+import { useMqtt } from "@context/mqtt-context";
 
 // ----------------------------------------------------------------------
 

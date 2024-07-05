@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { Apartment } from "../types/table";
+import { Apartment } from "@/types/table";
 
 export const apartments: Apartment[] = [...Array(10)].map((_, index) => ({
     id: index,

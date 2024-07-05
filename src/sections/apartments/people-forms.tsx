@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { TextField, Typography, Grid, Divider, Checkbox } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import useForm from "../../hooks/use-form";
+import useForm from "@hooks/use-form";
 import { DeviceValidator } from "./utils";
 
 export default function PeopleForm({ data, isUpdate, handleClose }: any) {

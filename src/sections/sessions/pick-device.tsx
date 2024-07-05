@@ -1,15 +1,10 @@
 import { useEffect, useState } from "react";
-import { fetcher } from "../../lib/api";
+import { fetcher } from "@lib/api";
 import useSWR from "swr";
-import {
-  BillSession,
-  Device,
-  FilterProps,
-  UtilityType,
-} from "../../types/table";
-import AppModal from "../../components/app-modal";
+import { BillSession, Device, FilterProps, UtilityType } from "@/types/table";
+import AppModal from "@components/app-modal";
 import { AddBill } from "../settings/forms";
-import ReusableTable from "../../components/table/reusable-table";
+import ReusableTable from "@components/table/reusable-table";
 
 const filters: FilterProps<any>[] = [
   {

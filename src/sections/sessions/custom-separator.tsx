@@ -1,6 +1,6 @@
 import { Breadcrumbs, Button, Stack, Typography } from "@mui/material";
-import Iconify from "../../components/iconify";
-import { palette } from "../../theme/palette";
+import Iconify from "@components/iconify";
+import { palette } from "@theme/palette";
 
 function CustomSeparator({
   breadcrumbs,

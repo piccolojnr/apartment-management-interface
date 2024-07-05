@@ -1,5 +1,5 @@
 import { title } from "process";
-import SvgColor from "../../components/svg-color";
+import SvgColor from "@components/svg-color";
 import path from "path";
 import { icon } from "leaflet";
 

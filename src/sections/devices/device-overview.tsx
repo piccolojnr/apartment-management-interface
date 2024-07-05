@@ -9,11 +9,11 @@ import {
   CardContent,
   CardHeader,
 } from "@mui/material";
-import AppWidgetGauge from "../../components/app-widgets/app-widget-guage";
-import AppWidgetSummary from "../../components/app-widgets/app-widget-summary";
-import { Data } from "../../types/table";
-import { fDate } from "../../utils/format-time";
-import Label from "../../components/label";
+import AppWidgetGauge from "@components/app-widgets/app-widget-guage";
+import AppWidgetSummary from "@components/app-widgets/app-widget-summary";
+import { Data } from "@/types/table";
+import { fDate } from "@utils/format-time";
+import Label from "@components/label";
 import DeviceInfo from "./device-information";
 import DeviceCard from "./device-card";
 

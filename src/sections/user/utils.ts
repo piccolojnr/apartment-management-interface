@@ -1,5 +1,5 @@
-import { User } from "../../types/user";
-import { fullName } from "../../utils/functions";
+import { User } from "@/types/user";
+import { fullName } from "@utils/functions";
 
 
 function descendingComparator(a: {

@@ -1,7 +1,7 @@
 import { Box, Container, Grid, Stack, Typography } from "@mui/material";
-import AppWidgetGauge from "../../../components/app-widgets/app-widget-guage";
-import AppWidgetSummary from "../../../components/app-widgets/app-widget-summary";
-import Iconify from "../../../components/iconify";
+import AppWidgetGauge from "@components/app-widgets/app-widget-guage";
+import AppWidgetSummary from "@components/app-widgets/app-widget-summary";
+import Iconify from "@components/iconify";
 
 const dailyUsage = 50; // Replace with actual data
 const weeklyUsage = 300; // Replace with actual data

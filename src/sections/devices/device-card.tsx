@@ -7,9 +7,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Device } from "../../types/table";
+import { Device } from "@/types/table";
 import { useState } from "react";
-import AppModal from "../../components/app-modal";
+import AppModal from "@components/app-modal";
 import { DateTimePicker } from "@mui/x-date-pickers";
 
 const DeviceCard = ({ device }: { device: Device }) => {

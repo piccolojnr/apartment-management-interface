@@ -12,14 +12,14 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { alpha, useTheme } from "@mui/material/styles";
 import InputAdornment from "@mui/material/InputAdornment";
 
-import { bgGradient } from "../../theme/css";
+import { bgGradient } from "@theme/css";
 
-import Iconify from "../../components/iconify";
+import Iconify from "@components/iconify";
 import { Checkbox, FormControlLabel } from "@mui/material";
-import { useUser } from "../../context/user-context";
+import { useUser } from "@context/user-context";
 import { validateEmail, validatePassword } from "../user/utils";
-import { useRouter } from "../../routes/hooks";
-import { get_user, login } from "../../lib/api/user";
+import { useRouter } from "@routes/hooks";
+import { get_user, login } from "@lib/api/user";
 
 // ----------------------------------------------------------------------
 

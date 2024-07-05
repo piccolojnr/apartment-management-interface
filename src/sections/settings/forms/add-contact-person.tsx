@@ -9,10 +9,10 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Apartment, Network } from "../../../types/table";
-import { addContactPerson } from "../../../lib/api/devices";
+import { Apartment, Network } from "@/types/table";
+import { addContactPerson } from "@lib/api/devices";
 import useSWR from "swr";
-import { fetcher } from "../../../lib/api";
+import { fetcher } from "@lib/api";
 
 export default function AddContactPerson({
   onClose,

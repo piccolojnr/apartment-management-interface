@@ -1,7 +1,7 @@
-import { UtilityType } from "../../types/table";
+import { UtilityType } from "@/types/table";
 import useSWR from "swr";
-import ReusableTable from "../../components/table/reusable-table";
-import { fetcher } from "../../lib/api";
+import ReusableTable from "@components/table/reusable-table";
+import { fetcher } from "@lib/api";
 
 function PickUtilityType({
   handleSetUtilityType,

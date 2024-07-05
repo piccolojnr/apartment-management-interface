@@ -1,5 +1,5 @@
 import { Container, Grid, TextField, Typography } from "@mui/material";
-import { useMqtt } from "../../../context/mqtt-context";
+import { useMqtt } from "@/context/mqtt-context";
 import { LoadingButton } from "@mui/lab";
 import { useState } from "react";
 

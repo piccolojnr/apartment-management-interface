@@ -3,8 +3,8 @@ import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
-import { AppWidgetSummaryProps } from "../../types/overview";
-import { palette } from "../../theme/palette";
+import { AppWidgetSummaryProps } from "@/types/overview";
+import { palette } from "@theme/palette";
 // ----------------------------------------------------------------------
 
 export default function AppWidgetSummary({

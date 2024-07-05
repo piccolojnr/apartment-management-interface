@@ -9,10 +9,10 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { UtilityType } from "../../../types/table";
+import { UtilityType } from "@/types/table";
 import useSWR from "swr";
-import { addTariff } from "../../../lib/api/devices";
-import { fetcher } from "../../../lib/api";
+import { addTariff } from "@lib/api/devices";
+import { fetcher } from "@lib/api";
 
 export default function AddTariff({ onClose }: { onClose?: () => void }) {
   const { register, handleSubmit, reset } = useForm();

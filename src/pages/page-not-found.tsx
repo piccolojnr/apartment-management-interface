@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import ThemeProvider from "../theme";
 
 import { Suspense } from "react";
-import NotFoundView from "../sections/error/not-found";
+import NotFoundView from "@sections/error/not-found";
 
 // ----------------------------------------------------------------------
 

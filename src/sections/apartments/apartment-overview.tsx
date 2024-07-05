@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Typography, Stack, Tabs, Tab, Box } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { Person } from "../../types/apartment";
+import { Person } from "@/types/apartment";
 import ApartmentInfo from "./apartment-info";
 import DevicesList from "./device-list";
 import PeopleList from "./people-list";

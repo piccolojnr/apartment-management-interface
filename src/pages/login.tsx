@@ -1,4 +1,4 @@
-import LoginView from "../sections/login";
+import LoginView from "@sections/login";
 import { Helmet } from "react-helmet-async";
 
 // ----------------------------------------------------------------------

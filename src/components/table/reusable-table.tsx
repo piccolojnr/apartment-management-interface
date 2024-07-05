@@ -18,11 +18,11 @@ import {
 } from "@mui/material";
 import Iconify from "../iconify";
 
-import { Device, FilterProps } from "../../types/table";
+import { Device, FilterProps } from "@/types/table";
 import {
   CustomTableToolbarProps,
   ReusableTableProps,
-} from "../../sections/views/types";
+} from "@sections/views/types";
 const getNestedValue = (obj: any, path: string) => {
   return path.split(".").reduce((acc, part) => acc && acc[part], obj);
 };

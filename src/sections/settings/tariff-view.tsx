@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useSWR from "swr";
-import useTableView from "../../hooks/use-table-view";
+import useTableView from "@hooks/use-table-view";
 import {
   Box,
   Button,
@@ -9,10 +9,10 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import Iconify from "../../components/iconify";
-import AppModal from "../../components/app-modal";
+import Iconify from "@components/iconify";
+import AppModal from "@components/app-modal";
 import { useSearchParams } from "react-router-dom";
-import { BillType } from "../../types/table";
+import { BillType } from "@/types/table";
 import AddTariff from "./forms/add-tariff";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());

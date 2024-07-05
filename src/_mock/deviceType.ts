@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { UtilityType } from "../types/table";
+import { UtilityType } from "@/types/table";
 
 
 export const deviceTypes: UtilityType[] = [...Array(10)].map((_, index) => ({

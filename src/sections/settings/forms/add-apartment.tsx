@@ -2,7 +2,7 @@ import { LoadingButton } from "@mui/lab";
 import { Box, CardContent, Grid, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { addApartment } from "../../../lib/api/devices";
+import { addApartment } from "@lib/api/devices";
 
 export default function AddApartment({ onClose }: { onClose?: () => void }) {
   const { register, handleSubmit, reset } = useForm();

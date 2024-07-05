@@ -6,8 +6,8 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { ApartmentInfoProps } from "../../types/apartment";
-import { fDate } from "../../utils/format-time";
+import { ApartmentInfoProps } from "@/types/apartment";
+import { fDate } from "@utils/format-time";
 
 const ApartmentInfo = ({ apartment }: ApartmentInfoProps) => (
   <Box

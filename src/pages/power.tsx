@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import PowerView from "../sections/power/view";
+import PowerView from "@sections/power/view";
 
 const Power = () => {
   return (

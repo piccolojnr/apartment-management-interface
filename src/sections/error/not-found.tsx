@@ -2,8 +2,8 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import { RouterLink } from "../../routes/components";
-import Iconify from "../../components/iconify";
+import { RouterLink } from "@routes/components";
+import Iconify from "@components/iconify";
 import { IconButton, useTheme } from "@mui/material";
 
 // ----------------------------------------------------------------------

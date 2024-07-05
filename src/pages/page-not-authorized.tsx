@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import ThemeProvider from "../theme";
 
 import { Suspense } from "react";
-import { NotAuthorized } from "../sections/error";
+import { NotAuthorized } from "@sections/error";
 
 // ----------------------------------------------------------------------
 

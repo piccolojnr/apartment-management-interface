@@ -1,10 +1,10 @@
 import { Container, Typography } from "@mui/material";
 import useSWR from "swr";
-import ReusableTable from "../../components/table/reusable-table";
+import ReusableTable from "@components/table/reusable-table";
 import { Column } from "./types";
-import { RouterLink } from "../../routes/components";
-import { Apartment } from "../../types/table";
-import { fetcher } from "../../lib/api";
+import { RouterLink } from "@routes/components";
+import { Apartment } from "@/types/table";
+import { fetcher } from "@lib/api";
 
 export default function ApartmentView() {
   const { data } = useSWR<Apartment[]>("/apt/all/apt", fetcher);

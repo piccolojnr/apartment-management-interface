@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Stack, Typography } from "@mui/material";
-import Iconify from "../../components/iconify";
-import AppModal from "../../components/app-modal";
+import Iconify from "@components/iconify";
+import AppModal from "@components/app-modal";
 import AddDeviceType from "./forms/add-utility-type";
 
 export default function DeviceTypeView({}) {

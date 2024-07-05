@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { AddBillSession } from "../../settings/forms";
 import { useEffect, useState } from "react";
-import { BillSession, UtilityType } from "../../../types/table";
+import { BillSession, UtilityType } from "@/types/table";
 import PickDevice from "../pick-device";
 import PickUtilityType from "../pick-utility-type";
 import PickSession from "../pick-session";

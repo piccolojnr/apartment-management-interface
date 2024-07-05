@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { ContactPerson } from "../types/table";
+import { ContactPerson } from "@/types/table";
 
 
 export const contacts: ContactPerson[] = [...Array(10)].map((_, index) => ({

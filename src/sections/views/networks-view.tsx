@@ -1,9 +1,9 @@
 import { Container } from "@mui/material";
 import useSWR from "swr";
-import ReusableTable from "../../components/table/reusable-table";
+import ReusableTable from "@components/table/reusable-table";
 import { Column } from "./types";
-import { Network } from "../../types/table";
-import { fetcher } from "../../lib/api";
+import { Network } from "@/types/table";
+import { fetcher } from "@lib/api";
 
 export default function NetworksView() {
   const { data } = useSWR<Network[]>("/apt/networks", fetcher);

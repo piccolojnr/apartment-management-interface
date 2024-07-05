@@ -1,5 +1,5 @@
 import { Typography, Container, Box } from "@mui/material";
-import { DevicesListProps } from "../../types/apartment";
+import { DevicesListProps } from "@/types/apartment";
 import DeviceCard from "../devices/device-card";
 
 const DevicesList = ({ devices }: DevicesListProps) => (

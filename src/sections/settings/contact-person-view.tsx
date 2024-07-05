@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import useTableView from "../../hooks/use-table-view";
+import useTableView from "@hooks/use-table-view";
 import AddPersonForm from "../apartments/add-person-form";
 import {
   Box,
@@ -10,9 +10,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import Iconify from "../../components/iconify";
-import AppModal from "../../components/app-modal";
-import { Apartment, BillType } from "../../types/table";
+import Iconify from "@components/iconify";
+import AppModal from "@components/app-modal";
+import { Apartment, BillType } from "@/types/table";
 import { useSearchParams } from "react-router-dom";
 import AddTariff from "./forms/add-tariff";
 

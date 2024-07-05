@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import useTableView from "../../hooks/use-table-view";
+import useTableView from "@hooks/use-table-view";
 import { Button, Stack, Typography } from "@mui/material";
-import Iconify from "../../components/iconify";
-import AppModal from "../../components/app-modal";
+import Iconify from "@components/iconify";
+import AppModal from "@components/app-modal";
 import AddNetwork from "./forms/add-network";
 
 export default function NetworksView() {

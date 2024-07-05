@@ -1,8 +1,9 @@
 import { Box, Container, Grid, Stack, Typography } from "@mui/material";
-import Iconify from "../../../components/iconify";
-import { palette } from "../../../theme/palette";
-import AppWidgetSummary from "../../../components/app-widgets/app-widget-summary";
-import AppWidgetGauge from "../../../components/app-widgets/app-widget-guage";
+import Iconify from "@/components/iconify";
+import { palette } from "@/theme/palette";
+import AppWidgetSummary from "@/components/app-widgets/app-widget-summary";
+import AppWidgetGauge from "@/components/app-widgets/app-widget-guage";
+
 const phase1Usage = 30; // Replace with actual data
 const phase2Usage = 25; // Replace with actual data
 const phase3Usage = 20; // Replace with actual data

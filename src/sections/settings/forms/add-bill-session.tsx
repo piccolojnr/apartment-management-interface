@@ -3,7 +3,7 @@ import { Box, CardContent, Grid, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { DatePicker } from "@mui/x-date-pickers";
-import { addBillSession } from "../../../lib/api/devices";
+import { addBillSession } from "@lib/api/devices";
 
 export default function AddBillSession({
   onClose,

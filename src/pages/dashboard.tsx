@@ -1,5 +1,5 @@
 "use client";
-import AppView from "../sections/overview/view";
+import AppView from "@sections/overview/view";
 import { Helmet } from "react-helmet-async";
 
 const Dashboard = () => {

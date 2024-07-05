@@ -1,11 +1,11 @@
 import { Container } from "@mui/material";
 import useSWR from "swr";
-import ReusableTable from "../../components/table/reusable-table";
+import ReusableTable from "@components/table/reusable-table";
 import { Column } from "./types";
-import { fDate } from "../../utils/format-time";
-import { Tariff } from "../../types/table";
+import { fDate } from "@utils/format-time";
+import { Tariff } from "@/types/table";
 import { useParams } from "react-router-dom";
-import { fetcher } from "../../lib/api";
+import { fetcher } from "@lib/api";
 
 // const fetcher = async (url: string) => tariffs;
 

@@ -3,7 +3,7 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import { Card } from "@mui/material";
 
-import { AppModalProps } from "../../types/user";
+import { AppModalProps } from "@/types/user";
 
 const style = {
   position: "absolute" as "absolute",

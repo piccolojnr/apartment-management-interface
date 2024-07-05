@@ -2,10 +2,10 @@ import { Helmet } from "react-helmet-async";
 import { devices } from "../../_mock/device";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useRouter } from "../../routes/hooks";
-import { Data } from "../../types/table";
-import DeviceOverview from "../../sections/devices/device-overview";
-import Loading from "../../components/loading";
+import { useRouter } from "@routes/hooks";
+import { Data } from "@/types/table";
+import DeviceOverview from "@sections/devices/device-overview";
+import Loading from "@components/loading";
 const guageData = [
   {
     title: "Daily Usage",
@@ -55,7 +55,7 @@ const Devices = () => {
 
   useEffect(() => {
     const data = devices.find((d) => d.id.toString() === params.id);
-    
+
     if (!data) {
       router.push("/404");
     } else {

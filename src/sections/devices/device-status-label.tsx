@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useMqtt } from "../../context/mqtt-context";
-import AppModal from "../../components/app-modal";
+import { useMqtt } from "@context/mqtt-context";
+import AppModal from "@components/app-modal";
 import { Stack, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import Label from "../../components/label";
+import Label from "@components/label";
 
 function DeviceStatusLabel({ status, type }: { status: number; type: string }) {
   const { publish, loading } = useMqtt();

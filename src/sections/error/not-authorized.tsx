@@ -6,8 +6,8 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { RouterLink } from "../../routes/components";
-import Iconify from "../../components/iconify";
+import { RouterLink } from "@routes/components";
+import Iconify from "@components/iconify";
 
 export default function NotAuthorizedView() {
   const theme = useTheme();

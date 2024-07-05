@@ -9,10 +9,10 @@ import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 
-import { fullName } from "../../../utils/functions";
-import { useRouter } from "../../../routes/hooks";
+import { fullName } from "@utils/functions";
+import { useRouter } from "@routes/hooks";
 import { account } from "../../../_mock/user";
-import { logout } from "../../../lib/api/user";
+import { logout } from "@lib/api/user";
 
 // ----------------------------------------------------------------------
 

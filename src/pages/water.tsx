@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { WaterView } from "../sections/water/view";
+import { WaterView } from "@sections/water/view";
 
 const Water = () => {
   return (

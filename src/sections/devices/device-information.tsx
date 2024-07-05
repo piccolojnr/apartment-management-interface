@@ -6,8 +6,8 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import Label from "../../components/label";
-import { fDate } from "../../utils/format-time";
+import Label from "@components/label";
+import { fDate } from "@utils/format-time";
 
 function DeviceInfo(deviceData: any) {
   return (

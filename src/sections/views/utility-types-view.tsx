@@ -1,10 +1,10 @@
 import { Container, Typography } from "@mui/material";
 import useSWR from "swr";
 import { Column } from "./types";
-import ReusableTable from "../../components/table/reusable-table";
-import { RouterLink } from "../../routes/components";
-import { UtilityType } from "../../types/table";
-import { fetcher } from "../../lib/api";
+import ReusableTable from "@components/table/reusable-table";
+import { RouterLink } from "@routes/components";
+import { UtilityType } from "@/types/table";
+import { fetcher } from "@lib/api";
 
 export default function UtilityTypesView() {
   const { data } = useSWR<UtilityType[]>("/apt/utility/types", fetcher);

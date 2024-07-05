@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { TariffsView } from "../sections/settings/views";
+import { TariffsView } from "../sections/views";
 
 export default function TariffsPage() {
   return (

@@ -10,8 +10,9 @@ import {
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Apartment, Network } from "../../../types/table";
-import { addContactPerson, fetcher } from "./api";
+import { addContactPerson } from "../../../lib/api/devices";
 import useSWR from "swr";
+import { fetcher } from "../../../lib/api";
 
 export default function AddContactPerson({
   onClose,
@@ -93,6 +94,7 @@ export default function AddContactPerson({
             disabled={loadingApt}
             defaultValue={""}
           >
+            <MenuItem value={""}>Select Apartment</MenuItem>
             {apartments?.map((type) => (
               <MenuItem key={type.id} value={type.id}>
                 {type.name}
@@ -106,6 +108,7 @@ export default function AddContactPerson({
             disabled={loadingNt}
             defaultValue={""}
           >
+            <MenuItem value={""}>Select Network</MenuItem>
             {networks?.map((type) => (
               <MenuItem key={type.id} value={type.id}>
                 {type.network}

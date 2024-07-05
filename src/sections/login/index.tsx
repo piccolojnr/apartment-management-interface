@@ -19,7 +19,7 @@ import { Checkbox, FormControlLabel } from "@mui/material";
 import { useUser } from "../../context/user-context";
 import { validateEmail, validatePassword } from "../user/utils";
 import { useRouter } from "../../routes/hooks";
-import { get_user, login } from "../../utils/api";
+import { get_user, login } from "../../lib/api/user";
 
 // ----------------------------------------------------------------------
 

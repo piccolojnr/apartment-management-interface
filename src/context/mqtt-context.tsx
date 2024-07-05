@@ -1,11 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import mqtt from "mqtt";
 
-// const protocol = "ws";
-// const host = "192.168.1.86";
-// const port = "9001";
-// const path = "/";
-
 const protocol = "ws";
 const host = "198.7.119.145";
 const port = "9001";
@@ -55,6 +50,7 @@ export const MqttProvider = ({ children }: MqttProviderProps) => {
     });
 
     mqttClient.on("message", (topic, message) => {
+      console.log("Message:", message.toString());
       setMessage({ topic, message: message.toString() });
     });
 
@@ -66,7 +62,7 @@ export const MqttProvider = ({ children }: MqttProviderProps) => {
     return () => {
       mqttClient.end();
     };
-  }, [brokerUrl]);
+  }, []);
 
   const subscribe = (topic: string) => {
     if (client) {

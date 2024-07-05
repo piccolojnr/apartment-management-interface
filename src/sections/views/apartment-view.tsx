@@ -1,30 +1,13 @@
 import { Container, Typography } from "@mui/material";
 import useSWR from "swr";
-import ReusableTable from "./reusable-table";
-import RowPopoverMenu from "../../../components/table/row-popover-menu";
-import { apartments } from "../../../_mock/apartments";
+import ReusableTable from "../../components/table/reusable-table";
 import { Column } from "./types";
-import { RouterLink } from "../../../routes/components";
-import { fetcher } from "../forms/api";
-import { Apartment } from "../../../types/table";
-
-// const fetcher = async (url: string) => apartments;
+import { RouterLink } from "../../routes/components";
+import { Apartment } from "../../types/table";
+import { fetcher } from "../../lib/api";
 
 export default function ApartmentView() {
-  const { data, mutate } = useSWR<Apartment[]>("/apt/all/apt", fetcher);
-
-  const handleDelete = (id: number) => {
-    // Implement the deletion logic here
-    console.log(`Deleting apartment with id ${id}`);
-    // Update the data state by removing the deleted apartment
-    const updatedData = data?.filter((apartment) => apartment.id !== id);
-    mutate(updatedData, false);
-  };
-
-  const handleOpenModal = (id: number) => {
-    // Implement the logic to open a modal for editing
-    console.log(`Editing apartment with id ${id}`);
-  };
+  const { data } = useSWR<Apartment[]>("/apt/all/apt", fetcher);
 
   const columns: Column[] = [
     { field: "id", headerName: "ID" },
@@ -66,10 +49,11 @@ export default function ApartmentView() {
       headerName: "Actions",
       align: "right",
       renderCell: (value: any, row: any) => (
-        <RowPopoverMenu
-          handleDelete={() => handleDelete(row.id)}
-          handleOpenModal={() => handleOpenModal(row.id)}
-        />
+        <></>
+        // <RowPopoverMenu
+        //   handleDelete={() => handleDelete(row.id)}
+        //   handleOpenModal={() => handleOpenModal(row.id)}
+        // />
       ),
     },
   ];

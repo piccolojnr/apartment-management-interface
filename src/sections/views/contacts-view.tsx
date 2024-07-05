@@ -1,5 +1,4 @@
-import ReusableTable from "./reusable-table";
-import RowPopoverMenu from "../../../components/table/row-popover-menu";
+import ReusableTable from "../../components/table/reusable-table";
 import { Column } from "./types";
 import useSWR from "swr";
 import {
@@ -11,19 +10,20 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { ContactPerson } from "../../../types/table";
-import { fetcher } from "../forms/api";
+import { ContactPerson } from "../../types/table";
 import { useParams } from "react-router-dom";
-import Label from "../../../components/label";
+import Label from "../../components/label";
 import { useState } from "react";
-import AppModal from "../../../components/app-modal";
+import AppModal from "../../components/app-modal";
 import { LoadingButton } from "@mui/lab";
-import Iconify from "../../../components/iconify";
+import Iconify from "../../components/iconify";
+import { fetcher } from "../../lib/api";
+
 // const fetcher = async (url: string) => contacts;
 
 export default function ContactsView() {
   const params = useParams();
-  const { data, mutate } = useSWR<ContactPerson[]>(
+  const { data } = useSWR<ContactPerson[]>(
     params.id ? `/apt/apt/${params.id}/contact` : `/apt/all/contact`,
     fetcher
   );
@@ -32,18 +32,6 @@ export default function ContactsView() {
   const [smsIds, setSmsIds] = useState<number[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const handleDelete = (id: number) => {
-    // Implement the deletion logic here
-    console.log(`Deleting contacts with id ${id}`);
-    // Update the data state by removing the deleted contacts
-    const updatedData = data?.filter((contacts) => contacts.id !== id);
-    mutate(updatedData, false);
-  };
-
-  const handleOpenModal = (id: number) => {
-    // Implement the logic to open a modal for editing
-    console.log(`Editing contacts with id ${id}`);
-  };
   const handleSendSms = () => {
     // Implement the logic to send an SMS
     setLoading(true);
@@ -87,11 +75,12 @@ export default function ContactsView() {
       headerName: "Actions",
       align: "right",
       renderCell: (value: any, row: any) => (
-        <RowPopoverMenu
-          handleDelete={() => handleDelete(row.id)}
-          handleOpenModal={() => handleOpenModal(row.id)}
-          handleSendSms={() => onSendSms([row.id])}
-        />
+        <></>
+        // <RowPopoverMenu
+        //   handleDelete={() => handleDelete(row.id)}
+        //   handleOpenModal={() => handleOpenModal(row.id)}
+        //   handleSendSms={() => onSendSms([row.id])}
+        // />
       ),
     },
   ];

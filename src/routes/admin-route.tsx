@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { get_user } from "../utils/api";
 import Loading from "../components/loading";
+import { get_user } from "../lib/api/user";
 
 const AdminRoute = ({ children }: any) => {
   const [loading, setLoading] = useState(true);

@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { ApartmentView } from "../../sections/settings/views";
+import { ApartmentView } from "../../sections/views";
 
 const Apartments = () => {
   return (

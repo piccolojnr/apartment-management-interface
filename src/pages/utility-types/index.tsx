@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { UtilityTypesView } from "../../sections/settings/views";
+import { UtilityTypesView } from "../../sections/views";
 
 export default function UtilityTypesPage() {
   return (

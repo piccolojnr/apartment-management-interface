@@ -1,5 +1,5 @@
-import { BASE_API_URL } from "../lib/constants";
-import { createAvatarUrl } from "./functions";
+import { BASE_API_URL } from "../constants";
+import { createAvatarUrl } from "../../utils/functions";
 
 export const login = async (email: string, password: string, remember_me: string) => {
     const response = await fetch(BASE_API_URL + "/auth/login", {
@@ -133,71 +133,5 @@ export const deleteUser = async (id: string | number) => {
         return;
     } else {
         throw new Error(await res.text());
-    }
-};
-
-export const createDevice = async ({
-    name,
-    location,
-    latitude,
-    longitude,
-    municipal_assembly,
-}: any) => {
-    const response = await fetch(BASE_API_URL + "/devices/create", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            name,
-            location,
-            latitude,
-            longitude,
-            municipal_assembly,
-        }),
-        credentials: "include",
-    });
-
-    if (!response.ok) {
-        throw new Error(await response.text());
-    }
-};
-
-export const updateDevice = async (
-    { name, location, latitude, longitude, municipal_assembly }: any,
-    id: string
-) => {
-    const response = await fetch(BASE_API_URL + `/devices/${id}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            name,
-            location,
-            latitude,
-            longitude,
-            municipal_assembly,
-        }),
-        credentials: "include",
-    });
-
-    if (!response.ok) {
-        throw new Error(await response.text());
-    }
-};
-
-
-export const deleteDevice = async (id: string | number) => {
-    const response = await fetch(BASE_API_URL + `/devices/${id}`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        credentials: "include",
-    });
-
-    if (!response.ok) {
-        throw new Error(await response.text());
     }
 };

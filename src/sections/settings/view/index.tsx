@@ -1,18 +1,48 @@
 import { TabContext, TabPanel } from "@mui/lab";
-import { Container, Typography, Grid, Card, Tabs, Tab } from "@mui/material";
+import { Container, Typography, Tabs, Tab } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import {
   AddApartment,
   AddBill,
   AddBillSession,
-  AddBillType,
   AddContactPerson,
   AddDevice,
   AddUtilityType,
   AddNetwork,
   AddTariff,
 } from "../forms";
+
+const config = [
+  {
+    label: "Tariff",
+    element: <AddTariff />,
+  },
+  {
+    label: "Network",
+    element: <AddNetwork />,
+  },
+  {
+    label: "Utility Type",
+    element: <AddUtilityType />,
+  },
+  {
+    label: "Apartment",
+    element: <AddApartment />,
+  },
+  {
+    label: "Contacts",
+    element: <AddContactPerson />,
+  },
+  {
+    label: "Device",
+    element: <AddDevice />,
+  },
+  {
+    label: "Bill",
+    element: <AddBill />,
+  },
+];
 
 export default function SettingsView() {
   const [tab, setTab] = useState("1");
@@ -37,80 +67,23 @@ export default function SettingsView() {
           textColor="primary"
           indicatorColor="primary"
         >
-          <Tab label="Bill Type" value="1" />
-          <Tab label="Tariff" value="2" />
-          <Tab label="Network" value="3" />
-          <Tab label="Utiity Type" value="4" />
-          <Tab label="Apartment" value="5" />
-          <Tab label="Contacts" value="6" />
-          <Tab label="Device" value="7" />
-          <Tab label="Bill" value="8" />
-          <Tab label="Bill Session" value="9" />
+          {config.map((item, index) => {
+            return (
+              <Tab
+                key={index}
+                label={item.label}
+                value={(index + 1).toString()}
+              />
+            );
+          })}
         </Tabs>
-
-        <TabPanel value="1">
-          <Grid item xs={12} md={6}>
-            <Card sx={{ boxShadow: 3, borderRadius: 2, p: 4 }}>
-              <AddBillType />
-            </Card>
-          </Grid>
-        </TabPanel>
-        <TabPanel value="2">
-          <Grid item xs={12} md={6}>
-            <Card sx={{ boxShadow: 3, borderRadius: 2, p: 4 }}>
-              <AddTariff />
-            </Card>
-          </Grid>
-        </TabPanel>
-        <TabPanel value="3">
-          <Grid item xs={12} md={6}>
-            <Card sx={{ boxShadow: 3, borderRadius: 2, p: 4 }}>
-              <AddNetwork />
-            </Card>
-          </Grid>
-        </TabPanel>
-        <TabPanel value="4">
-          <Grid item xs={12} md={6}>
-            <Card sx={{ boxShadow: 3, borderRadius: 2, p: 4 }}>
-              <AddUtilityType />
-            </Card>
-          </Grid>
-        </TabPanel>
-        <TabPanel value="5">
-          <Grid item xs={12} md={6}>
-            <Card sx={{ boxShadow: 3, borderRadius: 2, p: 4 }}>
-              <AddApartment />
-            </Card>
-          </Grid>
-        </TabPanel>
-        <TabPanel value="6">
-          <Grid item xs={12} md={6}>
-            <Card sx={{ boxShadow: 3, borderRadius: 2, p: 4 }}>
-              <AddContactPerson />
-            </Card>
-          </Grid>
-        </TabPanel>
-        <TabPanel value="7">
-          <Grid item xs={12} md={6}>
-            <Card sx={{ boxShadow: 3, borderRadius: 2, p: 4 }}>
-              <AddDevice />
-            </Card>
-          </Grid>
-        </TabPanel>
-        <TabPanel value="8">
-          <Grid item xs={12} md={6}>
-            <Card sx={{ boxShadow: 3, borderRadius: 2, p: 4 }}>
-              <AddBill />
-            </Card>
-          </Grid>
-        </TabPanel>
-        <TabPanel value="9">
-          <Grid item xs={12} md={6}>
-            <Card sx={{ boxShadow: 3, borderRadius: 2, p: 4 }}>
-              <AddBillSession />
-            </Card>
-          </Grid>
-        </TabPanel>
+        {config.map((item, index) => {
+          return (
+            <TabPanel key={index} value={(index + 1).toString()}>
+              {item.element}
+            </TabPanel>
+          );
+        })}
       </TabContext>
     </Container>
   );

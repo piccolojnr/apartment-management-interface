@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { apartments } from "../../../_mock/apartments";
-import CustomTable from "../../../components/table";
-import ApartmentCell from "../../../components/table/cells/apartment-cells";
 import useTableView from "../../../hooks/use-table-view";
 
 const headLabel = [
@@ -30,24 +28,25 @@ export default function ApartmentView() {
     setQuery,
   } = useTableView(_data, setData, "name", ["name"], filters);
   return (
-    <CustomTable
-      headLabel={headLabel}
-      title={"Apartments"}
-      searchPlaceholder={"Search apartments..."}
-      deleteItem={() => Promise.resolve()}
-      Cells={ApartmentCell}
-      data={data}
-      error={null}
-      loading={false}
-      setPage={() => {}}
-      page={0}
-      total={0}
-      query={query}
-      setQuery={setQuery}
-      order={order}
-      orderBy={orderBy as any}
-      setOrder={setOrder}
-      setOrderBy={setOrderBy}
-    />
+    <></>
+    // <CustomTable
+    //   headLabel={headLabel}
+    //   title={"Apartments"}
+    //   searchPlaceholder={"Search apartments..."}
+    //   deleteItem={() => Promise.resolve()}
+    //   Cells={ApartmentCell}
+    //   data={data}
+    //   error={null}
+    //   loading={false}
+    //   setPage={() => {}}
+    //   page={0}
+    //   total={0}
+    //   query={query}
+    //   setQuery={setQuery}
+    //   order={order}
+    //   orderBy={orderBy as any}
+    //   setOrder={setOrder}
+    //   setOrderBy={setOrderBy}
+    // />
   );
 }

@@ -10,8 +10,9 @@ import {
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Apartment, UtilityType } from "../../../types/table";
-import { addDevice, fetcher } from "./api";
+import { addDevice } from "../../../lib/api/devices";
 import useSWR from "swr";
+import { fetcher } from "../../../lib/api";
 
 export default function AddDevice({ onClose }: { onClose?: () => void }) {
   const { register, handleSubmit, reset } = useForm();
@@ -78,6 +79,7 @@ export default function AddDevice({ onClose }: { onClose?: () => void }) {
             disabled={loadingApt}
             defaultValue={""}
           >
+            <MenuItem value={""}>Select Apartment</MenuItem>
             {apartments?.map((type) => (
               <MenuItem key={type.id} value={type.id}>
                 {type.name}
@@ -91,6 +93,7 @@ export default function AddDevice({ onClose }: { onClose?: () => void }) {
             disabled={loadingNt}
             defaultValue={""}
           >
+            <MenuItem value={""}>Select Utility Type</MenuItem>
             {utilityTypes?.map((type) => (
               <MenuItem key={type.id} value={type.id}>
                 {type.utilityType}

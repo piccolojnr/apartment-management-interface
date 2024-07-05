@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { ContactsView } from "../sections/settings/views";
+import { ContactsView } from "../sections/views";
 
 export default function ContactsPage() {
   return (

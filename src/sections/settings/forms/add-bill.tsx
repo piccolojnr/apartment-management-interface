@@ -2,7 +2,7 @@ import { LoadingButton } from "@mui/lab";
 import { Box, CardContent, Grid, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { addBill } from "./api";
+import { addBill } from "../../../lib/api/devices";
 
 export default function AddBill({
   onClose,

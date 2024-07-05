@@ -2,7 +2,6 @@ import { LoadingButton } from "@mui/lab";
 import { Box, CardContent, Grid, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { addDeviceType } from "./api";
 
 export default function AddDeviceType({ onClose }: { onClose?: () => void }) {
   const { register, handleSubmit, reset } = useForm();
@@ -18,7 +17,7 @@ export default function AddDeviceType({ onClose }: { onClose?: () => void }) {
 
     setLoading(true);
     try {
-      const response = await addDeviceType(submitData);
+      const response = await AddDeviceType(submitData);
       if (response) {
         console.log(response);
         reset();

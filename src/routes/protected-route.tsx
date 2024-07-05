@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { get_user } from "../utils/api";
 import Loading from "../components/loading";
 
 const ProtectedRoute = ({ children }: any) => {

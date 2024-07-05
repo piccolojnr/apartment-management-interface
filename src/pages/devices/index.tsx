@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import DevicesView from "../../sections/settings/views/devices-view";
+import { DevicesView } from "../../sections/views";
 
 const Devices = () => {
   return (

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import useSWR from "swr";
-import CustomTable from "../../components/table";
 import useTableView from "../../hooks/use-table-view";
 import {
   Box,
@@ -12,7 +11,6 @@ import {
 } from "@mui/material";
 import Iconify from "../../components/iconify";
 import AppModal from "../../components/app-modal";
-import TariffCells from "../../components/table/cells/tariff-cells";
 import { useSearchParams } from "react-router-dom";
 import { BillType } from "../../types/table";
 import AddTariff from "./forms/add-tariff";
@@ -67,38 +65,39 @@ export default function TariffView() {
   if (!billTypes) return <div>Loading bill types...</div>;
 
   return (
-    <CustomTable
-      Cells={TariffCells}
-      data={data || []}
-      headLabel={[
-        { label: "Amount", id: "amount" },
-        { id: "per", label: "Measure" },
-        { id: "dateAdded", label: "Date Added" },
-        { id: "billType", label: "Bill Type" },
-        { id: "" },
-      ]}
-      searchPlaceholder={"Search tariffs..."}
-      title="Bill Type"
-      error={error}
-      loading={!data && !error}
-      setPage={() => {}}
-      page={0}
-      total={0}
-      query={query}
-      setQuery={setQuery}
-      setOrder={setOrder}
-      setOrderBy={setOrderBy}
-      head={
-        <TableHead
-          fetchData={handleFetchData}
-          billType={billType}
-          billTypes={billTypes}
-          loadingBT={!billTypes && !billTypesError}
-          open={open}
-          setOpen={setOpen}
-        />
-      }
-    />
+    <></>
+    // <CustomTable
+    //   Cells={TariffCells}
+    //   data={data || []}
+    //   headLabel={[
+    //     { label: "Amount", id: "amount" },
+    //     { id: "per", label: "Measure" },
+    //     { id: "dateAdded", label: "Date Added" },
+    //     { id: "billType", label: "Bill Type" },
+    //     { id: "" },
+    //   ]}
+    //   searchPlaceholder={"Search tariffs..."}
+    //   title="Bill Type"
+    //   error={error}
+    //   loading={!data && !error}
+    //   setPage={() => {}}
+    //   page={0}
+    //   total={0}
+    //   query={query}
+    //   setQuery={setQuery}
+    //   setOrder={setOrder}
+    //   setOrderBy={setOrderBy}
+    //   head={
+    //     <TableHead
+    //       fetchData={handleFetchData}
+    //       billType={billType}
+    //       billTypes={billTypes}
+    //       loadingBT={!billTypes && !billTypesError}
+    //       open={open}
+    //       setOpen={setOpen}
+    //     />
+    //   }
+    // />
   );
 }
 interface TableHeadProps {

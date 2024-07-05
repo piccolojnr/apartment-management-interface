@@ -11,7 +11,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { UtilityType } from "../../../types/table";
 import useSWR from "swr";
-import { addTariff, fetcher } from "./api";
+import { addTariff } from "../../../lib/api/devices";
+import { fetcher } from "../../../lib/api";
 
 export default function AddTariff({ onClose }: { onClose?: () => void }) {
   const { register, handleSubmit, reset } = useForm();
@@ -56,6 +57,7 @@ export default function AddTariff({ onClose }: { onClose?: () => void }) {
           container
           spacing={2}
           sx={{ display: "flex", flexDirection: "column" }}
+          gap={2}
         >
           <TextField
             fullWidth
@@ -78,6 +80,7 @@ export default function AddTariff({ onClose }: { onClose?: () => void }) {
             disabled={loadingBT}
             defaultValue={""}
           >
+            <MenuItem value={""}>Select Utility Type</MenuItem>
             {utilityTypes?.map((type) => (
               <MenuItem key={type.id} value={type.id}>
                 {type.utilityType}

@@ -2,7 +2,7 @@ import { LoadingButton } from "@mui/lab";
 import { Box, CardContent, Grid, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { addNetwork } from "./api";
+import { addNetwork } from "../../../lib/api/devices";
 export default function AddNetwork({ onClose }: { onClose?: () => void }) {
   const { register, handleSubmit, reset } = useForm();
 

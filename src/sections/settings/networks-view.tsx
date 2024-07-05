@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-import CustomTable from "../../components/table";
 import useTableView from "../../hooks/use-table-view";
 import { Button, Stack, Typography } from "@mui/material";
 import Iconify from "../../components/iconify";
 import AppModal from "../../components/app-modal";
 import AddNetwork from "./forms/add-network";
-import NetworkCells from "../../components/table/cells/network-cells";
 
 export default function NetworksView() {
   const [open, setOpen] = useState<"add-bill" | null>(null);
@@ -49,56 +47,57 @@ export default function NetworksView() {
   }, []);
 
   return (
-    <CustomTable
-      Cells={NetworkCells}
-      data={data}
-      headLabel={[{ label: "Network", id: "network" }, { id: "" }]}
-      searchPlaceholder={"Search networks..."}
-      title="Network"
-      error={error}
-      loading={loading}
-      query={query}
-      setQuery={setQuery}
-      order={order}
-      orderBy={orderBy as any}
-      setOrder={setOrder}
-      setOrderBy={setOrderBy}
-      head={
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
-          mb={5}
-        >
-          <Typography variant="h4">Networks</Typography>
-          <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-            gap={2}
-          >
-            <Button
-              variant="contained"
-              color="inherit"
-              startIcon={<Iconify icon="eva:plus-fill" />}
-              onClick={() => setOpen("add-bill")}
-            >
-              New Network
-            </Button>
-            <AppModal
-              open={open === "add-bill"}
-              handleClose={() => setOpen(null)}
-            >
-              <AddNetwork
-                onClose={() => {
-                  fetchData();
-                  setOpen(null);
-                }}
-              />
-            </AppModal>
-          </Stack>
-        </Stack>
-      }
-    />
+    <></>
+    // <CustomTable
+    //   Cells={NetworkCells}
+    //   data={data}
+    //   headLabel={[{ label: "Network", id: "network" }, { id: "" }]}
+    //   searchPlaceholder={"Search networks..."}
+    //   title="Network"
+    //   error={error}
+    //   loading={loading}
+    //   query={query}
+    //   setQuery={setQuery}
+    //   order={order}
+    //   orderBy={orderBy as any}
+    //   setOrder={setOrder}
+    //   setOrderBy={setOrderBy}
+    //   head={
+    //     <Stack
+    //       direction="row"
+    //       alignItems="center"
+    //       justifyContent="space-between"
+    //       mb={5}
+    //     >
+    //       <Typography variant="h4">Networks</Typography>
+    //       <Stack
+    //         direction="row"
+    //         alignItems="center"
+    //         justifyContent="space-between"
+    //         gap={2}
+    //       >
+    //         <Button
+    //           variant="contained"
+    //           color="inherit"
+    //           startIcon={<Iconify icon="eva:plus-fill" />}
+    //           onClick={() => setOpen("add-bill")}
+    //         >
+    //           New Network
+    //         </Button>
+    //         <AppModal
+    //           open={open === "add-bill"}
+    //           handleClose={() => setOpen(null)}
+    //         >
+    //           <AddNetwork
+    //             onClose={() => {
+    //               fetchData();
+    //               setOpen(null);
+    //             }}
+    //           />
+    //         </AppModal>
+    //       </Stack>
+    //     </Stack>
+    //   }
+    // />
   );
 }

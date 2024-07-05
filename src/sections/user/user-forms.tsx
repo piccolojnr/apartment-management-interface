@@ -15,7 +15,7 @@ import { validateEmail, validatePassword, validateAvatarUrl } from "./utils";
 import { Role, RoleOptions, UserModalProps } from "../../types/user";
 import { useUser } from "../../context/user-context";
 import useForm from "../../hooks/use-form";
-import { createUser, updateUser } from "../../utils/api";
+import { createUser, updateUser } from "../../lib/api/user";
 
 export function UserForm({ data, handleClose }: UserModalProps) {
   const [page, setPage] = useState(0);

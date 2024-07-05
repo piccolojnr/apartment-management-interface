@@ -19,52 +19,11 @@ import { fToNow } from "../../../utils/format-time";
 import Iconify from "../../../components/iconify";
 import Scrollbar from "../../../components/scrollbar";
 import { NotificationProps } from "../../../types/user";
-import useSWR from "swr";
-import { fetcher } from "../../../utils/functions";
-import { BASE_API_URL } from "../../../lib/constants";
 
 // ----------------------------------------------------------------------
 
 export default function NotificationsPopover() {
-  // const url = BASE_API_URL + "/notifications/list";
-  // const { data } = useSWR(url, {
-  //   fetcher,
-  //   credetials: "include",
-  // });
-  const [notifications, setNotifications] = useState<NotificationProps[]>([
-    {
-      id: 1,
-      title: "You have a new message",
-      message: "You have a new message from John Doe",
-      type: "MESSAGE",
-      is_unread: true,
-      created_at: new Date().toISOString(),
-    },
-    {
-      id: 2,
-      title: "You have a new mail",
-      message: "You have a new mail from John Doe",
-      type: "MAIL",
-      is_unread: true,
-      created_at: new Date().toISOString(),
-    },
-    {
-      id: 3,
-      title: "You have a new warning",
-      message: "You have a new warning from John Doe",
-      type: "WARNING",
-      is_unread: true,
-      created_at: new Date().toISOString(),
-    },
-    {
-      id: 4,
-      title: "You have a new info",
-      message: "You have a new info from John Doe",
-      type: "INFO",
-      is_unread: true,
-      created_at: new Date().toISOString(),
-    },
-  ]);
+  const [notifications, setNotifications] = useState<NotificationProps[]>([]);
   const [totalUnRead, setTotalUnRead] = useState(0);
 
   const [open, setOpen] = useState(null);
@@ -76,12 +35,6 @@ export default function NotificationsPopover() {
   const handleClose = () => {
     setOpen(null);
   };
-
-  // useEffect(() => {
-  //   if (data) {
-  //     setNotifications(data.items);
-  //   }
-  // }, [data]);
 
   const handleMarkAllAsRead = async () => {
     try {

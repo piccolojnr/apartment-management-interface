@@ -9,9 +9,3 @@ export const createAvatarUrl = () => 'https://api.dicebear.com/8.x/pixel-art/svg
 
 export const fullName = (user: User) => `${user.profile.first_name} ${user.profile.last_name}`;
 
-export const fetcher = async (url: string, headers:
-    { [key: string]: string } = {}) => {
-    const response = await fetch(url, { headers, credentials: 'include' });
-    return response.json();
-}
-

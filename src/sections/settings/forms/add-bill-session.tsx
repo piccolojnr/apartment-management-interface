@@ -1,17 +1,9 @@
 import { LoadingButton } from "@mui/lab";
-import {
-  Box,
-  CardContent,
-  FormControlLabel,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, CardContent, Grid, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { DatePicker } from "@mui/x-date-pickers";
-import { addBillSession } from "./api";
-import { th } from "@faker-js/faker";
+import { addBillSession } from "../../../lib/api/devices";
 
 export default function AddBillSession({
   onClose,

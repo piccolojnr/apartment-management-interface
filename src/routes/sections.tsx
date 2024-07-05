@@ -21,8 +21,6 @@ export const UtilityPage = lazy(
   () => import("../pages/utility-types/utility-type")
 );
 
-export const BillTypesPage = lazy(() => import("../pages/bill-types"));
-export const BillTypePage = lazy(() => import("../pages/bill-types/bill-type"));
 export const TariffsPage = lazy(() => import("../pages/tariffs"));
 
 export const NetworksPage = lazy(() => import("../pages/networks"));
@@ -151,22 +149,6 @@ export default function Router() {
           element: (
             // <AdminRoute>
             <DevicesPage />
-            // </AdminRoute>
-          ),
-        },
-        {
-          path: "bill-types",
-          element: (
-            // <AdminRoute>
-            <BillTypesPage />
-            // </AdminRoute>
-          ),
-        },
-        {
-          path: "bill-types/:id",
-          element: (
-            // <AdminRoute>
-            <BillTypePage />
             // </AdminRoute>
           ),
         },

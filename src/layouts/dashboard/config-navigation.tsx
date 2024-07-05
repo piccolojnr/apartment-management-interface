@@ -54,11 +54,6 @@ const navConfig = [
         path: "/utility-types",
         icon: "ic:round-devices-other",
       },
-      {
-        title: "bill types",
-        path: "/bill-types",
-        icon: "ic:round-receipt",
-      },
     ],
   },
   {

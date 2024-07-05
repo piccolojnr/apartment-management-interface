@@ -1,12 +1,4 @@
-import {
-  Box,
-  Container,
-  Grid,
-  Icon,
-  Stack,
-  Typography,
-  colors,
-} from "@mui/material";
+import { Box, Container, Grid, Stack, Typography } from "@mui/material";
 import Iconify from "../../../components/iconify";
 import { palette } from "../../../theme/palette";
 import AppWidgetSummary from "../../../components/app-widgets/app-widget-summary";

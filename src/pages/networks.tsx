@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { NetworksView } from "../sections/settings/views";
+import { NetworksView } from "../sections/views";
 
 export default function NetworksPage() {
   return (

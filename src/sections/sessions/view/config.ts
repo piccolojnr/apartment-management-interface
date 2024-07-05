@@ -1,6 +1,6 @@
 import { Apartment, BillType, Device, UtilityType } from "../../../types/table";
 import { fDate } from "../../../utils/format-time";
-import { Column } from "../../settings/views/types";
+import { Column } from "../../views/types";
 
 export const utilityTypesColumns: Column[] = [
     { field: "id", headerName: "ID", },

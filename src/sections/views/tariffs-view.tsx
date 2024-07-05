@@ -1,34 +1,33 @@
 import { Container } from "@mui/material";
 import useSWR from "swr";
-import ReusableTable from "./reusable-table";
-import RowPopoverMenu from "../../../components/table/row-popover-menu";
+import ReusableTable from "../../components/table/reusable-table";
 import { Column } from "./types";
-import { fDate } from "../../../utils/format-time";
-import { Tariff } from "../../../types/table";
-import { fetcher } from "../forms/api";
+import { fDate } from "../../utils/format-time";
+import { Tariff } from "../../types/table";
 import { useParams } from "react-router-dom";
+import { fetcher } from "../../lib/api";
 
 // const fetcher = async (url: string) => tariffs;
 
 export default function TariffsView() {
   const params = useParams();
-  const { data, mutate } = useSWR<Tariff[]>(
+  const { data } = useSWR<Tariff[]>(
     "/apt/tariff/utility/type/" + params.id,
     fetcher
   );
 
-  const handleDelete = (id: number) => {
-    // Implement the deletion logic here
-    console.log(`Deleting tariff with id ${id}`);
-    // Update the data state by removing the deleted tariff
-    const updatedData = data?.filter((tariff) => tariff.id !== id);
-    mutate(updatedData, false);
-  };
+  // const handleDelete = (id: number) => {
+  //   // Implement the deletion logic here
+  //   console.log(`Deleting tariff with id ${id}`);
+  //   // Update the data state by removing the deleted tariff
+  //   const updatedData = data?.filter((tariff) => tariff.id !== id);
+  //   mutate(updatedData, false);
+  // };
 
-  const handleOpenModal = (id: number) => {
-    // Implement the logic to open a modal for editing
-    console.log(`Editing tariff with id ${id}`);
-  };
+  // const handleOpenModal = (id: number) => {
+  //   // Implement the logic to open a modal for editing
+  //   console.log(`Editing tariff with id ${id}`);
+  // };
 
   const columns: Column[] = [
     { field: "id", headerName: "ID" },

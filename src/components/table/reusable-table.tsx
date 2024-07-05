@@ -16,10 +16,13 @@ import {
   Tooltip,
   IconButton,
 } from "@mui/material";
-import Iconify from "../../../components/iconify";
-import { CustomTableToolbarProps, ReusableTableProps } from "./types";
-import FiltersPopover from "../../../components/table/filters-popover";
-import { Device, FilterProps } from "../../../types/table";
+import Iconify from "../iconify";
+
+import { Device, FilterProps } from "../../types/table";
+import {
+  CustomTableToolbarProps,
+  ReusableTableProps,
+} from "../../sections/views/types";
 const getNestedValue = (obj: any, path: string) => {
   return path.split(".").reduce((acc, part) => acc && acc[part], obj);
 };
@@ -184,14 +187,8 @@ function CustomTableToolbar({
   handleSearch,
   selected,
   CustomTollbarIcons,
-  filter,
   filters,
-  setFilter,
 }: CustomTableToolbarProps) {
-  const [open, setOpen] = useState(null);
-
-  const handleOpen = (event: any) => setOpen(event.currentTarget);
-  const handleClose = () => setOpen(null);
   return (
     <Toolbar
       sx={{
@@ -247,7 +244,7 @@ function CustomTableToolbar({
           </Box>
           {filters && (
             <Tooltip title="Filter list">
-              <IconButton onClick={handleOpen}>
+              <IconButton onClick={() => {}}>
                 <Iconify icon="ic:round-filter-list" />
               </IconButton>
             </Tooltip>
@@ -255,13 +252,14 @@ function CustomTableToolbar({
         </>
       )}
       {filters && (
-        <FiltersPopover
-          open={open}
-          filters={filters}
-          handleClose={handleClose}
-          setFilter={setFilter}
-          filter={filter}
-        />
+        <></>
+        // <FiltersPopover
+        //   open={open}
+        //   filters={filters}
+        //   handleClose={handleClose}
+        //   setFilter={setFilter}
+        //   filter={filter}
+        // />
       )}
     </Toolbar>
   );

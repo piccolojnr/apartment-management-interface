@@ -1,6 +1,3 @@
-import CustomTable from "../../../components/table";
-import DeviceCells from "../../../components/table/cells/device-cells";
-import useTableView from "../../../hooks/use-table-view";
 import { FilterProps } from "../../../types/table";
 import { useState } from "react";
 
@@ -27,38 +24,27 @@ const filters: FilterProps<any>[] = [
 export default function DeviceView() {
   const [_data, setData] = useState([]);
 
-  const {
-    data,
-    query,
-    filter,
-    order,
-    orderBy,
-    setQuery,
-    setOrder,
-    setOrderBy,
-    setFilter,
-  } = useTableView(_data, setData, "apartment", ["apartment.name"], filters);
-
   return (
-    <CustomTable
-      headLabel={headLabel}
-      title={"Devices"}
-      searchPlaceholder={"Search devices..."}
-      deleteItem={() => Promise.resolve()}
-      Cells={DeviceCells}
-      data={data}
-      error={null}
-      loading={false}
-      setPage={() => {}}
-      page={0}
-      total={0}
-      query={query}
-      setQuery={setQuery}
-      filters={filters}
-      order={order}
-      orderBy={orderBy as any}
-      setOrder={setOrder}
-      setOrderBy={setOrderBy}
-    />
+    <></>
+    // <CustomTable
+    //   headLabel={headLabel}
+    //   title={"Devices"}
+    //   searchPlaceholder={"Search devices..."}
+    //   deleteItem={() => Promise.resolve()}
+    //   Cells={DeviceCells}
+    //   data={data}
+    //   error={null}
+    //   loading={false}
+    //   setPage={() => {}}
+    //   page={0}
+    //   total={0}
+    //   query={query}
+    //   setQuery={setQuery}
+    //   filters={filters}
+    //   order={order}
+    //   orderBy={orderBy as any}
+    //   setOrder={setOrder}
+    //   setOrderBy={setOrderBy}
+    // />
   );
 }

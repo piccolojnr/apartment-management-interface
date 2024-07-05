@@ -16,9 +16,9 @@ export const ApartmentPage = lazy(
 );
 export const ContactsPage = lazy(() => import("../pages/contacts"));
 
-export const DeviceTypesPage = lazy(() => import("../pages/device-types"));
-export const DeviceTypePage = lazy(
-  () => import("../pages/device-types/device-type")
+export const UtilityTypesPage = lazy(() => import("../pages/utility-types"));
+export const UtilityPage = lazy(
+  () => import("../pages/utility-types/utility-type")
 );
 
 export const BillTypesPage = lazy(() => import("../pages/bill-types"));
@@ -39,12 +39,6 @@ export const Page404 = lazy(() => import("../pages/page-not-found"));
 export const PageNotAuthorized = lazy(
   () => import("../pages/page-not-authorized")
 );
-const protocol = "ws";
-const host = "broker.emqx.io";
-const port = "8083";
-const path = "/mqtt";
-
-const connectUrl = `${protocol}://${host}:${port}${path}`;
 
 // ----------------------------------------------------------------------
 
@@ -53,13 +47,13 @@ export default function Router() {
     {
       element: (
         <ProtectedRoute>
-          {/* <MqttProvider brokerUrl={connectUrl}> */}
-          <DashboardLayout>
-            <Suspense>
-              <Outlet />
-            </Suspense>
-          </DashboardLayout>
-          {/* </MqttProvider> */}
+          <MqttProvider>
+            <DashboardLayout>
+              <Suspense>
+                <Outlet />
+              </Suspense>
+            </DashboardLayout>
+          </MqttProvider>
         </ProtectedRoute>
       ),
       children: [
@@ -137,23 +131,23 @@ export default function Router() {
           ),
         },
         {
-          path: "device-types",
+          path: "utility-types",
           element: (
             // <AdminRoute>
-            <DeviceTypesPage />
+            <UtilityTypesPage />
             // </AdminRoute>
           ),
         },
         {
-          path: "device-types/:id",
+          path: "utility-types/:id",
           element: (
             // <AdminRoute>
-            <DeviceTypePage />
+            <UtilityPage />
             // </AdminRoute>
           ),
         },
         {
-          path: "device-types/:id/devices",
+          path: "utility-types/:id/devices",
           element: (
             // <AdminRoute>
             <DevicesPage />
@@ -177,7 +171,7 @@ export default function Router() {
           ),
         },
         {
-          path: "bill-types/:id/tariffs",
+          path: "utility-types/:id/tariffs",
           element: (
             // <AdminRoute>
             <TariffsPage />

@@ -25,7 +25,7 @@ export default function TariffCells({
       </TableCell>
 
       <TableCell>
-        <Typography variant="body2">{data.billType.billType}</Typography>
+        <Typography variant="body2">{data.utilityType.utilityType}</Typography>
       </TableCell>
     </>
   );

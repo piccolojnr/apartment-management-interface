@@ -50,8 +50,8 @@ const navConfig = [
         icon: "ic:round-devices",
       },
       {
-        title: "device types",
-        path: "/device-types",
+        title: "utility types",
+        path: "/utility-types",
         icon: "ic:round-devices-other",
       },
       {

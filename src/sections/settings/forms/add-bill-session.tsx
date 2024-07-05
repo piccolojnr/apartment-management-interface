@@ -11,6 +11,7 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { DatePicker } from "@mui/x-date-pickers";
 import { addBillSession } from "./api";
+import { th } from "@faker-js/faker";
 
 export default function AddBillSession({
   onClose,
@@ -24,15 +25,14 @@ export default function AddBillSession({
     console.log("Bill Session Data:", { ...data });
     setLoading(true);
     try {
-      // const response = await addBillSession({ ...data });
-      // console.log("Bill Session Added:", response);
-      // reset();
-      onClose &&
-        onClose({
-          ...data,
-          startDate: new Date(data.startDate).toISOString(),
-          endDate: new Date(data.endDate).toISOString(),
-        });
+      const response = await addBillSession({ ...data });
+      console.log("Bill Session Added:", response);
+      if (response) {
+        reset();
+        onClose && onClose(response);
+      } else {
+        throw new Error("Error adding bill session");
+      }
     } catch (error: any) {
       console.log(error);
     } finally {

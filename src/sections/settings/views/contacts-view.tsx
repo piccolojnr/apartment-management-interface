@@ -6,6 +6,7 @@ import {
   Box,
   Button,
   Container,
+  IconButton,
   Stack,
   TextField,
   Typography,
@@ -17,6 +18,7 @@ import Label from "../../../components/label";
 import { useState } from "react";
 import AppModal from "../../../components/app-modal";
 import { LoadingButton } from "@mui/lab";
+import Iconify from "../../../components/iconify";
 // const fetcher = async (url: string) => contacts;
 
 export default function ContactsView() {
@@ -123,10 +125,18 @@ export default function ContactsView() {
       </AppModal>
       <Container>
         <ReusableTable
-          onSendSms={onSendSms}
           title="Contacts"
           columns={columns}
           data={data || []}
+          CustomTollbarIcons={[
+            ({ selected }) => (
+              <IconButton
+                onClick={() => onSendSms(selected.map((s: any) => s.id))}
+              >
+                <Iconify icon="eva:phone-fill" sx={{ width: 20, height: 20 }} />
+              </IconButton>
+            ),
+          ]}
         />
       </Container>
     </>

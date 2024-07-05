@@ -1,53 +1,56 @@
 import { LoadingButton } from "@mui/lab";
-import {
-  Box,
-  CardContent,
-  Grid,
-  MenuItem,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, CardContent, Grid, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { addBillType, fetcher } from "./api";
-import { Apartment, BillSession, BillType } from "../../../types/table";
-import useSWR from "swr";
-import { fDate } from "../../../utils/format-time";
+import { addBill } from "./api";
 
-export default function AddBill({ onClose }: { onClose?: () => void }) {
-  const { data: billTypes, isLoading: loadingBT } = useSWR<BillType[]>(
-    "/apt/bill/types",
-    fetcher
-  );
-  const { data: billSession, isLoading: loadingBS } = useSWR<BillSession[]>(
-    "/apt/bill/sessions",
-    fetcher
-  );
-  const { data: apartments, isLoading: loadingAPT } = useSWR<Apartment[]>(
-    "/apt/all/apt",
-    fetcher
-  );
+export default function AddBill({
+  onClose,
+  data,
+}: {
+  onClose?: () => void;
+  data?: any;
+}) {
   const { register, handleSubmit, reset } = useForm();
   const [loading, setLoading] = useState(false);
 
-  const onSubmitBillType = async (data: any) => {
-    console.log("Bill Data:", data);
+  const onSubmitBillType = async (newData: any) => {
+    const nData = {
+      ...data,
+      ...newData,
+      billSession: { id: data.billSession.id },
+      apartment: { id: data.apartment.id },
+      device: {
+        id: data.device.id,
+        utilityType: { id: data.utilityType.id },
+      },
+      reading: parseInt(newData.reading),
+      consumption: parseInt(newData.consumption),
+      amount: parseInt(newData.amount),
+    };
+    console.log("Bill Data:", nData);
     setLoading(true);
     try {
-      // const response = await addBillType(data);
-      // console.log("Bill Added:", response);
-      // reset();
-      // onClose && onClose();
+      const response = await addBill(nData);
+      console.log("Bill Added:", response);
+      if (response) {
+        console.log(response);
+        reset();
+        onClose && onClose();
+      } else {
+        throw new Error("Unable to add bill");
+      }
     } catch (error: any) {
       console.log(error);
     } finally {
       setLoading(false);
     }
   };
+
   return (
     <CardContent>
       <Typography variant="h6" sx={{ mb: 4 }}>
-        Add Bill
+        Add {data?.apartment?.name} bill
       </Typography>
       <Box component="form" onSubmit={handleSubmit(onSubmitBillType)}>
         <Grid
@@ -77,45 +80,6 @@ export default function AddBill({ onClose }: { onClose?: () => void }) {
             {...register("reading")}
             sx={{ mb: 2 }}
           />
-          <TextField
-            label="Bill Type"
-            select
-            {...register("billType", { required: true })}
-            disabled={loadingBT}
-            defaultValue={""}
-          >
-            {billTypes?.map((type) => (
-              <MenuItem key={type.id} value={type.id}>
-                {type.billType}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            label="Bill Session"
-            select
-            {...register("billSession", { required: true })}
-            disabled={loadingBS}
-            defaultValue={""}
-          >
-            {billSession?.map((session) => (
-              <MenuItem key={session.id} value={session.id}>
-                {fDate(session.startDate)}-{fDate(session.endDate)}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            label="Apartment"
-            select
-            {...register("apartment", { required: true })}
-            disabled={loadingAPT}
-            defaultValue={""}
-          >
-            {apartments?.map((apt) => (
-              <MenuItem key={apt.id} value={apt.id}>
-                {apt.name}
-              </MenuItem>
-            ))}
-          </TextField>
           <LoadingButton
             variant="contained"
             color="primary"

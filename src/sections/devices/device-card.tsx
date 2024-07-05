@@ -8,8 +8,6 @@ import {
   Typography,
 } from "@mui/material";
 import { Device } from "../../types/table";
-import DeviceStatusLabel from "./device-status-label";
-import { fDate } from "../../utils/format-time";
 import { useState } from "react";
 import AppModal from "../../components/app-modal";
 import { DateTimePicker } from "@mui/x-date-pickers";
@@ -30,7 +28,7 @@ const DeviceCard = ({ device }: { device: Device }) => {
 
             <TextField
               label="Device Type"
-              value={device.deviceType}
+              value={device.utilityType}
               fullWidth
               disabled
               sx={{ mt: 2 }}
@@ -57,7 +55,7 @@ const DeviceCard = ({ device }: { device: Device }) => {
           <Grid container spacing={2} justifyContent="space-between">
             <Grid item>
               <Typography variant="h6">
-                {device.deviceType.deviceType}
+                {device.utilityType.utilityType}
               </Typography>
             </Grid>
             <Grid item>

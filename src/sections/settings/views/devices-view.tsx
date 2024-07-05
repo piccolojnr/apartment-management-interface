@@ -35,37 +35,48 @@ export default function DevicesView() {
     { field: "id", headerName: "ID" },
     { field: "deviceName", headerName: "Name" },
     {
-      field: "type",
-      headerName: "Type",
-      renderCell: (value: any, row: any) => (
-        <Typography variant="body2">{row.deviceType.deviceType}</Typography>
-      ),
+      field: "apartment",
+      headerName: "Apartment",
+      renderCell: (value, row) => row.apartment.name,
     },
+    {
+      field: "utilityType",
+      headerName: "Utility Type",
+      renderCell: (value, row) => row.utilityType.utilityType,
+    },
+    // { field: "utilityType", headerName: "Name" },
+    // {
+    //   field: "type",
+    //   headerName: "Type",
+    //   renderCell: (value: any, row: any) => (
+    //     <Typography variant="body2">{row.deviceType.deviceType}</Typography>
+    //   ),
+    // },
 
-    {
-      field: "view",
-      headerName: "",
-      align: "right",
-      renderCell: (value: any, row: any) => (
-        <Typography
-          variant="body2"
-          sx={{ color: "primary.main", cursor: "pointer" }}
-        >
-          View details
-        </Typography>
-      ),
-    },
-    {
-      field: "actions",
-      headerName: "Actions",
-      align: "right",
-      renderCell: (value: any, row: any) => (
-        <RowPopoverMenu
-          handleDelete={() => handleDelete(row.id)}
-          handleOpenModal={() => handleOpenModal(row.id)}
-        />
-      ),
-    },
+    // {
+    //   field: "view",
+    //   headerName: "",
+    //   align: "right",
+    //   renderCell: (value: any, row: any) => (
+    //     <Typography
+    //       variant="body2"
+    //       sx={{ color: "primary.main", cursor: "pointer" }}
+    //     >
+    //       View details
+    //     </Typography>
+    //   ),
+    // },
+    // {
+    //   field: "actions",
+    //   headerName: "Actions",
+    //   align: "right",
+    //   renderCell: (value: any, row: any) => (
+    //     <RowPopoverMenu
+    //       handleDelete={() => handleDelete(row.id)}
+    //       handleOpenModal={() => handleOpenModal(row.id)}
+    //     />
+    //   ),
+    // },
   ];
 
   return (

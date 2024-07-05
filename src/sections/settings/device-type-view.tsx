@@ -5,7 +5,7 @@ import { Button, Stack, Typography } from "@mui/material";
 import Iconify from "../../components/iconify";
 import AppModal from "../../components/app-modal";
 import DeviceTypeCells from "../../components/table/cells/device-type-cells";
-import AddDeviceType from "./forms/add-device-type";
+import AddDeviceType from "./forms/add-utility-type";
 
 export default function DeviceTypeView({}) {
   const [open, setOpen] = useState<"add-bill" | null>(null);

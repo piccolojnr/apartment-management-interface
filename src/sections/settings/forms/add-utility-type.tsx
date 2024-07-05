@@ -10,13 +10,22 @@ export default function AddDeviceType({ onClose }: { onClose?: () => void }) {
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async (data: any) => {
-    console.log("Device Type Data:", data);
+    const submitData = {
+      ...data,
+      fixedRate: parseInt(data.fixedRate),
+    };
+    console.log("Device Type Data:", submitData);
 
     setLoading(true);
     try {
-      await addDeviceType(data);
-      reset();
-      onClose && onClose();
+      const response = await addDeviceType(submitData);
+      if (response) {
+        console.log(response);
+        reset();
+        onClose && onClose();
+      } else {
+        throw new Error("Unable to add device type");
+      }
     } catch (error) {
       console.log(error);
     } finally {
@@ -39,6 +48,23 @@ export default function AddDeviceType({ onClose }: { onClose?: () => void }) {
             fullWidth
             label="Device Type Name"
             {...register("deviceType", {
+              required: true,
+            })}
+            sx={{ mb: 2 }}
+          />
+          <TextField
+            fullWidth
+            label="Fixed Rate"
+            type="number"
+            {...register("fixedRate", {
+              required: true,
+            })}
+            sx={{ mb: 2 }}
+          />
+          <TextField
+            fullWidth
+            label="Unit"
+            {...register("unit", {
               required: true,
             })}
             sx={{ mb: 2 }}

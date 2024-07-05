@@ -12,27 +12,43 @@ import {
   Box,
   TextField,
   Checkbox,
-  IconButton,
   Stack,
+  Tooltip,
+  IconButton,
 } from "@mui/material";
 import Iconify from "../../../components/iconify";
-import { ReusableTableProps } from "./types";
-
+import { CustomTableToolbarProps, ReusableTableProps } from "./types";
+import FiltersPopover from "../../../components/table/filters-popover";
+import { Device, FilterProps } from "../../../types/table";
+const getNestedValue = (obj: any, path: string) => {
+  return path.split(".").reduce((acc, part) => acc && acc[part], obj);
+};
 const ReusableTable: React.FC<ReusableTableProps> = ({
   columns,
   data,
-  onDeletion,
-  onSendSms,
+  onClickRow,
+  CustomTollbarIcons,
   title = "Table",
+  filters,
 }) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [filteredData, setFilteredData] = useState<any[]>(data);
   const [selected, setSelected] = useState<any[]>([]);
-  const [loading, setLoading] = useState(false);
+
+  const [filter, setFilter] = useState<FilterProps<Device>>({
+    id: "all",
+    name: "All",
+  });
 
   useEffect(() => {
-    setFilteredData(data);
-  }, [data]);
+    if (filter && filter.id !== "all" && filter.field) {
+      setFilteredData(
+        data.filter(
+          (d) => getNestedValue(d, filter.field ?? "") === filter.value
+        )
+      );
+    } else setFilteredData(data);
+  }, [filter, data]);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
@@ -75,25 +91,6 @@ const ReusableTable: React.FC<ReusableTableProps> = ({
     setSelected([]);
   };
 
-  const handleDelete = async () => {
-    // Implement the deletion logic here
-    console.log(`Deleting ${selected.length} items`);
-    // Update the data state by removing the deleted items
-    setLoading(true);
-    const updatedData = data.filter((item) => !selected.includes(item));
-    onDeletion &&
-      selected.forEach(async (s) => await Promise.resolve(onDeletion(s.id)));
-    setLoading(false);
-
-    setFilteredData(updatedData);
-    setSelected([]);
-  };
-
-  const handleSendSms = async () => {
-    // Implement the send sms logic here
-    onSendSms && onSendSms(selected.map((s) => s.id));
-  };
-
   const isSelected = (item: any) => selected.indexOf(item) !== -1;
 
   return (
@@ -105,9 +102,10 @@ const ReusableTable: React.FC<ReusableTableProps> = ({
         searchQuery={searchQuery}
         handleSearch={handleSearch}
         selected={selected}
-        onDelete={handleDelete}
-        onSendSms={handleSendSms}
-        loading={loading}
+        CustomTollbarIcons={CustomTollbarIcons}
+        filter={filter}
+        filters={filters}
+        setFilter={setFilter}
       />
       <TableContainer component={Paper}>
         <Table>
@@ -123,10 +121,16 @@ const ReusableTable: React.FC<ReusableTableProps> = ({
                   onChange={handleSelectAllClick}
                 />
               </TableCell>
-              {columns.map((column) => (
+              {columns.map((column, index) => (
                 <TableCell
-                  key={column.field}
-                  sx={{ p: 1 }}
+                  key={index}
+                  sx={{
+                    p: 1,
+                    textWrap: "nowrap",
+                    // overflow: "hidden",
+                    whiteSpace: "nowrap",
+                    textOverflow: "ellipsis",
+                  }}
                   align={column.align || "left"}
                 >
                   {column.headerName}
@@ -142,6 +146,10 @@ const ReusableTable: React.FC<ReusableTableProps> = ({
                 role="checkbox"
                 selected={isSelected(row)}
                 key={row.id}
+                onClick={() => onClickRow && onClickRow(row)}
+                sx={{
+                  cursor: onClickRow ? "pointer" : "default",
+                }}
               >
                 <TableCell padding="checkbox">
                   <Checkbox
@@ -153,7 +161,7 @@ const ReusableTable: React.FC<ReusableTableProps> = ({
                 {columns.map((column) => (
                   <TableCell
                     key={column.field}
-                    sx={{ p: 1 }}
+                    sx={{ p: 1, overflow: "hidden" }}
                     align={column.align || "left"}
                   >
                     {column.renderCell
@@ -170,28 +178,24 @@ const ReusableTable: React.FC<ReusableTableProps> = ({
   );
 };
 
-interface CustomTableToolbarProps {
-  title: string;
-  searchQuery: string;
-  handleSearch: (query: string) => void;
-  selected: any[];
-  onDelete?: () => void;
-  onSendSms?: () => void;
-  loading?: boolean;
-}
-
 function CustomTableToolbar({
   title,
   searchQuery,
   handleSearch,
   selected,
-  onDelete,
-  onSendSms,
-  loading,
+  CustomTollbarIcons,
+  filter,
+  filters,
+  setFilter,
 }: CustomTableToolbarProps) {
+  const [open, setOpen] = useState(null);
+
+  const handleOpen = (event: any) => setOpen(event.currentTarget);
+  const handleClose = () => setOpen(null);
   return (
     <Toolbar
       sx={{
+        width: "100%",
         display: "flex",
         justifyContent: "space-between",
         p: (theme) => theme.spacing(0, 1, 0, 0),
@@ -216,20 +220,10 @@ function CustomTableToolbar({
             {selected.length} selected
           </Typography>
           <Stack direction="row">
-            {onDelete && (
-              <IconButton onClick={onDelete}>
-                <Iconify
-                  icon={loading ? "eva:loader-2" : "eva:trash-2-fill"}
-                  sx={{ color: "error.main", width: 20, height: 20 }}
-                  disabled={loading}
-                />
-              </IconButton>
-            )}
-            {onSendSms && (
-              <IconButton onClick={onSendSms}>
-                <Iconify icon="eva:phone-fill" sx={{ width: 20, height: 20 }} />
-              </IconButton>
-            )}
+            {CustomTollbarIcons &&
+              CustomTollbarIcons.map((Icon, index) => (
+                <Icon selected={selected} key={index} />
+              ))}
           </Stack>
         </Stack>
       ) : (
@@ -251,7 +245,23 @@ function CustomTableToolbar({
               sx={{ marginLeft: 1 }}
             />
           </Box>
+          {filters && (
+            <Tooltip title="Filter list">
+              <IconButton onClick={handleOpen}>
+                <Iconify icon="ic:round-filter-list" />
+              </IconButton>
+            </Tooltip>
+          )}
         </>
+      )}
+      {filters && (
+        <FiltersPopover
+          open={open}
+          filters={filters}
+          handleClose={handleClose}
+          setFilter={setFilter}
+          filter={filter}
+        />
       )}
     </Toolbar>
   );

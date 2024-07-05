@@ -9,38 +9,60 @@ import {
   Slide,
   Stack,
   Typography,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
+  IconButton,
 } from "@mui/material";
-import { AddBillSession } from "../../settings/forms";
+import { AddBill, AddBillSession } from "../../settings/forms";
 import Iconify from "../../../components/iconify";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { palette } from "../../../theme/palette";
 
-import { BillSession, BillType } from "../../../types/table";
-import { billTypesColumns, deviceTypesColumns } from "./config";
-import { billTypes } from "../../../_mock/billType";
-import { devices } from "../../../_mock/device";
+import {
+  Bill,
+  BillSession,
+  Device,
+  FilterProps,
+  UtilityType,
+} from "../../../types/table";
 import { fDate } from "../../../utils/format-time";
+import useSWR from "swr";
+import ReusableTable from "../../settings/views/reusable-table";
+import AppModal from "../../../components/app-modal";
+import { baseUrl, fetcher } from "../../settings/forms/api";
 
 export default function SessionsView() {
-  const [session, setSession] = useState<BillSession | null>(null);
-  const [billType, setBillType] = useState<BillType | null>(null);
+  const [session, setSession] = useState<BillSession>();
+  const [utilityType, setUtilityType] = useState<UtilityType>();
   const [page, setPage] = useState(0);
 
+  useEffect(() => {
+    const savedSession = localStorage.getItem("session");
+    const savedUtilityType = localStorage.getItem("utilityType");
+    const savedPage = localStorage.getItem("page");
+
+    if (savedSession) setSession(JSON.parse(savedSession));
+    if (savedUtilityType) setUtilityType(JSON.parse(savedUtilityType));
+    if (savedPage) setPage(parseInt(savedPage));
+  }, []);
+
+  useEffect(() => {
+    if (session) localStorage.setItem("session", JSON.stringify(session));
+  }, [session]);
+
+  useEffect(() => {
+    if (utilityType)
+      localStorage.setItem("utilityType", JSON.stringify(utilityType));
+  }, [utilityType]);
+
   const breadcrumbs = [
-    { label: "Sessions" },
-    { label: "Bill Types" },
+    { label: "Add Sessions" },
+    { label: "Pick Session" },
+    { label: "Utility Types" },
     { label: "Devices" },
   ];
 
   const handleChangePage = (index: number) => {
     setPage(index);
+    localStorage.setItem("page", index.toString());
   };
 
   const handleSubmitSession = (session: BillSession) => {
@@ -48,43 +70,19 @@ export default function SessionsView() {
     handleChangePage(1);
   };
 
-  const handleSetBillType = (billType: BillType) => {
-    setBillType(billType);
+  const handleSetUtilityType = (utilityType: UtilityType) => {
+    setUtilityType(utilityType);
+    handleChangePage(3);
+  };
+
+  const handleSetSession = (session: BillSession) => {
+    setSession(session);
     handleChangePage(2);
   };
 
   return (
     <Container>
       <Stack spacing={2}>
-        <Grid
-          container
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
-          spacing={2}
-        >
-          <Typography variant="h6">Session</Typography>
-          {session && (
-            <Stack
-              spacing={1}
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                width: "100%",
-                maxWidth: 400,
-              }}
-            >
-              <SessionInfo label="Start" value={fDate(session.startDate)} />
-              <SessionInfo label="End" value={fDate(session.endDate)} />
-              <SessionInfo label="Year" value={session.year.toString()} />
-              {billType && (
-                <SessionInfo label="Bill Type" value={billType.billType} />
-              )}
-            </Stack>
-          )}
-        </Grid>
-
         <Grid
           container
           direction="column"
@@ -128,18 +126,6 @@ export default function SessionsView() {
                     }}
                   >
                     {index === 0 && (
-                      <Card
-                        sx={{
-                          boxShadow: 3,
-                          borderRadius: 2,
-                          p: 4,
-                          maxWidth: 400,
-                        }}
-                      >
-                        <AddBillSession onClose={handleSubmitSession} />
-                      </Card>
-                    )}
-                    {index === 1 && (
                       <>
                         <Grid
                           container
@@ -150,7 +136,7 @@ export default function SessionsView() {
                           sx={{
                             width: "100%",
                             display: "flex",
-                            flexDirection: "row",
+                            flexDirection: "row-reverse",
                             justifyContent: "space-between",
                             alignItems: "center",
                             justifyItems: "space-between",
@@ -162,16 +148,37 @@ export default function SessionsView() {
                           <Button
                             variant="outlined"
                             color="primary"
-                            onClick={() => setPage(page - 1)}
-                            disabled={page === 0}
+                            onClick={() => handleChangePage(1)}
                           >
-                            Back
+                            Pick Session
                           </Button>
                         </Grid>
-                        <PickBillType handleSetBillType={handleSetBillType} />
+                        <Card
+                          sx={{
+                            boxShadow: 3,
+                            borderRadius: 2,
+                            p: 4,
+                            maxWidth: 400,
+                          }}
+                        >
+                          <AddBillSession onClose={handleSubmitSession} />
+                        </Card>
                       </>
                     )}
-                    {index === 2 && <PickDevice />}
+                    {index === 1 && (
+                      <PickSession handleSetSession={handleSetSession} />
+                    )}
+                    {index === 2 && (
+                      <PickUtilityType
+                        handleSetUtilityType={handleSetUtilityType}
+                      />
+                    )}
+                    {index === 3 && (
+                      <PickDevice
+                        utilityType={utilityType}
+                        billSession={session}
+                      />
+                    )}
                   </Box>
                 </Slide>
               </Box>
@@ -183,100 +190,167 @@ export default function SessionsView() {
   );
 }
 
-function SessionInfo({ label, value }: { label: string; value: string }) {
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        width: "100%",
-        alignItems: "center",
-        justifyItems: "space-between",
-      }}
-    >
-      <Typography
-        variant="body1"
-        sx={{ fontSize: 14, color: "text.secondary" }}
-      >
-        {label}:{" "}
-      </Typography>
-      <Typography
-        variant="body1"
-        sx={{ fontSize: 12, color: "text.secondary" }}
-      >
-        {value}
-      </Typography>
-    </Box>
-  );
-}
-
-function PickBillType({
-  handleSetBillType,
+function PickSession({
+  handleSetSession,
 }: {
-  handleSetBillType: (billType: BillType) => void;
+  handleSetSession: (session: BillSession) => void;
 }) {
+  const { data, mutate } = useSWR<BillSession[]>("/apt/bill/sessions", fetcher);
+
   return (
-    <CustomTable
-      data={billTypes}
-      columns={billTypesColumns}
-      handleClick={handleSetBillType}
+    <ReusableTable
+      data={data || []}
+      columns={[
+        {
+          headerName: "ID",
+          field: "id",
+        },
+        {
+          headerName: "Start Date",
+          field: "startDate",
+          renderCell: (date: string) => fDate(date),
+        },
+        {
+          headerName: "End Date",
+          field: "endDate",
+          renderCell: (date: string) => fDate(date),
+        },
+        {
+          headerName: "Year",
+          field: "year",
+        },
+        {
+          headerName: "Date Created",
+          field: "dateCreated",
+          renderCell: (date: string) => fDate(date),
+        },
+      ]}
+      onClickRow={handleSetSession}
     />
   );
 }
 
-function PickDevice() {
-  return <CustomTable data={devices} columns={deviceTypesColumns} />;
-}
-
-function CustomTable({
-  data,
-  columns,
-  handleClick,
+function PickUtilityType({
+  handleSetUtilityType,
 }: {
-  data: any[];
-  handleClick?: (item: any) => void;
-  columns: {
-    field: string;
-    headerName: string;
-    render?: (value: any) => JSX.Element | string;
-  }[];
+  handleSetUtilityType: (utilityType: UtilityType) => void;
 }) {
+  const { data, mutate } = useSWR<UtilityType[]>("/apt/utility/types", fetcher);
+
   return (
-    <TableContainer
-      component={Paper}
-      sx={{ boxShadow: 3, borderRadius: 2, p: 4 }}
-    >
-      <Table>
-        <TableHead>
-          <TableRow>
-            {columns.map((column) => (
-              <TableCell key={column.field} sx={{ p: 1 }}>
-                {column.headerName}
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map((item) => (
-            <TableRow
-              hover
-              key={item.id}
-              onClick={() => handleClick && handleClick(item)}
-              sx={{ cursor: "pointer" }}
-            >
-              {columns.map((column) => (
-                <TableCell key={column.field} sx={{ p: 1 }}>
-                  {column.render
-                    ? column.render(item[column.field])
-                    : item[column.field as never]}
-                </TableCell>
-              ))}
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <ReusableTable
+      data={data || []}
+      columns={[
+        { field: "id", headerName: "ID" },
+        { field: "utilityType", headerName: "Utility Type" },
+
+        { field: "fixedRate", headerName: "Fixed Rate" },
+        { field: "unit", headerName: "Unit" },
+      ]}
+      onClickRow={handleSetUtilityType}
+    />
+  );
+}
+const filters: FilterProps<any>[] = [
+  {
+    id: "all",
+    name: "All",
+  },
+  {
+    id: "1",
+    name: "power devices",
+    field: "deviceType.deviceType",
+    value: "power",
+  },
+  {
+    id: "2",
+    name: "water devices",
+    field: "deviceType.deviceType",
+    value: "water",
+  },
+];
+function PickDevice({
+  utilityType,
+  billSession,
+}: {
+  utilityType?: UtilityType;
+  billSession?: BillSession;
+}) {
+  const [currentDevice, setCurrentDevice] = useState<Device>();
+  const { data, mutate } = useSWR<Device[]>(
+    `/apt/bill/session/${billSession?.id}/utility/type/${utilityType?.id}/unbilled/devices/`,
+    utilityType ? fetcher : () => []
+  );
+  const [open, setOpen] = useState(false);
+  const [bill, setBill] = useState<any>({
+    apartment: {
+      floor: 0,
+      id: 0,
+      name: "",
+    },
+    billSession,
+    utilityType,
+    consumption: null,
+    reading: null,
+  });
+
+  useEffect(() => {
+    if (utilityType && billSession) {
+      mutate();
+      setBill({
+        ...bill,
+        billSession,
+        utilityType,
+      });
+    }
+  }, [utilityType, billSession]);
+
+  const handleOpenModal = () => setOpen(true);
+  const handleCloseModal = () => {
+    setOpen(false);
+  };
+  const deleteDevice = async () => {
+    if (currentDevice && data) {
+      mutate(data.filter((x) => x.id !== currentDevice.id));
+      setCurrentDevice(undefined);
+      handleCloseModal();
+    }
+  };
+
+  const handleClickRow = (device: Device) => {
+    setCurrentDevice(device);
+    setBill({
+      ...bill,
+      device: { id: device.id },
+      apartment: device.apartment,
+    });
+    handleOpenModal();
+  };
+  return (
+    <>
+      <AppModal open={open} handleClose={handleCloseModal}>
+        <AddBill data={bill} onClose={deleteDevice} />
+      </AppModal>
+      <ReusableTable
+        columns={[
+          { field: "id", headerName: "ID" },
+          { field: "deviceName", headerName: "Name" },
+          {
+            field: "apartment",
+            headerName: "Apartment",
+            renderCell: (value, row) => row.apartment.name,
+          },
+          {
+            field: "utilityType",
+            headerName: "Utility Type",
+            renderCell: (value, row) => row.utilityType.utilityType,
+          },
+        ]}
+        data={data || []}
+        onClickRow={handleClickRow}
+        filters={filters}
+      />
+    </>
   );
 }
 

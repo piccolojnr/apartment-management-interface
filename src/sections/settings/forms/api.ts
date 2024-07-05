@@ -1,9 +1,8 @@
-import { start } from "repl";
 
-const baseUrl = "http://192.168.1.86:8080"
+export const baseUrl = "http://192.168.1.86:8080"
 
 export const fetcher = async (url: string) => {
-    console.log(baseUrl + url)
+    // console.log(baseUrl + url)
     const response = await fetch(baseUrl + url);
     if (!response.ok) {
         const err = await response.text();
@@ -63,7 +62,7 @@ export const addBillSession = async (data: any) => {
             endDate: new Date(data.endDate).toISOString(),
         }
         console.log(newData)
-        const response = await fetch(`${baseUrl}/bill/session`, {
+        const response = await fetch(`${baseUrl}/apt/bill/session`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -80,6 +79,27 @@ export const addBillSession = async (data: any) => {
         console.log(error);
     }
 };
+
+export const addBill = async (data: any) => {
+    try {
+        const response = await fetch(`${baseUrl}/apt/bill`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+        if (!response.ok) {
+            const err = await response.text();
+            throw new Error(err);
+        }
+        const result = await response.json();
+        return result;
+    } catch (error: any) {
+        console.log(error);
+    }
+};
+
 
 export const addContactPerson = async (data: any) => {
     try {
@@ -112,11 +132,7 @@ export const addDevice = async (data: any) => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-                ...data,
-                deviceType: data.deviceType,
-                apartment: data.apartment,
-            }),
+            body: JSON.stringify(data),
         });
         if (!response.ok) {
             const err = await response.text();
@@ -178,9 +194,6 @@ export const addTariff = async (data: any) => {
             },
             body: JSON.stringify({
                 ...data,
-                amount: parseFloat(data.amount),
-                per: parseFloat(data.per),
-                billType: { id: parseInt(data.billType) },
             }),
         });
         if (!response.ok) {

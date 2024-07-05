@@ -1,7 +1,17 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import mqtt from "mqtt";
-import { set } from "lodash";
 
+// const protocol = "ws";
+// const host = "192.168.1.86";
+// const port = "9001";
+// const path = "/";
+
+const protocol = "ws";
+const host = "198.7.119.145";
+const port = "9001";
+const path = "/";
+
+const brokerUrl = `${protocol}://${host}:${port}${path}`;
 interface MqttContextProps {
   isConnected: boolean;
   message: { topic: string; message: string } | null;
@@ -11,7 +21,6 @@ interface MqttContextProps {
 }
 
 interface MqttProviderProps {
-  brokerUrl: string;
   children: React.ReactNode;
 }
 
@@ -24,7 +33,7 @@ const initialMqttContext = {
 };
 const MqttContext = createContext<MqttContextProps>(initialMqttContext);
 
-export const MqttProvider = ({ brokerUrl, children }: MqttProviderProps) => {
+export const MqttProvider = ({ children }: MqttProviderProps) => {
   const [client, setClient] = useState<mqtt.MqttClient | null | undefined>(
     null
   );
@@ -35,29 +44,29 @@ export const MqttProvider = ({ brokerUrl, children }: MqttProviderProps) => {
     message: string;
   } | null>(null);
 
-  // useEffect(() => {
-  //   setLoading(true);
-  //   const mqttClient = mqtt.connect(brokerUrl);
-  //   setClient(mqttClient);
+  useEffect(() => {
+    setLoading(true);
+    const mqttClient = mqtt.connect(brokerUrl);
+    setClient(mqttClient);
 
-  //   mqttClient.on("connect", () => {
-  //     setIsConnected(true);
-  //     setLoading(false);
-  //   });
+    mqttClient.on("connect", () => {
+      setIsConnected(true);
+      setLoading(false);
+    });
 
-  //   mqttClient.on("message", (topic, message) => {
-  //     setMessage({ topic, message: message.toString() });
-  //   });
+    mqttClient.on("message", (topic, message) => {
+      setMessage({ topic, message: message.toString() });
+    });
 
-  //   mqttClient.on("error", (error) => {
-  //     console.error(error);
-  //     setLoading(false);
-  //   });
+    mqttClient.on("error", (error) => {
+      console.error(error);
+      setLoading(false);
+    });
 
-  //   return () => {
-  //     mqttClient.end();
-  //   };
-  // }, [brokerUrl]);
+    return () => {
+      mqttClient.end();
+    };
+  }, [brokerUrl]);
 
   const subscribe = (topic: string) => {
     if (client) {

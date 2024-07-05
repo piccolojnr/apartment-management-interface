@@ -13,7 +13,7 @@ import { useParams } from "react-router-dom";
 export default function TariffsView() {
   const params = useParams();
   const { data, mutate } = useSWR<Tariff[]>(
-    "/apt/tariff/bill/type/" + params.id,
+    "/apt/tariff/utility/type/" + params.id,
     fetcher
   );
 
@@ -33,16 +33,11 @@ export default function TariffsView() {
   const columns: Column[] = [
     { field: "id", headerName: "ID" },
     { field: "amount", headerName: "Amount" },
+    { field: "per", headerName: "Messure" },
     {
-      field: "billType",
-      headerName: "Bill Type",
-      renderCell(value, row) {
-        return (
-          <div>
-            {row.billType.billType} ({row.billType.unit})
-          </div>
-        );
-      },
+      field: "utilityType",
+      headerName: "Utility Type",
+      renderCell: (value, row) => row.utilityType.utilityType,
     },
     {
       field: "dateAdded",
@@ -51,17 +46,17 @@ export default function TariffsView() {
         return fDate(value);
       },
     },
-    {
-      field: "actions",
-      headerName: "Actions",
-      align: "right",
-      renderCell: (value: any, row: any) => (
-        <RowPopoverMenu
-          handleDelete={() => handleDelete(row.id)}
-          handleOpenModal={() => handleOpenModal(row.id)}
-        />
-      ),
-    },
+    // {
+    //   field: "actions",
+    //   headerName: "Actions",
+    //   align: "right",
+    //   renderCell: (value: any, row: any) => (
+    //     <RowPopoverMenu
+    //       handleDelete={() => handleDelete(row.id)}
+    //       handleOpenModal={() => handleOpenModal(row.id)}
+    //     />
+    //   ),
+    // },
   ];
 
   return (

@@ -1,11 +1,11 @@
 import { TableCell, Typography } from "@mui/material";
-import { Data, DeviceType } from "../../../types/table";
+import { Data, UtilityType } from "../../../types/table";
 import { useSearchParams } from "react-router-dom";
 
 export default function DeviceTypeCells({
   data,
 }: {
-  data: Data<DeviceType>;
+  data: Data<UtilityType>;
   updateSingleData: (data: any) => void;
 }) {
   const [_, setSearchParams] = useSearchParams();
@@ -17,7 +17,7 @@ export default function DeviceTypeCells({
     <>
       <TableCell>
         <Typography variant="subtitle2" noWrap>
-          {data.deviceType}
+          {data.utilityType}
         </Typography>
       </TableCell>
     </>

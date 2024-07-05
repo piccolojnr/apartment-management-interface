@@ -9,10 +9,11 @@ export interface ContactPerson {
     network: Network;
     primaryContact: boolean
 }
-export interface DeviceType {
+export interface UtilityType {
     id: number;
-    deviceType: string;
-
+    utilityType: string;
+    unit: string;
+    fixedRate: number,
 }
 export interface Network {
     id: number;
@@ -22,7 +23,7 @@ export interface Tariff {
     id: number;
     amount: number;
     per: number;
-    billType: BillType;
+    utilityType: UtilityType;
     dateAdded: string;
 }
 export interface BillType {
@@ -56,7 +57,7 @@ export interface Apartment {
 export interface Device {
     id: number;
     apartment: Apartment;
-    deviceType: DeviceType;
+    utilityType: UtilityType;
     billType: BillType;
     dateAdded: string;
     deviceName: string;
@@ -80,6 +81,7 @@ export interface FiltersPopoverProps {
     filters: FilterProps<any>[];
     handleClose: () => void;
     setFilter?: Dispatch<SetStateAction<FilterProps<any>>>;
+    filter?: FilterProps<any>;
 }
 
 export interface CustomTableProps<T> extends TableProps {

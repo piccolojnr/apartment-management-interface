@@ -7,6 +7,7 @@ const FiltersPopover: React.FC<FiltersPopoverProps> = ({
   filters,
   handleClose,
   setFilter,
+  filter: currentFilter,
 }) => {
   const handleFilterClick = (filter: any) => {
     setFilter && setFilter(filter);
@@ -21,11 +22,11 @@ const FiltersPopover: React.FC<FiltersPopoverProps> = ({
       anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       transformOrigin={{ vertical: "top", horizontal: "center" }}
       PaperProps={{
-        sx: { width: 200, padding: 0, boxShadow: 3, borderRadius: 2 },
+        sx: { width: 200, padding: 2, boxShadow: 3, borderRadius: 2 },
       }}
     >
       <Stack direction="column" alignItems="center" spacing={2}>
-        <Typography variant="h6" sx={{ fontWeight: "bold", mb: 1 }}>
+        <Typography variant="subtitle2" sx={{ color: "seconary.main", mb: 1 }}>
           Select Filter
         </Typography>
         <Grid container spacing={1} direction="column" alignItems="center">
@@ -34,11 +35,14 @@ const FiltersPopover: React.FC<FiltersPopoverProps> = ({
               <Button
                 color="primary"
                 fullWidth
-                onClick={() => handleFilterClick(filter)}
+                onClick={() =>
+                  currentFilter?.id !== filter.id && handleFilterClick(filter)
+                }
                 sx={{
                   width: "100%",
                   justifyContent: "flex-start",
                 }}
+                disabled={currentFilter?.id === filter.id}
               >
                 {filter.name}
               </Button>

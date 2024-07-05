@@ -9,7 +9,7 @@ import {
   AddBillType,
   AddContactPerson,
   AddDevice,
-  AddDeviceType,
+  AddUtilityType,
   AddNetwork,
   AddTariff,
 } from "../forms";
@@ -40,7 +40,7 @@ export default function SettingsView() {
           <Tab label="Bill Type" value="1" />
           <Tab label="Tariff" value="2" />
           <Tab label="Network" value="3" />
-          <Tab label="Device Type" value="4" />
+          <Tab label="Utiity Type" value="4" />
           <Tab label="Apartment" value="5" />
           <Tab label="Contacts" value="6" />
           <Tab label="Device" value="7" />
@@ -72,7 +72,7 @@ export default function SettingsView() {
         <TabPanel value="4">
           <Grid item xs={12} md={6}>
             <Card sx={{ boxShadow: 3, borderRadius: 2, p: 4 }}>
-              <AddDeviceType />
+              <AddUtilityType />
             </Card>
           </Grid>
         </TabPanel>

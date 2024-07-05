@@ -13,9 +13,11 @@ export const devices: Device[] = Array.from({ length: 10 }, (_, index) => ({
             }
         ),
     },
-    deviceType: {
-        id: faker.number.int(),
-        deviceType: faker.word.words(),
+    utilityType: {
+        id: index,
+        utilityType: faker.word.sample(),
+        fixedRate: faker.number.float(),
+        unit: faker.word.sample()
     },
     billType: {
         id: faker.number.int(),

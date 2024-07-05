@@ -9,26 +9,36 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { BillType } from "../../../types/table";
+import { UtilityType } from "../../../types/table";
 import useSWR from "swr";
 import { addTariff, fetcher } from "./api";
 
 export default function AddTariff({ onClose }: { onClose?: () => void }) {
   const { register, handleSubmit, reset } = useForm();
-  const { data: billTypes, isLoading: loadingBT } = useSWR<BillType[]>(
-    "/apt/bill/types",
+  const { data: utilityTypes, isLoading: loadingBT } = useSWR<UtilityType[]>(
+    "/apt/utility/types",
     fetcher
   );
   const [loading, setLoading] = useState(false);
 
   const onSubmitTariff = async (data: any) => {
-    console.log("Tariff Data:", data);
+    const formData = {
+      ...data,
+      amount: parseFloat(data.amount),
+      per: parseFloat(data.per),
+      utilityType: { id: data.utilityType },
+    };
+    console.log("Tariff Data:", formData);
 
     setLoading(true);
     try {
-      await addTariff(data);
-      reset();
-      onClose && onClose();
+      const res = await addTariff(formData);
+      if (res) {
+        reset();
+        onClose && onClose();
+      } else {
+        throw new Error("could not add tariff");
+      }
     } catch (error) {
       console.log(error);
     } finally {
@@ -62,15 +72,15 @@ export default function AddTariff({ onClose }: { onClose?: () => void }) {
             sx={{ mb: 2 }}
           />
           <TextField
-            label="BillType"
+            label="Utility type"
             select
-            {...register("billType", { required: true })}
+            {...register("utilityType", { required: true })}
             disabled={loadingBT}
             defaultValue={""}
           >
-            {billTypes?.map((type) => (
+            {utilityTypes?.map((type) => (
               <MenuItem key={type.id} value={type.id}>
-                {type.billType}
+                {type.utilityType}
               </MenuItem>
             ))}
           </TextField>

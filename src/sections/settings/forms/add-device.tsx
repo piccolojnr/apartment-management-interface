@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Apartment, DeviceType } from "../../../types/table";
+import { Apartment, UtilityType } from "../../../types/table";
 import { addDevice, fetcher } from "./api";
 import useSWR from "swr";
 
@@ -19,25 +19,30 @@ export default function AddDevice({ onClose }: { onClose?: () => void }) {
     "/apt/all/apt",
     fetcher
   );
-  const { data: deviceTypes, isLoading: loadingNt } = useSWR<DeviceType[]>(
-    "/apt/device/types",
+  const { data: utilityTypes, isLoading: loadingNt } = useSWR<UtilityType[]>(
+    "/apt/utility/types",
     fetcher
   );
-
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async (data: any) => {
-    console.log("Device Data:", data);
+    const nData = {
+      ...data,
+      utilityType: { id: parseInt(data.utilityType) },
+      apartment: { id: parseInt(data.apartment) },
+    };
+    console.log("Device Data:", nData);
 
     setLoading(true);
     try {
-      await addDevice({
-        ...data,
-        deviceType: { id: parseInt(data.deviceType) },
-        apartment: { id: parseInt(data.apartment) },
-      });
-      reset();
-      onClose && onClose();
+      const res = await addDevice(nData);
+      if (res) {
+        console.log(res);
+        reset();
+        onClose && onClose();
+      } else {
+        throw new Error("could not add device");
+      }
     } catch (error) {
       console.log(error);
     } finally {
@@ -80,15 +85,15 @@ export default function AddDevice({ onClose }: { onClose?: () => void }) {
             ))}
           </TextField>
           <TextField
-            label="Device Type"
+            label="Utility Type"
             select
-            {...register("deviceType", { required: true })}
+            {...register("utilityType", { required: true })}
             disabled={loadingNt}
             defaultValue={""}
           >
-            {deviceTypes?.map((type) => (
+            {utilityTypes?.map((type) => (
               <MenuItem key={type.id} value={type.id}>
-                {type.deviceType}
+                {type.utilityType}
               </MenuItem>
             ))}
           </TextField>

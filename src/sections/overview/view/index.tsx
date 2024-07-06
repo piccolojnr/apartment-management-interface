@@ -1,53 +1,57 @@
-import { Container, Grid, TextField, Typography } from "@mui/material";
-import { useMqtt } from "@/context/mqtt-context";
-import { LoadingButton } from "@mui/lab";
-import { useState } from "react";
+import { Box, Container, Grid } from "@mui/material";
+import Overview from "../overview";
+import Utilities from "../utilities";
+import Notifications from "../notifications";
+import Apartments from "../apartments";
+import Billing from "../billing";
+import UtilityConsumptionChart from "../utility-consumption-chart";
+import UtilityDistributionChart from "../utility-distribution-chart";
+import MonthlyConsumptionTrends from "../monthly-consumption-trends";
+import UtilityCostDistribution from "../utility-cost-consumption";
 
 export default function AppView() {
-  const [text, setText] = useState("");
-  const { isConnected, message, publish, loading } = useMqtt();
-
-  const handlePublish = () => {
-    if (!isConnected) return;
-    if (text === "") return;
-    publish("test/topic", text);
-    setText("");
-  };
-
   return (
-    <Container>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <Typography variant="h4">MQTT</Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Typography>Connected: {isConnected ? "Yes" : "No"}</Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Typography>Message: {message?.message}</Typography>
-        </Grid>
+    <Container maxWidth="lg">
+      <Box sx={{ flexGrow: 1, padding: 3 }}>
+        <Grid container spacing={3}>
+          {/* Overview Section */}
+          <Grid item xs={12}>
+            <Overview />
+          </Grid>
 
-        <Grid item xs={12}>
-          <TextField
-            label="Message"
-            variant="outlined"
-            fullWidth
-            disabled={!isConnected || loading}
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-          />
-        </Grid>
+          {/* Utility Charts */}
+          <Grid item xs={12} md={6}>
+            <UtilityConsumptionChart />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <UtilityDistributionChart />
+          </Grid>
 
-        <Grid item xs={12}>
-          <LoadingButton
-            onClick={handlePublish}
-            loading={loading}
-            variant="contained"
-          >
-            Publish
-          </LoadingButton>
+          {/* Monthly Consumption Trends */}
+          <Grid item xs={12} md={6}>
+            <MonthlyConsumptionTrends />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <UtilityCostDistribution />
+          </Grid>
+
+          {/* Utilities and Apartments */}
+          <Grid item xs={12} md={6}>
+            <Utilities />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Apartments />
+          </Grid>
+
+          {/* Billing and Notifications */}
+          <Grid item xs={12}>
+            <Billing />
+          </Grid>
+          <Grid item xs={12}>
+            <Notifications />
+          </Grid>
         </Grid>
-      </Grid>
+      </Box>
     </Container>
   );
 }

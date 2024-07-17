@@ -1,71 +1,36 @@
-import { BASE_API_URL } from "../constants";
-import { createAvatarUrl } from "@utils/functions";
+import axios from 'axios';
+import { BASE_API_URL } from '../constants';
+import { createAvatarUrl } from '@utils/functions';
+import { api } from '.';
+
 
 export const login = async (email: string, password: string, remember_me: string) => {
-    const response = await fetch(BASE_API_URL + "/auth/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password, remember_me }),
-        credentials: "include", // Add this line
-    });
-
-    if (!response.ok) {
-        let error;
-        try {
-            error = await response.json();
-        } catch (e) {
-            error = await response.text();
-        }
-        throw new Error(error.message || error);
+    try {
+        api.defaults.withCredentials = true;
+        const response = await api.post('/v1/api/login', { email, password, remember_me });
+        return response.data;
+    } catch (error: any) {
+        throw new Error(error.response?.data?.message || error.message);
     }
-
-    return await response.json();
 };
 
 export const get_user = async () => {
-    const response = await fetch(BASE_API_URL + "/user", {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        credentials: "include", // Add this line
-    });
-    if (!response.ok) {
-        let error;
-        try {
-            error = await response.json();
-        } catch (e) {
-            error = await response.text();
-        }
-        throw new Error(error.message || error);
+    try {
+        const response = await api.get('/user');
+        return response.data;
+    } catch (error: any) {
+        throw new Error(error.response?.data?.message || error.message);
     }
-    return await response.json();
 };
 
-
-
 export const logout = async () => {
-    const response = await fetch(BASE_API_URL + "/auth/logout", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        credentials: "include", // Add this line
-    });
-
-    if (!response.ok) {
-        let error;
-        try {
-            error = await response.json();
-        } catch (e) {
-            error = await response.text();
-        }
-        throw new Error(error.message || error);
+    try {
+        const response = await api.post('/auth/logout');
+        return response.data;
+    } catch (error: any) {
+        throw new Error(error.response?.data?.message || error.message);
     }
-    return await response.json();
-}
+};
 
 export const createUser = async ({
     email,
@@ -75,22 +40,16 @@ export const createUser = async ({
     role,
     password,
 }: any) => {
-    const res = await fetch(BASE_API_URL + "/user/create", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+    try {
+        const response = await api.post('/user/create', {
             email,
-            role: role,
+            role,
             password,
             profile: { first_name, last_name, phone, avatar: createAvatarUrl() },
-        }),
-        credentials: "include",
-    });
-
-    if (res.status === 201) {
-        return await res.json();
-    } else {
-        throw new Error(await res.text());
+        });
+        return response.data;
+    } catch (error: any) {
+        throw new Error(error.response?.data?.message || error.message);
     }
 };
 
@@ -103,35 +62,22 @@ export const updateUser = async ({
     role,
     avatar,
 }: any) => {
-    const res = await fetch(BASE_API_URL + `/user/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+    try {
+        const response = await api.put(`/user/${id}`, {
             email,
-            role: role,
+            role,
             profile: { first_name, last_name, phone, avatar },
-        }),
-        credentials: "include",
-    });
-
-    if (res.status === 200) {
-        return await res.json();
-    } else {
-        throw new Error(await res.text());
+        });
+        return response.data;
+    } catch (error: any) {
+        throw new Error(error.response?.data?.message || error.message);
     }
 };
 
-
 export const deleteUser = async (id: string | number) => {
-    const res = await fetch(BASE_API_URL + `/user/${id}`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-    });
-
-    if (res.status === 204) {
-        return;
-    } else {
-        throw new Error(await res.text());
+    try {
+        await api.delete(`/user/${id}`);
+    } catch (error: any) {
+        throw new Error(error.response?.data?.message || error.message);
     }
 };

@@ -15,6 +15,7 @@ import AppModal from "@components/app-modal";
 import { Apartment, BillType } from "@/types/table";
 import { useSearchParams } from "react-router-dom";
 import AddTariff from "./forms/add-tariff";
+import { api } from "@/lib/api";
 
 export default function ContactPersonView() {
   const [apartments, setApartments] = useState<Apartment[]>([]);
@@ -44,14 +45,8 @@ export default function ContactPersonView() {
       return;
     }
     try {
-      const response = await fetch(
-        "http://192.168.1.73:8080/apt/all/contact/" + billType
-      );
-      if (!response.ok) {
-        const err = await response.text();
-        throw new Error(err);
-      }
-      const result = await response.json();
+      const response = await api.get(`/bill/type/${billType}`);
+      const result = response.data;
 
       setData(result);
     } catch (error: any) {

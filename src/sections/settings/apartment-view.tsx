@@ -4,6 +4,7 @@ import { Button, Stack, Typography } from "@mui/material";
 import Iconify from "@components/iconify";
 import AppModal from "@components/app-modal";
 import AddApartment from "./forms/add-apartment";
+import { api } from "@/lib/api";
 
 export default function ApartmentView() {
   const [open, setOpen] = useState<"add-bill" | null>(null);
@@ -26,12 +27,9 @@ export default function ApartmentView() {
     setLoading(false);
     setError(null);
     try {
-      const response = await fetch("http://192.168.1.73:8080/apt/all/apt");
-      if (!response.ok) {
-        const err = await response.text();
-        throw new Error(err);
-      }
-      const result = await response.json();
+      const response = await api.get("/all/apt");
+
+      const result = response.data;
 
       setData(result);
     } catch (error: any) {

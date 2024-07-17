@@ -1,15 +1,15 @@
 import useSWR from "swr";
 import { BillSession } from "@/types/table";
-import { fetcher } from "@lib/api";
 import ReusableTable from "@components/table/reusable-table";
 import { fDate } from "@utils/format-time";
+import { fetcher_bill } from "@/lib/api";
 
 function PickSession({
   handleSetSession,
 }: {
   handleSetSession: (session: BillSession) => void;
 }) {
-  const { data } = useSWR<BillSession[]>("/apt/bill/sessions", fetcher);
+  const { data } = useSWR<BillSession[]>("/bill/sessions", fetcher_bill);
 
   return (
     <ReusableTable

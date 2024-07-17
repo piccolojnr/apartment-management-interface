@@ -3,6 +3,7 @@ import { Button, Stack, Typography } from "@mui/material";
 import Iconify from "@components/iconify";
 import AppModal from "@components/app-modal";
 import AddDeviceType from "./forms/add-utility-type";
+import { api } from "@/lib/api";
 
 export default function DeviceTypeView({}) {
   const [open, setOpen] = useState<"add-bill" | null>(null);
@@ -15,13 +16,10 @@ export default function DeviceTypeView({}) {
     setLoading(false);
     setError(null);
     try {
-      const response = await fetch("http://192.168.1.73:8080/apt/device/types");
-      if (!response.ok) {
-        const err = await response.text();
-        throw new Error(err);
-      }
-      const result = await response.json();
-      console.log(result);
+      const response = await api.get("/device/type");
+
+      const result = response.data;
+
       setData(result);
     } catch (error: any) {
       console.log(error);

@@ -4,10 +4,10 @@ import ReusableTable from "@components/table/reusable-table";
 import { Column } from "./types";
 import { RouterLink } from "@routes/components";
 import { Apartment } from "@/types/table";
-import { fetcher } from "@lib/api";
+import { fetcher_api } from "@lib/api";
 
 export default function ApartmentView() {
-  const { data } = useSWR<Apartment[]>("/apt/all/apt", fetcher);
+  const { data } = useSWR<Apartment[]>("/all/apt", fetcher_api);
 
   const columns: Column[] = [
     { field: "id", headerName: "ID" },

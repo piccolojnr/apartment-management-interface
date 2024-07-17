@@ -17,23 +17,28 @@ import { bgGradient } from "@theme/css";
 import Iconify from "@components/iconify";
 import { Checkbox, FormControlLabel } from "@mui/material";
 import { useUser } from "@context/user-context";
-import { validateEmail, validatePassword } from "../user/utils";
+import { validatePassword } from "../user/utils";
 import { useRouter } from "@routes/hooks";
 import { get_user, login } from "@lib/api/user";
 
 // ----------------------------------------------------------------------
 
+const validateUsername = (username: string) => {
+  if (!username) return "Username is required";
+  return null;
+};
+
 export default function LoginView() {
   const { loggedIn, setUser } = useUser();
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState<{
-    email: string | null;
+    username: string | null;
     password: string | null;
     submit: string | null;
   }>({
-    email: null,
+    username: null,
     password: null,
     submit: null,
   });
@@ -46,29 +51,29 @@ export default function LoginView() {
   const handleClick = async (e: any) => {
     e.preventDefault();
     setError({
-      email: null,
+      username: null,
       password: null,
       submit: null,
     });
     setLoading(true);
-    const emailError = validateEmail(email);
+    const UsernameError = validateUsername(username);
     const passwordError = validatePassword(password);
 
     setError({
-      email: emailError,
+      username: UsernameError,
       password: passwordError,
       submit: null,
     });
 
-    if (emailError || passwordError) {
+    if (UsernameError || passwordError) {
       setLoading(false);
       return;
     }
     await handleSubmit();
   };
 
-  const handleUpdateEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
+  const handleUpdateUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUsername(e.target.value);
   };
 
   const handleUpdatePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,7 +82,7 @@ export default function LoginView() {
 
   const handleSubmit = async () => {
     try {
-      login(email, password, rememberMe ? "true" : "false")
+      login(username, password, rememberMe ? "true" : "false")
         .then(() => {
           get_user()
             .then((user) => {
@@ -121,13 +126,13 @@ export default function LoginView() {
     <form>
       <Stack spacing={3}>
         <TextField
-          onFocus={() => setError({ ...error, email: null })}
-          value={email}
-          onChange={handleUpdateEmail}
-          name="email"
-          label="Email address"
-          error={Boolean(error.email)}
-          helperText={error.email}
+          onFocus={() => setError({ ...error, username: null })}
+          value={username}
+          onChange={handleUpdateUsername}
+          name="username"
+          label="Username"
+          error={Boolean(error.username)}
+          helperText={error.username}
         />
 
         <TextField

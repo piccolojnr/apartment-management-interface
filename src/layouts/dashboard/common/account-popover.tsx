@@ -45,7 +45,7 @@ export default function AccountPopover() {
   };
 
   const handleClose = (e: any, path?: string) => {
-    if (path) {
+    if (path && MENU_OPTIONS.find((option) => option.path === path)) {
       router.push(path);
     }
     setOpen(null);
@@ -53,6 +53,8 @@ export default function AccountPopover() {
 
   const handleLogout = async () => {
     try {
+      router.push("/login");
+
       logout()
         .then(() => {
           router.push("/login");

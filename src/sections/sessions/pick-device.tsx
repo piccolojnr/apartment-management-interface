@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetcher } from "@lib/api";
+import { fetcher_bill } from "@lib/api";
 import useSWR from "swr";
 import { BillSession, Device, FilterProps, UtilityType } from "@/types/table";
 import AppModal from "@components/app-modal";
@@ -33,8 +33,8 @@ function PickDevice({
 }) {
   const [currentDevice, setCurrentDevice] = useState<Device>();
   const { data, mutate } = useSWR<Device[]>(
-    `/apt/bill/session/${billSession?.id}/utility/type/${utilityType?.id}/unbilled/devices/`,
-    utilityType ? fetcher : () => []
+    `/bill/session/${billSession?.id}/utility/type/${utilityType?.id}/unbilled/devices/`,
+    utilityType ? fetcher_bill : () => []
   );
   const [open, setOpen] = useState(false);
   const [bill, setBill] = useState<any>({

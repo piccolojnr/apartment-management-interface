@@ -17,15 +17,15 @@ import { useState } from "react";
 import AppModal from "@components/app-modal";
 import { LoadingButton } from "@mui/lab";
 import Iconify from "@components/iconify";
-import { fetcher } from "@lib/api";
+import { fetcher_api } from "@lib/api";
 
 // const fetcher = async (url: string) => contacts;
 
 export default function ContactsView() {
   const params = useParams();
   const { data } = useSWR<ContactPerson[]>(
-    params.id ? `/apt/apt/${params.id}/contact` : `/apt/all/contact`,
-    fetcher
+    params.id ? `/apt/${params.id}/contact` : `/all/contact`,
+    fetcher_api
   );
   const [open, setOpen] = useState(false);
   const [sms, setSms] = useState("");

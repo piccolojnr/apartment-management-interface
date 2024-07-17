@@ -1,8 +1,4 @@
 import { PeopleListProps } from "@/types/apartment";
-import PeopleForm from "./people-forms";
-import { Button, Select, Stack, Typography } from "@mui/material";
-import Iconify from "@components/iconify";
-import AppModal from "@components/app-modal";
 import { useState } from "react";
 
 const PeopleList = ({ people }: PeopleListProps) => {

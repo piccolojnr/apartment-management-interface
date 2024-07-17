@@ -1,14 +1,14 @@
 import { UtilityType } from "@/types/table";
 import useSWR from "swr";
 import ReusableTable from "@components/table/reusable-table";
-import { fetcher } from "@lib/api";
+import { fetcher_api } from "@lib/api";
 
 function PickUtilityType({
   handleSetUtilityType,
 }: {
   handleSetUtilityType: (utilityType: UtilityType) => void;
 }) {
-  const { data } = useSWR<UtilityType[]>("/apt/utility/types", fetcher);
+  const { data } = useSWR<UtilityType[]>("/utility/types", fetcher_api);
 
   return (
     <ReusableTable

@@ -6,3 +6,5 @@ export { default as AddApartment } from "./add-apartment";
 export { default as AddDevice } from "./add-device";
 export { default as AddBill } from "./add-bill";
 export { default as AddBillSession } from "./add-bill-session";
+export { default as AddUser } from "./add-user";
+export { default as AddRole } from "./add-role";

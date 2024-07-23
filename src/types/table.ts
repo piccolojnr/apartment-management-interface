@@ -9,6 +9,16 @@ export interface ContactPerson {
     network: Network;
     primaryContact: boolean
 }
+export interface Role {
+    id: number;
+    name: string;
+}
+
+export interface User {
+    id: number;
+    username: string;
+    role: Role;
+}
 export interface UtilityType {
     id: number;
     utilityType: string;

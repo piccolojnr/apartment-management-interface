@@ -1,6 +1,23 @@
 import { api } from ".";
 
 
+export const addRole = async (data: any) => {
+    try {
+        const response = await api.post("/user/role", data);
+        return response.data;
+    } catch (error: any) {
+        console.log(error);
+    }
+};
+
+export const addUser = async (data: any) => {
+    try {
+        const response = await api.post("/user", data);
+        return response.data;
+    } catch (error: any) {
+        console.log(error);
+    }
+}
 
 export const addApartment = async (data: any) => {
     try {

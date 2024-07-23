@@ -1,5 +1,3 @@
-import axios from 'axios';
-import { BASE_API_URL } from '../constants';
 import { createAvatarUrl } from '@utils/functions';
 import { api } from '.';
 
@@ -7,7 +5,7 @@ import { api } from '.';
 export const login = async (email: string, password: string, remember_me: string) => {
     try {
         api.defaults.withCredentials = true;
-        const response = await api.post('/v1/api/login', { email, password, remember_me });
+        const response = await api.post('/login', { email, password, remember_me });
         return response.data;
     } catch (error: any) {
         throw new Error(error.response?.data?.message || error.message);

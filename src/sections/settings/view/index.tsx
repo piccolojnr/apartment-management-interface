@@ -10,9 +10,19 @@ import {
   AddUtilityType,
   AddNetwork,
   AddTariff,
+  AddUser,
+  AddRole,
 } from "../forms";
 
 const config = [
+  {
+    label: "User",
+    element: <AddUser />,
+  },
+  {
+    label: "Role",
+    element: <AddRole />,
+  },
   {
     label: "Tariff",
     element: <AddTariff />,

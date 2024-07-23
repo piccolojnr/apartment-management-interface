@@ -4,7 +4,7 @@ import { Button, Stack, Typography } from "@mui/material";
 import Iconify from "@components/iconify";
 import AppModal from "@components/app-modal";
 import AddNetwork from "./forms/add-network";
-import { api } from "@/lib/api";
+import { api1 } from "@/lib/api";
 
 export default function NetworksView() {
   const [open, setOpen] = useState<"add-bill" | null>(null);
@@ -27,7 +27,7 @@ export default function NetworksView() {
     setLoading(false);
     setError(null);
     try {
-      const response = await api.get("/network");
+      const response = await api1.get("/network");
 
       const result = response.data;
 

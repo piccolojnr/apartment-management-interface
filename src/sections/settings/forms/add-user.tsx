@@ -1,40 +1,67 @@
 import { LoadingButton } from "@mui/lab";
-import { Box, CardContent, Grid, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  CardContent,
+  Grid,
+  MenuItem,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import MultiSelect from "@/components/multiselect";
 import useSWR from "swr";
-import { Role } from "@/types/table";
+import { addUser } from "@/lib/api/user";
+import { Role } from "@/types/user";
 import { fetcher_api } from "@/lib/api";
-import { addUser } from "@/lib/api/devices";
+import CustomMultiSelect from "@/components/multi-select";
+import { set } from "lodash";
 
 export default function AddUser({ onClose }: { onClose?: () => void }) {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, getValues, setValue, getFieldState } =
+    useForm({
+      defaultValues: {
+        username: "",
+        password: "",
+        roles: [] as number[],
+      },
+    });
+  const [selectedRoles, setSelectedRoles] = useState<number[]>([]);
   const { data: roles, isLoading: loadingR } = useSWR<Role[]>(
     "/user/roles",
     fetcher_api
   );
+
   const [loading, setLoading] = useState(false);
-  const [selectedRoles, setSelectedRoles] = useState<number[]>([]);
+
+  const handleSetRoles = (roles: number[]) => {
+    setSelectedRoles(roles);
+    setValue("roles", roles);
+  };
 
   const onSubmit = async (data: any) => {
-    if (selectedRoles.length === 0) {
-      console.log("Please select a role");
-      return;
-    }
-    data.roles = selectedRoles.map((id) => ({ id }));
+    const nData = {
+      ...data,
+      roles: selectedRoles.map((id) => ({ id })),
+    };
+    console.log("User Data:", nData);
+
     setLoading(true);
     try {
-      console.log("User Data:", data);
-      await addUser(data);
-      reset();
-      onClose && onClose();
+      const res = await addUser(nData);
+      if (res) {
+        console.log(res);
+        reset();
+        onClose && onClose();
+      } else {
+        throw new Error("could not add user");
+      }
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
     }
   };
+
   return (
     <CardContent>
       <Typography variant="h6" sx={{ mb: 4 }}>
@@ -44,34 +71,35 @@ export default function AddUser({ onClose }: { onClose?: () => void }) {
         <Grid
           container
           spacing={2}
+          gap={2}
           sx={{ display: "flex", flexDirection: "column" }}
         >
           <TextField
             fullWidth
-            label="User Name"
+            label="Username"
             {...register("username", {
               required: true,
             })}
             sx={{ mb: 2 }}
           />
-          {/* password */}
+
           <TextField
             fullWidth
             label="Password"
+            type="password"
             {...register("password", {
               required: true,
             })}
             sx={{ mb: 2 }}
           />
 
-          {/* roles */}
-          <MultiSelect
+          <CustomMultiSelect
             label="Roles"
-            options={roles || []}
-            sx={{ mb: 2 }}
-            disabled={loadingR}
-            selected={selectedRoles}
-            setSelected={setSelectedRoles}
+            roles={roles || []}
+            selectedRoles={selectedRoles}
+            setSelectedRoles={handleSetRoles}
+            error={getFieldState("roles")?.error?.message}
+            className="mb-2 w-full"
           />
 
           <LoadingButton

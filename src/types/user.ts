@@ -12,10 +12,6 @@ export const StatusOptions = [
     'deleted',
 ];
 
-export type Role = 'admin'
-    | 'user'
-    | 'staff'
-    | 'manager'
 
 export type Status = 'active'
     | 'banned'
@@ -23,6 +19,10 @@ export type Status = 'active'
     | 'deleted'
 
 
+export interface Role {
+    id: number;
+    name: string;
+}
 
 export interface Profile {
     id: string;
@@ -45,11 +45,10 @@ export interface NotificationProps {
 
 export interface User {
     id: string;
-    email: string;
+    username: string;
     password?: string;
-    role: Role;
-    profile: Profile;
-    notifications: NotificationProps[]
+    token?: string;
+    roles: Role[];
 }
 
 export interface Error {

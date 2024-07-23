@@ -16,10 +16,9 @@ import { bgGradient } from "@theme/css";
 
 import Iconify from "@components/iconify";
 import { Checkbox, FormControlLabel } from "@mui/material";
-import { useUser } from "@context/user-context";
 import { validatePassword } from "../user/utils";
 import { useRouter } from "@routes/hooks";
-import { get_user, login } from "@lib/api/user";
+import { login } from "@/lib/api/user";
 
 // ----------------------------------------------------------------------
 
@@ -29,7 +28,6 @@ const validateUsername = (username: string) => {
 };
 
 export default function LoginView() {
-  const { loggedIn, setUser } = useUser();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -84,21 +82,7 @@ export default function LoginView() {
     try {
       login(username, password, rememberMe ? "true" : "false")
         .then(() => {
-          get_user()
-            .then((user) => {
-              setUser(user);
-              router.push("/");
-            })
-            .catch((err) => {
-              console.error("Failed to get user", err);
-              setError({
-                ...error,
-                submit:
-                  err.response?.data?.message ||
-                  err?.message ||
-                  "An error occurred",
-              });
-            });
+          router.push("/");
         })
         .catch((err) => {
           console.error("Failed to login", err);
@@ -223,26 +207,24 @@ export default function LoginView() {
       }}
     >
       {/* home button */}
-      {loggedIn && (
-        <Box
+      <Box
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          m: 3,
+        }}
+        onClick={() => router.push("/")}
+      >
+        <Iconify
+          icon="fluent:home-20-filled"
           sx={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            m: 3,
+            color: theme.palette.primary.main,
+            fontSize: 32,
+            cursor: "pointer",
           }}
-          onClick={() => router.push("/")}
-        >
-          <Iconify
-            icon="fluent:home-20-filled"
-            sx={{
-              color: theme.palette.primary.main,
-              fontSize: 32,
-              cursor: "pointer",
-            }}
-          />
-        </Box>
-      )}
+        />
+      </Box>
 
       <Stack alignItems="center" justifyContent="center" sx={{ height: 1 }}>
         <Card

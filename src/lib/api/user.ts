@@ -1,20 +1,35 @@
 import { createAvatarUrl } from '@utils/functions';
-import { api } from '.';
+import { api1, api2 } from '.';
 
 
-export const login = async (email: string, password: string, remember_me: string) => {
+export const addUser = async (data: any) => {
     try {
-        api.defaults.withCredentials = true;
-        const response = await api.post('/login', { email, password, remember_me });
+        const response = await api1.post("/user", data);
+        return response.data;
+    } catch (error: any) {
+        console.log(error);
+    }
+}
+export const login = async (username: string, password: string, remember_me: string) => {
+    try {
+        const response = await api1.post('/login', { username, password });
+        if (response.data.token) {
+            localStorage.setItem('token', response.data.token);
+            const roles = response.data.roles.map((role: any) => role.name.toLowerCase());
+            localStorage.setItem('roles', JSON.stringify(roles));
+            api1.defaults.headers['Authorization'] = response.data.token;
+            api2.defaults.headers['Authorization'] = response.data.token;
+        }
         return response.data;
     } catch (error: any) {
         throw new Error(error.response?.data?.message || error.message);
     }
 };
 
+
 export const get_user = async () => {
     try {
-        const response = await api.get('/user');
+        const response = await api1.get('/user');
         return response.data;
     } catch (error: any) {
         throw new Error(error.response?.data?.message || error.message);
@@ -23,7 +38,7 @@ export const get_user = async () => {
 
 export const logout = async () => {
     try {
-        const response = await api.post('/auth/logout');
+        const response = await api1.post('/auth/logout');
         return response.data;
     } catch (error: any) {
         throw new Error(error.response?.data?.message || error.message);
@@ -39,7 +54,7 @@ export const createUser = async ({
     password,
 }: any) => {
     try {
-        const response = await api.post('/user/create', {
+        const response = await api1.post('/user/create', {
             email,
             role,
             password,
@@ -61,7 +76,7 @@ export const updateUser = async ({
     avatar,
 }: any) => {
     try {
-        const response = await api.put(`/user/${id}`, {
+        const response = await api1.put(`/user/${id}`, {
             email,
             role,
             profile: { first_name, last_name, phone, avatar },
@@ -74,7 +89,7 @@ export const updateUser = async ({
 
 export const deleteUser = async (id: string | number) => {
     try {
-        await api.delete(`/user/${id}`);
+        await api1.delete(`/user/${id}`);
     } catch (error: any) {
         throw new Error(error.response?.data?.message || error.message);
     }

@@ -1,11 +1,8 @@
 import axios from "axios";
-export const baseUrl = "http://198.7.119.145:9080/apt"
-
-
 
 
 export const api = axios.create({
-    baseURL: "/v1/api",
+    baseURL: "/apt/v1/api",
     headers: {
         'Content-Type': 'application/json',
     },

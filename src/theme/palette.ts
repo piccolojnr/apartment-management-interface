@@ -1,4 +1,3 @@
-'server'
 import { alpha } from '@mui/material/styles';
 
 // ----------------------------------------------------------------------
@@ -102,21 +101,21 @@ const base = {
 
 // ----------------------------------------------------------------------
 
-export const  palette={
-    ...base,
-    mode: 'light',
-    text: {
-      primary: grey[800],
-      secondary: grey[600],
-      disabled: grey[500],
-    },
-    background: {
-      paper: '#FFFFFF',
-      default: grey[100],
-      neutral: grey[200],
-    },
-    action: {
-      ...base.action,
-      active: grey[600],
-    },
-  };
+export const palette = {
+  ...base,
+  mode: 'light',
+  text: {
+    primary: grey[800],
+    secondary: grey[600],
+    disabled: grey[500],
+  },
+  background: {
+    paper: '#FFFFFF',
+    default: grey[100],
+    neutral: grey[200],
+  },
+  action: {
+    ...base.action,
+    active: grey[600],
+  },
+};

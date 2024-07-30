@@ -1,4 +1,3 @@
-"use client";
 import { Helmet } from "react-helmet-async";
 import ThemeProvider from "../theme";
 

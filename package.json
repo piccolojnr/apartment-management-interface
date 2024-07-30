@@ -24,6 +24,7 @@
     "chart.js": "^4.4.3",
     "date-fns": "^3.6.0",
     "history": "^5.3.0",
+    "http-proxy-middleware": "^3.0.0",
     "jwt-decode": "^4.0.0",
     "lodash": "^4.17.21",
     "mqtt": "^5.7.2",
@@ -78,5 +79,6 @@
     "@vitejs/plugin-react": "^4.3.1",
     "vite": "^5.3.3",
     "vite-tsconfig-paths": "^4.3.2"
-  }
+  },
+  "proxy": "http://198.7.119.145:9080/apt"
 }

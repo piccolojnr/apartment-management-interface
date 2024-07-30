@@ -14,9 +14,7 @@ export const login = async (username: string, password: string, remember_me: str
     try {
         const response = await api.post('/login', { username, password });
         if (response.data.token) {
-            localStorage.setItem('token', response.data.token);
-            const roles = response.data.roles.map((role: any) => role.name.toLowerCase());
-            localStorage.setItem('roles', JSON.stringify(roles));
+            localStorage.setItem('user', JSON.stringify(response.data));
             api.defaults.headers['Authorization'] = response.data.token;
         }
         return response.data;

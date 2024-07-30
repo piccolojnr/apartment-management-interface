@@ -18,7 +18,7 @@ import Iconify from "@components/iconify";
 import { Checkbox, FormControlLabel } from "@mui/material";
 import { validatePassword } from "../user/utils";
 import { useRouter } from "@routes/hooks";
-import { login } from "@/lib/api/user";
+import { useAuthContext } from "@/context/auth-context";
 
 // ----------------------------------------------------------------------
 
@@ -28,6 +28,7 @@ const validateUsername = (username: string) => {
 };
 
 export default function LoginView() {
+  const { login } = useAuthContext();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -80,7 +81,7 @@ export default function LoginView() {
 
   const handleSubmit = async () => {
     try {
-      login(username, password, rememberMe ? "true" : "false")
+      login(username, password)
         .then(() => {
           router.push("/");
         })
@@ -174,6 +175,14 @@ export default function LoginView() {
         onClick={async (e) => await handleClick(e)}
         disabled={loading}
         loading={loading}
+        sx={
+          loading
+            ? { bgcolor: theme.palette.action.disabledBackground }
+            : {
+                bgcolor: theme.palette.primary.main,
+                color: theme.palette.primary.contrastText,
+              }
+        }
       >
         Login
       </LoadingButton>

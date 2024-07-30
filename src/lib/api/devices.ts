@@ -1,4 +1,4 @@
-import { api, api } from ".";
+import { api } from ".";
 
 
 export const addRole = async (data: any) => {
@@ -21,7 +21,7 @@ export const addUser = async (data: any) => {
 
 export const addApartment = async (data: any) => {
     try {
-        const response = await api.post("", data);
+        const response = await api.post("/apt", data);
         return response.data;
     } catch (error: any) {
         console.log(error);

@@ -1,9 +1,10 @@
+import { addUtilityType } from "@/lib/api/devices";
 import { LoadingButton } from "@mui/lab";
 import { Box, CardContent, Grid, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-export default function AddDeviceType({ onClose }: { onClose?: () => void }) {
+export default function AddUtilityType({ onClose }: { onClose?: () => void }) {
   const { register, handleSubmit, reset } = useForm();
 
   const [loading, setLoading] = useState(false);
@@ -13,17 +14,17 @@ export default function AddDeviceType({ onClose }: { onClose?: () => void }) {
       ...data,
       fixedRate: parseInt(data.fixedRate),
     };
-    console.log("Device Type Data:", submitData);
+    console.log("Utility Type Data:", submitData);
 
     setLoading(true);
     try {
-      const response = await AddDeviceType(submitData);
+      const response = await addUtilityType(submitData);
       if (response) {
         console.log(response);
         reset();
         onClose && onClose();
       } else {
-        throw new Error("Unable to add device type");
+        throw new Error("Unable to add Utility type");
       }
     } catch (error) {
       console.log(error);
@@ -35,7 +36,7 @@ export default function AddDeviceType({ onClose }: { onClose?: () => void }) {
   return (
     <CardContent>
       <Typography variant="h6" sx={{ mb: 4 }}>
-        Add Device Type
+        Add Utility Type
       </Typography>
       <Box component="form" onSubmit={handleSubmit(onSubmit)}>
         <Grid
@@ -45,8 +46,8 @@ export default function AddDeviceType({ onClose }: { onClose?: () => void }) {
         >
           <TextField
             fullWidth
-            label="Device Type Name"
-            {...register("deviceType", {
+            label="Utility Type Name"
+            {...register("utilityType", {
               required: true,
             })}
             sx={{ mb: 2 }}
@@ -74,7 +75,7 @@ export default function AddDeviceType({ onClose }: { onClose?: () => void }) {
             type="submit"
             loading={loading}
           >
-            Add Device Type
+            Add Utility Type
           </LoadingButton>
         </Grid>
       </Box>

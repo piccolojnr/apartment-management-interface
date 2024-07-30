@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import PropTypes from "prop-types";
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -18,19 +17,18 @@ import Scrollbar from "@components/scrollbar";
 import { NAV } from "./config-layout";
 import navConfig from "./config-navigation";
 import Iconify from "@components/iconify";
-import { fullName } from "@utils/functions";
 import { usePathname, useRouter } from "@routes/hooks";
-import { account } from "../../_mock/user";
 import { useLocation } from "react-router-dom";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
-import { logout } from "@/lib/api/user";
-
+import useAuth from "@/hooks/use-auth";
+import { useAuthContext } from "@/context/auth-context";
 // ----------------------------------------------------------------------
 interface NavProps {
   openNav: boolean;
   onCloseNav: () => void;
 }
 export default function Nav({ openNav, onCloseNav }: NavProps) {
+  const { user: account } = useAuthContext();
   const pathname = usePathname();
   const upLg = useResponsive("up", "lg");
   const theme = useTheme();
@@ -57,22 +55,24 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
     >
       <Avatar
         src={""}
-        alt={account ? fullName(account) : ""}
+        alt={account ? account.username : ""}
         sx={{
           width: 36,
           height: 36,
           border: (theme) => `solid 2px ${theme.palette.background.default}`,
         }}
       >
-        {account ? fullName(account).charAt(0).toUpperCase() : ""}
+        {account ? account.username.charAt(0).toUpperCase() : ""}
       </Avatar>
       <Box sx={{ ml: 2 }}>
         <Typography variant="subtitle2">
-          {account && fullName(account)}
+          {account && account.username}
         </Typography>
 
         <Typography variant="body2" sx={{ color: "text.secondary" }}>
-          {account?.roles?.length > 0 ? account?.roles[0].name : "No role"}
+          {account && account?.roles?.length > 0
+            ? account?.roles[0].name
+            : "No role"}
         </Typography>
       </Box>
     </Box>
@@ -80,7 +80,18 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
   const renderMenu = (
     <Stack component="nav" spacing={2} sx={{ px: 2 }}>
       {navConfig.map((category) => (
-        <Accordion key={category.category}>
+        <Accordion
+          key={category.category}
+          sx={
+            category.requiredRoles &&
+            category.requiredRoles.length > 0 &&
+            !category.requiredRoles.some((role) =>
+              account?.roles?.find((_role) => _role.name.toLowerCase() === role)
+            )
+              ? { display: "none" }
+              : {}
+          }
+        >
           <AccordionSummary
             expandIcon={<Iconify icon="akar-icons:chevron-down" width={14} />}
             sx={{
@@ -98,8 +109,13 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
             <Stack spacing={0.5}>
               {category.items.map((item) => {
                 if (
-                  item.title === "users" &&
-                  !account?.roles?.find((role) => role.name === "admin")
+                  category.requiredRoles &&
+                  category.requiredRoles.length > 0 &&
+                  !category.requiredRoles.some((role) =>
+                    account?.roles?.find(
+                      (_role) => _role.name.toLowerCase() === role
+                    )
+                  )
                 ) {
                   return null;
                 }
@@ -185,6 +201,7 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
 function NavItem({ item, sx }: any) {
   const location = useLocation();
   const pathname = location.pathname;
+  const { logout } = useAuth();
 
   const active = item.path === pathname;
 

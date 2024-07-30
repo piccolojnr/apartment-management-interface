@@ -19,6 +19,8 @@ export default function AddApartment({ onClose }: { onClose?: () => void }) {
       onClose && onClose();
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
   return (

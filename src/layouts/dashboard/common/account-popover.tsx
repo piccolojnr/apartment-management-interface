@@ -9,11 +9,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 
-import { fullName } from "@utils/functions";
 import { useRouter } from "@routes/hooks";
-import { account } from "../../../_mock/user";
-import { logout } from "@lib/api/user";
-import { useUser } from "@/context/user-context";
+import { useAuthContext } from "@/context/auth-context";
 
 // ----------------------------------------------------------------------
 
@@ -40,7 +37,7 @@ const MENU_OPTIONS = [
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
   const router = useRouter();
-  const { user } = useUser();
+  const { logout, user: account } = useAuthContext();
 
   const handleOpen = (event: any) => {
     setOpen(event.currentTarget);
@@ -55,15 +52,8 @@ export default function AccountPopover() {
 
   const handleLogout = async () => {
     try {
+      logout();
       router.push("/login");
-
-      logout()
-        .then(() => {
-          router.push("/login");
-        })
-        .catch((error) => {
-          console.error(error);
-        });
     } catch (error) {
       console.error(error);
     }
@@ -87,14 +77,14 @@ export default function AccountPopover() {
       >
         <Avatar
           src={""}
-          alt={account ? fullName(account) : ""}
+          alt={account ? account.username : ""}
           sx={{
             width: 36,
             height: 36,
             border: (theme) => `solid 2px ${theme.palette.background.default}`,
           }}
         >
-          {account ? fullName(account).charAt(0).toUpperCase() : ""}
+          {account ? account.username.charAt(0).toUpperCase() : ""}
         </Avatar>
       </IconButton>
 
@@ -115,10 +105,12 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2 }}>
           <Typography variant="subtitle2" noWrap>
-            {account ? fullName(account) : ""}
+            {account ? account.username : ""}
           </Typography>
           <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>
-            {account?.roles?.length > 0 ? account?.roles[0].name : "No role"}
+            {account && account?.roles?.length > 0
+              ? account?.roles[0].name
+              : "No role"}
           </Typography>
         </Box>
 

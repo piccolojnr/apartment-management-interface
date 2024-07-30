@@ -79,6 +79,5 @@
     "@vitejs/plugin-react": "^4.3.1",
     "vite": "^5.3.3",
     "vite-tsconfig-paths": "^4.3.2"
-  },
-  "proxy": "http://198.7.119.145:9080/apt"
+  }
 }

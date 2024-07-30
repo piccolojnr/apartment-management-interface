@@ -13,6 +13,7 @@ import { fullName } from "@utils/functions";
 import { useRouter } from "@routes/hooks";
 import { account } from "../../../_mock/user";
 import { logout } from "@lib/api/user";
+import { useUser } from "@/context/user-context";
 
 // ----------------------------------------------------------------------
 
@@ -39,6 +40,7 @@ const MENU_OPTIONS = [
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
   const router = useRouter();
+  const { user } = useUser();
 
   const handleOpen = (event: any) => {
     setOpen(event.currentTarget);
@@ -84,7 +86,7 @@ export default function AccountPopover() {
         }}
       >
         <Avatar
-          src={account?.profile.avatar}
+          src={""}
           alt={account ? fullName(account) : ""}
           sx={{
             width: 36,
@@ -116,7 +118,7 @@ export default function AccountPopover() {
             {account ? fullName(account) : ""}
           </Typography>
           <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>
-            {account?.email}
+            {account?.roles?.length > 0 ? account?.roles[0].name : "No role"}
           </Typography>
         </Box>
 

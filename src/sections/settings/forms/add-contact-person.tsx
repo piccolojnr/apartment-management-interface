@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import { Apartment, Network } from "@/types/table";
 import { addContactPerson } from "@lib/api/devices";
 import useSWR from "swr";
-import { fetcher_api } from "@lib/api";
+import { fetcher } from "@lib/api";
 
 export default function AddContactPerson({
   onClose,
@@ -22,11 +22,11 @@ export default function AddContactPerson({
   const { register, handleSubmit, reset } = useForm();
   const { data: apartments, isLoading: loadingApt } = useSWR<Apartment[]>(
     "/all/apt",
-    fetcher_api
+    fetcher
   );
   const { data: networks, isLoading: loadingNt } = useSWR<Network[]>(
     "/networks",
-    fetcher_api
+    fetcher
   );
 
   const [loading, setLoading] = useState(false);

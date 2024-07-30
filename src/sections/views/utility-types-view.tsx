@@ -4,10 +4,10 @@ import { Column } from "./types";
 import ReusableTable from "@components/table/reusable-table";
 import { RouterLink } from "@routes/components";
 import { UtilityType } from "@/types/table";
-import { fetcher_api } from "@lib/api";
+import { fetcher } from "@lib/api";
 
 export default function UtilityTypesView() {
-  const { data } = useSWR<UtilityType[]>("/utility/types", fetcher_api);
+  const { data } = useSWR<UtilityType[]>("/utility/types", fetcher);
 
   const columns: Column[] = [
     { field: "id", headerName: "ID" },

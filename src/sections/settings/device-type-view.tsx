@@ -3,7 +3,7 @@ import { Button, Stack, Typography } from "@mui/material";
 import Iconify from "@components/iconify";
 import AppModal from "@components/app-modal";
 import AddDeviceType from "./forms/add-utility-type";
-import { api1 } from "@/lib/api";
+import { api } from "@/lib/api";
 
 export default function DeviceTypeView({}) {
   const [open, setOpen] = useState<"add-bill" | null>(null);
@@ -16,7 +16,7 @@ export default function DeviceTypeView({}) {
     setLoading(false);
     setError(null);
     try {
-      const response = await api1.get("/device/type");
+      const response = await api.get("/device/type");
 
       const result = response.data;
 

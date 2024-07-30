@@ -3,10 +3,10 @@ import useSWR from "swr";
 import ReusableTable from "@components/table/reusable-table";
 import { Column } from "./types";
 import { Network } from "@/types/table";
-import { fetcher_api } from "@lib/api";
+import { fetcher } from "@lib/api";
 
 export default function NetworksView() {
-  const { data } = useSWR<Network[]>("/networks", fetcher_api);
+  const { data } = useSWR<Network[]>("/networks", fetcher);
 
   const columns: Column[] = [
     { field: "id", headerName: "ID" },

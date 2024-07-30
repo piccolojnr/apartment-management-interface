@@ -12,17 +12,17 @@ import { useForm } from "react-hook-form";
 import { Apartment, UtilityType } from "@/types/table";
 import { addDevice } from "@lib/api/devices";
 import useSWR from "swr";
-import { fetcher_api } from "@lib/api";
+import { fetcher } from "@lib/api";
 
 export default function AddDevice({ onClose }: { onClose?: () => void }) {
   const { register, handleSubmit, reset } = useForm();
   const { data: apartments, isLoading: loadingApt } = useSWR<Apartment[]>(
     "/all/apt",
-    fetcher_api
+    fetcher
   );
   const { data: utilityTypes, isLoading: loadingNt } = useSWR<UtilityType[]>(
     "/utility/types",
-    fetcher_api
+    fetcher
   );
   const [loading, setLoading] = useState(false);
 

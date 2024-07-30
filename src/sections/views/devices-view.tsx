@@ -4,7 +4,7 @@ import ReusableTable from "@components/table/reusable-table";
 import { Column } from "./types";
 import { useParams } from "react-router-dom";
 import { Device } from "@/types/table";
-import { fetcher_api } from "@lib/api";
+import { fetcher } from "@lib/api";
 
 // const fetcher = async (url: string) => devices;
 
@@ -12,7 +12,7 @@ export default function DevicesView() {
   const params = useParams();
   const { data } = useSWR<Device[]>(
     params.id ? "/devices/type/" + params.id : "/all/devices",
-    fetcher_api
+    fetcher
   );
 
   const columns: Column[] = [

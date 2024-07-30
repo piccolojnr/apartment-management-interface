@@ -5,7 +5,7 @@ import { Column } from "./types";
 import { fDate } from "@utils/format-time";
 import { Tariff } from "@/types/table";
 import { useParams } from "react-router-dom";
-import { fetcher_api } from "@lib/api";
+import { fetcher } from "@lib/api";
 
 // const fetcher = async (url: string) => tariffs;
 
@@ -13,7 +13,7 @@ export default function TariffsView() {
   const params = useParams();
   const { data } = useSWR<Tariff[]>(
     "/apt/tariff/utility/type/" + params.id,
-    fetcher_api
+    fetcher
   );
 
   // const handleDelete = (id: number) => {

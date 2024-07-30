@@ -12,13 +12,13 @@ import { useForm } from "react-hook-form";
 import { UtilityType } from "@/types/table";
 import useSWR from "swr";
 import { addTariff } from "@lib/api/devices";
-import { fetcher_api } from "@lib/api";
+import { fetcher } from "@lib/api";
 
 export default function AddTariff({ onClose }: { onClose?: () => void }) {
   const { register, handleSubmit, reset } = useForm();
   const { data: utilityTypes, isLoading: loadingBT } = useSWR<UtilityType[]>(
     "/utility/types",
-    fetcher_api
+    fetcher
   );
   const [loading, setLoading] = useState(false);
 

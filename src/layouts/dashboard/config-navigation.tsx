@@ -75,9 +75,9 @@ const navConfig = [
     category: "Authentication",
     items: [
       {
-        title: "login",
+        title: "logout",
         path: "/login",
-        icon: "ic:round-login",
+        icon: "ic:round-logout",
       },
     ],
   },

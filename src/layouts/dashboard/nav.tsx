@@ -23,6 +23,7 @@ import { usePathname, useRouter } from "@routes/hooks";
 import { account } from "../../_mock/user";
 import { useLocation } from "react-router-dom";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
+import { logout } from "@/lib/api/user";
 
 // ----------------------------------------------------------------------
 interface NavProps {
@@ -54,15 +55,24 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
         bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
       }}
     >
-      <Avatar src={account?.profile.avatar} alt="photoURL" />
-
+      <Avatar
+        src={""}
+        alt={account ? fullName(account) : ""}
+        sx={{
+          width: 36,
+          height: 36,
+          border: (theme) => `solid 2px ${theme.palette.background.default}`,
+        }}
+      >
+        {account ? fullName(account).charAt(0).toUpperCase() : ""}
+      </Avatar>
       <Box sx={{ ml: 2 }}>
         <Typography variant="subtitle2">
           {account && fullName(account)}
         </Typography>
 
         <Typography variant="body2" sx={{ color: "text.secondary" }}>
-          {account?.role.toLowerCase()}
+          {account?.roles?.length > 0 ? account?.roles[0].name : "No role"}
         </Typography>
       </Box>
     </Box>
@@ -89,7 +99,7 @@ export default function Nav({ openNav, onCloseNav }: NavProps) {
               {category.items.map((item) => {
                 if (
                   item.title === "users" &&
-                  "admin" !== account?.role.toLowerCase()
+                  !account?.roles?.find((role) => role.name === "admin")
                 ) {
                   return null;
                 }
@@ -180,8 +190,16 @@ function NavItem({ item, sx }: any) {
 
   return (
     <ListItemButton
-      component={RouterLink}
+      component={
+        item.title == "logout"
+          ? "button"
+          : item.path.startsWith("http")
+          ? "a"
+          : RouterLink
+      }
       to={item.path}
+      target={item.path.startsWith("http") ? "_blank" : undefined}
+      onClick={item.title === "logout" ? logout : undefined}
       sx={{
         minHeight: 44,
         borderRadius: 0.75,

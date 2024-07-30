@@ -19,6 +19,7 @@ interface CustomMultiSelectProps {
   setSelectedRoles: (roles: number[]) => void;
   error?: string;
   className?: string;
+  loading?: boolean;
 }
 
 const CustomMultiSelect: React.FC<CustomMultiSelectProps> = ({
@@ -28,6 +29,7 @@ const CustomMultiSelect: React.FC<CustomMultiSelectProps> = ({
   setSelectedRoles,
   className,
   error,
+  loading,
 }) => {
   return (
     <div className={className}>
@@ -64,7 +66,13 @@ const CustomMultiSelect: React.FC<CustomMultiSelectProps> = ({
           );
         })}
       </Box>
-      <TextField label={label} defaultValue={""} select sx={{ width: "100%" }}>
+      <TextField
+        label={label}
+        defaultValue={""}
+        select
+        sx={{ width: "100%" }}
+        disabled={loading}
+      >
         <MenuItem value={""}>Select roles</MenuItem>
         {roles
           .filter((role) => !selectedRoles.includes(role.id))

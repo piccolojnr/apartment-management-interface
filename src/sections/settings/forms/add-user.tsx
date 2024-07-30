@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import useSWR from "swr";
 import { addUser } from "@/lib/api/user";
 import { Role } from "@/types/user";
-import { fetcher_api } from "@/lib/api";
+import { fetcher } from "@/lib/api";
 import CustomMultiSelect from "@/components/multi-select";
 import { set } from "lodash";
 
@@ -28,7 +28,7 @@ export default function AddUser({ onClose }: { onClose?: () => void }) {
   const [selectedRoles, setSelectedRoles] = useState<number[]>([]);
   const { data: roles, isLoading: loadingR } = useSWR<Role[]>(
     "/user/roles",
-    fetcher_api
+    fetcher
   );
 
   const [loading, setLoading] = useState(false);
@@ -100,6 +100,7 @@ export default function AddUser({ onClose }: { onClose?: () => void }) {
             setSelectedRoles={handleSetRoles}
             error={getFieldState("roles")?.error?.message}
             className="mb-2 w-full"
+            loading={loadingR}
           />
 
           <LoadingButton

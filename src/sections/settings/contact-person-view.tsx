@@ -15,7 +15,7 @@ import AppModal from "@components/app-modal";
 import { Apartment, BillType } from "@/types/table";
 import { useSearchParams } from "react-router-dom";
 import AddTariff from "./forms/add-tariff";
-import { api1 } from "@/lib/api";
+import { api } from "@/lib/api";
 
 export default function ContactPersonView() {
   const [apartments, setApartments] = useState<Apartment[]>([]);
@@ -45,7 +45,7 @@ export default function ContactPersonView() {
       return;
     }
     try {
-      const response = await api1.get(`/bill/type/${billType}`);
+      const response = await api.get(`/bill/type/${billType}`);
       const result = response.data;
 
       setData(result);

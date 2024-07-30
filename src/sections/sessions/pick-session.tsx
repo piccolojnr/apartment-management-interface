@@ -2,14 +2,14 @@ import useSWR from "swr";
 import { BillSession } from "@/types/table";
 import ReusableTable from "@components/table/reusable-table";
 import { fDate } from "@utils/format-time";
-import { fetcher_bill } from "@/lib/api";
+import { fetcher } from "@/lib/api";
 
 function PickSession({
   handleSetSession,
 }: {
   handleSetSession: (session: BillSession) => void;
 }) {
-  const { data } = useSWR<BillSession[]>("/bill/sessions", fetcher_bill);
+  const { data } = useSWR<BillSession[]>("/bill/sessions", fetcher);
 
   return (
     <ReusableTable

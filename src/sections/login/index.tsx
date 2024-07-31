@@ -16,7 +16,6 @@ import { bgGradient } from "@theme/css";
 
 import Iconify from "@components/iconify";
 import { Checkbox, FormControlLabel } from "@mui/material";
-import { validatePassword } from "../user/utils";
 import { useRouter } from "@routes/hooks";
 import { useAuthContext } from "@/context/auth-context";
 
@@ -24,6 +23,11 @@ import { useAuthContext } from "@/context/auth-context";
 
 const validateUsername = (username: string) => {
   if (!username) return "Username is required";
+  return null;
+};
+
+const validatePassword = (password: string) => {
+  if (!password) return "Password is required";
   return null;
 };
 

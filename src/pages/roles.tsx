@@ -1,4 +1,4 @@
-import UsersView from "@/sections/views/users-view";
+import RolesView from "@/sections/views/roles-view";
 import { Helmet } from "react-helmet-async";
 
 // ----------------------------------------------------------------------
@@ -7,9 +7,9 @@ export default function UsersPage() {
   return (
     <>
       <Helmet>
-        <title> Users | Minimal UI </title>
+        <title> User Roles | Minimal UI </title>
       </Helmet>
-      <UsersView />
+      <RolesView />
     </>
   );
 }

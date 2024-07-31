@@ -29,6 +29,7 @@ export const DevicePage = lazy(() => import("@pages/devices/device"));
 export const SessionsPage = lazy(() => import("@pages/sessions"));
 
 export const UserPage = lazy(() => import("@pages/users"));
+export const RolePage = lazy(() => import("@pages/roles"));
 
 export const LoginPage = lazy(() => import("@pages/login"));
 export const Page404 = lazy(() => import("@pages/page-not-found"));
@@ -65,121 +66,125 @@ export default function Router() {
         {
           path: "devices",
           element: (
-            // <AdminRoute>
-            <DevicesPage />
-            // </AdminRoute>
+            <ProtectedRoute requiredRoles={["admin", "administrator"]}>
+              <DevicesPage />
+            </ProtectedRoute>
           ),
         },
         {
           path: "devices/:id",
           element: (
-            // <AdminRoute>
-            <DevicePage />
-            // </AdminRoute>
+            <ProtectedRoute requiredRoles={["admin", "administrator"]}>
+              <DevicePage />
+            </ProtectedRoute>
           ),
         },
         {
           path: "power",
           element: (
-            // <AdminRoute>
-            <PowerPage />
-            // </AdminRoute>
+            <ProtectedRoute requiredRoles={["tenant"]}>
+              <PowerPage />
+            </ProtectedRoute>
           ),
         },
         {
           path: "water",
           element: (
-            // <AdminRoute>
-            <WaterPage />
-            // </AdminRoute>
+            <ProtectedRoute requiredRoles={["tenant"]}>
+              <WaterPage />
+            </ProtectedRoute>
           ),
         },
         {
           path: "apartments",
           element: (
-            // <AdminRoute>
-            <ApartmentsPage />
-            // </AdminRoute>
+            <ProtectedRoute requiredRoles={["admin", "administrator"]}>
+              <ApartmentsPage />
+            </ProtectedRoute>
           ),
         },
         {
           path: "apartments/:id",
           element: (
-            // <AdminRoute>
-            <ApartmentPage />
-            // </AdminRoute>
+            <ProtectedRoute requiredRoles={["admin", "administrator"]}>
+              <ApartmentPage />
+            </ProtectedRoute>
           ),
         },
         {
           path: "apartments/:id/contacts",
           element: (
-            // <AdminRoute>
-            <ContactsPage />
-            // </AdminRoute>
+            <ProtectedRoute requiredRoles={["admin", "administrator"]}>
+              <ContactsPage />
+            </ProtectedRoute>
           ),
         },
         {
           path: "contacts",
           element: (
-            // <AdminRoute>
-            <ContactsPage />
-            // </AdminRoute>
+            <ProtectedRoute requiredRoles={["admin", "administrator"]}>
+              <ContactsPage />
+            </ProtectedRoute>
           ),
         },
         {
           path: "utility-types",
           element: (
-            // <AdminRoute>
-            <UtilityTypesPage />
-            // </AdminRoute>
+            <ProtectedRoute requiredRoles={["admin", "administrator"]}>
+              <UtilityTypesPage />
+            </ProtectedRoute>
           ),
         },
         {
           path: "utility-types/:id",
           element: (
-            // <AdminRoute>
-            <UtilityPage />
-            // </AdminRoute>
+            <ProtectedRoute requiredRoles={["admin", "administrator"]}>
+              <UtilityPage />
+            </ProtectedRoute>
           ),
         },
         {
           path: "utility-types/:id/devices",
           element: (
-            // <AdminRoute>
-            <DevicesPage />
-            // </AdminRoute>
+            <ProtectedRoute requiredRoles={["admin", "administrator"]}>
+              <DevicesPage />
+            </ProtectedRoute>
           ),
         },
         {
           path: "utility-types/:id/tariffs",
           element: (
-            // <AdminRoute>
-            <TariffsPage />
-            // </AdminRoute>
+            <ProtectedRoute requiredRoles={["admin", "administrator"]}>
+              <TariffsPage />
+            </ProtectedRoute>
           ),
         },
         {
           path: "networks",
           element: (
-            // <AdminRoute>
-            <NetworksPage />
-            // </AdminRoute>
+            <ProtectedRoute requiredRoles={["admin", "administrator"]}>
+              <NetworksPage />
+            </ProtectedRoute>
           ),
         },
         {
           path: "sessions",
           element: (
-            // <AdminRoute>
-            <SessionsPage />
-            // </AdminRoute>
+            <ProtectedRoute requiredRoles={["admin", "administrator"]}>
+              <SessionsPage />
+            </ProtectedRoute>
           ),
         },
         {
           path: "users",
+          element: <UserPage />,
+        },
+        {
+          path: "roles",
           element: (
-            <AdminRoute>
-              <UserPage />
-            </AdminRoute>
+            <ProtectedRoute requiredRoles={["admin", "administrator"]}>
+              <RolePage />
+            </ProtectedRoute>
           ),
         },
       ],

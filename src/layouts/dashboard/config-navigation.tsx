@@ -1,10 +1,3 @@
-import { title } from "process";
-import SvgColor from "@components/svg-color";
-import path from "path";
-import { icon } from "leaflet";
-
-// ----------------------------------------------------------------------
-
 const navConfig = [
   {
     category: "Dashboard",
@@ -25,16 +18,16 @@ const navConfig = [
         title: "power",
         path: "/power",
         icon: "ic:round-electric-bolt",
-        reuiredRoles: ["user"],
+        reuiredRoles: ["tenant"],
       },
       {
         title: "water",
         path: "/water",
         icon: "ic:round-water",
-        requiredRoles: ["user"],
+        requiredRoles: ["tenant"],
       },
     ],
-    requiredRoles: ["user"],
+    requiredRoles: ["tenant"],
   },
   {
     category: "Management",
@@ -43,46 +36,58 @@ const navConfig = [
         title: "apartments",
         path: "/apartments",
         icon: "ic:round-apartment",
-        requiredRoles: ["admin"],
+        requiredRoles: ["admin", "administrator"],
       },
       {
         title: "networks",
         path: "/networks",
         icon: "ic:round-network-check",
-        requiredRoles: ["admin"],
+        requiredRoles: ["admin", "administrator"],
       },
       {
         title: "devices",
         path: "/devices",
         icon: "ic:round-devices",
-        requiredRoles: ["admin"],
+        requiredRoles: ["admin", "administrator"],
       },
       {
         title: "utility types",
         path: "/utility-types",
         icon: "ic:round-devices-other",
-        requiredRoles: ["admin"],
+        requiredRoles: ["admin", "administrator"],
       },
     ],
-    requiredRoles: ["admin"],
+    requiredRoles: ["admin", "administrator"],
   },
   {
     category: "User",
     items: [
       {
+        title: "users",
+        path: "/users",
+        icon: "ic:round-supervised-user-circle",
+        requiredRoles: ["admin", "administrator"],
+      },
+      {
+        title: "roles",
+        path: "/roles",
+        icon: "ic:round-supervised-user-circle",
+        requiredRoles: ["admin", "administrator"],
+      },
+      {
         title: "contacts",
         path: "/contacts",
         icon: "ic:round-contacts",
-        requiredRoles: ["admin"],
+        requiredRoles: ["admin", "administrator"],
       },
       {
         title: "sessions",
         path: "/sessions",
         icon: "arcticons:session",
-        requiredRoles: ["admin"],
+        requiredRoles: ["admin", "administrator"],
       },
     ],
-    requiredRoles: ["admin"],
+    requiredRoles: ["admin", "administrator"],
   },
   {
     category: "Authentication",
@@ -91,10 +96,10 @@ const navConfig = [
         title: "logout",
         path: "/login",
         icon: "ic:round-logout",
-        requiredRoles: ["admin"],
+        requiredRoles: ["tenant"],
       },
     ],
-    requiredRoles: ["admin"],
+    requiredRoles: ["tenant"],
   },
 ];
 

@@ -1,26 +1,47 @@
-import React from "react";
+import { fetcher } from "@/lib/api";
 import { Card, CardContent, Typography, Grid } from "@mui/material";
-
-const Overview = () => {
-  const metrics = [
-    { title: "Total Apartments", value: 50 },
-    { title: "Active Bills", value: 12 },
-    { title: "Water Consumption", value: "1200L" },
-    { title: "Power Consumption", value: "3500kWh" },
-  ];
-
+import useSWR from "swr";
+interface Dash {
+  outstandingBills: number;
+  unResolvedRequests: number;
+  outstandingAmount: number;
+  apartments: number;
+}
+const Overview = ({ dash }: { dash: Dash }) => {
   return (
     <Grid container spacing={3}>
-      {metrics.map((metric) => (
-        <Grid item xs={12} sm={6} md={3} key={metric.title}>
-          <Card>
-            <CardContent>
-              <Typography variant="h5">{metric.value}</Typography>
-              <Typography color="textSecondary">{metric.title}</Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-      ))}
+      <Grid item xs={12} sm={6} md={3}>
+        <Card>
+          <CardContent>
+            <Typography variant="h5">{dash.apartments}</Typography>
+            <Typography color="textSecondary">Total Apartments</Typography>
+          </CardContent>
+        </Card>
+      </Grid>
+      <Grid item xs={12} sm={6} md={3}>
+        <Card>
+          <CardContent>
+            <Typography variant="h5">{dash.outstandingBills}</Typography>
+            <Typography color="textSecondary">Outstanding Bills</Typography>
+          </CardContent>
+        </Card>
+      </Grid>
+      <Grid item xs={12} sm={6} md={3}>
+        <Card>
+          <CardContent>
+            <Typography variant="h5">{dash.unResolvedRequests}</Typography>
+            <Typography color="textSecondary">Unresolved Requests</Typography>
+          </CardContent>
+        </Card>
+      </Grid>
+      <Grid item xs={12} sm={6} md={3}>
+        <Card>
+          <CardContent>
+            <Typography variant="h5">{dash.outstandingAmount}</Typography>
+            <Typography color="textSecondary">Outstanding Amount</Typography>
+          </CardContent>
+        </Card>
+      </Grid>
     </Grid>
   );
 };
